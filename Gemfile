@@ -23,6 +23,9 @@ gem "mini_magick"
 gem 'carrierwave', '~> 1.0'
 # Bootstrap
 gem 'bootstrap-sass'
+#jQuery needed for bootstrap
+gem 'jquery-rails'
+#For pagination
 gem 'will_paginate'
 
 # Use Puma as the app server
