@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   def index
+  
   end
 
   def show
@@ -28,13 +29,4 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :body)
   end
-end
-
-
-if @micropost.save
-  flash[:success] = "Micropost created!"
-  redirect_to root_url
-else
-  @feed_items = []
-  render 'static_pages/home'
 end
