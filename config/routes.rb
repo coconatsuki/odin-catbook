@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-
-  get 'user/index'
-
-  get 'user/show'
-
   devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout' }
-  root   'posts#index'
+
+  resources :users, only: [:show, :index]
+
+  resources :posts
+
+  root 'posts#index'
 
 end
