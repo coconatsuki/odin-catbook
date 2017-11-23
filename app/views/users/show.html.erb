@@ -1,2 +1,6 @@
-<h1>User#show</h1>
-<p>Find me in app/views/user/show.html.erb</p>
+<p>Name: <%= @user.name %></p>
+
+<h3>POSTS : </h3>
+<p>--------------------------------------</p>
+
+<%= render @posts %>

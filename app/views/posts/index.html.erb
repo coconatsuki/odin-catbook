@@ -1,5 +1,7 @@
 <% if !user_signed_in? %>
   <%= render 'login' %>
 <% else %>
-
+  <h3>POSTS :  </h3>
+  <p>--------------------------------------</p>
+  <%= render @posts %>
 <% end %>
