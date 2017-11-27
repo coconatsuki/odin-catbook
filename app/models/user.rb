@@ -37,11 +37,12 @@ class User < ApplicationRecord
 #---------------------
 
   def friends
-    self.sent_friendships.where(accepted: true, requesting_id: self.id) +
-    self.received_friendships.where(accepted: true, requested_id: self.id)
+    self.sent_active_friends | self.received_active_friends
   end
 
-
-
-
+  #Give back the posts of all the user friends, and his own.
+  def feed
+    users = self.friends << self
+    @posts =  Post.where(author: users).order(created_at: :desc)
+  end
 end

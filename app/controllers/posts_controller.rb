@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   def index
     if current_user
       @user = current_user
-      @posts = @user.posts
+      @posts = @user.feed
+      @post =  Post.new
     end
   end
 
