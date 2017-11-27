@@ -1,5 +1,6 @@
 <p><strong><%= post.author.name %></strong> wrote
 <%= time_ago_in_words(post.created_at) %> ago:</p>
+<%= link_to "Edit post", edit_post_path(post) if post.author == current_user %>
 <h3><%= post.title %></h3>
 
 <p><%= post.body %></p>

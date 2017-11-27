@@ -2,6 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :name, presence: true
+
   #------------------- BASIC ASSOCIATIONS -----------------------------------
 
   has_many :posts, foreign_key: 'author_id', dependent: :destroy

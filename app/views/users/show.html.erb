@@ -2,14 +2,10 @@
 <% if @user == current_user %>
   <%= link_to "Edit profile", edit_user_path(@user) %></p>
   <p>What's in your mind today?</p>
-  <%= render 'shared/post_form' %>
+  <%= render 'posts/post_form' %>
 <% end %>
 
-
 <% if @user == current_user || @current_user_friends.include?(@user) %>
-
-
-
 
    <h4>POSTS : </h4>
    <p>--------------------------------------</p>

@@ -19,14 +19,26 @@ class PostsController < ApplicationController
     @post.author_id = current_user.id
     if @post.save
       flash[:success] = "Post created!"
-      redirect_to root_path
+      redirect_to request.referrer || root_url
     else
       render 'new'
     end
   end
 
-  def edit
-  end
+    def edit
+      @post = Post.find(params[:id])
+    end
+
+    def update
+      @post = Post.find(params[:id])
+      if @post.update(post_params)
+        flash[:notice] = "Post updated!"
+        redirect_to request.referrer || root_url
+      else
+        flash[:warning] = "There was an error. Please try again."
+        render 'edit'
+      end
+    end
 
   private
 
