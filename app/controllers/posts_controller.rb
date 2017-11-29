@@ -33,7 +33,7 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
       if @post.update(post_params)
         flash[:notice] = "Post updated!"
-        redirect_to request.referrer || root_url
+        redirect_to @post.author
       else
         flash[:warning] = "There was an error. Please try again."
         render 'edit'

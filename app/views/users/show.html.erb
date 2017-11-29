@@ -1,8 +1,14 @@
-<p>Name: <%= @user.name %>
+<h2>
+  <div class="gravatar-image"><%= gravatar_for @user %></div>
+  Name: <%= @user.name %>
+</h2>
 <% if @user == current_user %>
-  <%= link_to "Edit profile", edit_user_path(@user) %></p>
+  <%= render 'requests' %>
+  <p><%= link_to "Edit profile", edit_user_path(@user) %></p>
   <p>What's in your mind today?</p>
   <%= render 'posts/post_form' %>
+<% else %>
+  <%= render "request_button" %>
 <% end %>
 
 <% if @user == current_user || @current_user_friends.include?(@user) %>

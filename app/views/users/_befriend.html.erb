@@ -1,0 +1,5 @@
+<%= form_for(:friendship, url: friendships_path, remote: true) do |f| %>
+  <div><%= hidden_field_tag :requesting, current_user.id %></div>
+  <div><%= hidden_field_tag :requested, @user.id %></div>
+  <%= f.submit "Send friend request", class: "btn btn-primary" %>
+<% end %>

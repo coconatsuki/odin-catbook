@@ -1,0 +1,10 @@
+<h3>The following cats haven't accepted your friend requests yet:</h3>
+<ul>
+  <% @requests.each do |request| %>
+    <li>
+      <%= link_to request.name, request %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to " << Back to profile", current_user %>

@@ -42,6 +42,14 @@ class User < ApplicationRecord
     self.sent_active_friends | self.received_active_friends
   end
 
+  def pending_friends
+    self.received_pending_friends | self.sent_pending_friends
+  end
+
+  def all_friends
+    friends | self.received_pending_friends | self.sent_pending_friends
+  end
+
   #Give back the posts of all the user friends, and his own.
   def feed
     users = self.friends << self
