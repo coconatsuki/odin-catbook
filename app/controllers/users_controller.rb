@@ -13,6 +13,8 @@ class UsersController < ApplicationController
     @user_friends = @user.friends
     @post = current_user.posts.build
     @friendship = Friendship.new
+    @comment = Comment.new
+    @like = Like.new
   end
 
   def edit

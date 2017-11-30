@@ -5,6 +5,17 @@
 
 <p><%= post.body %></p>
 
+<%= link_to post_likes_path(post) do %>
+  <strong><%= post.likes.count %> people like this.</strong>
+<% end %>
+<div id="likes"><%= render partial: 'likes/likes_form', :locals => {:post => post } %></div>
+
+<strong>Comments:</strong>
+<div id="comments"><%= render partial: 'comments/index', :locals => {:post => post } %></div>
+
+<strong>Write a new comment :</strong>
+<%= render partial: 'comments/form', :locals => {:post => post } %>
+
 <p>
   --------------------------------------
 </p>

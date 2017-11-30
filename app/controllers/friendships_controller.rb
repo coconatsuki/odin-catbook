@@ -5,8 +5,8 @@ class FriendshipsController < ApplicationController
     @user = User.find(params[:requested])
     @friendship = @current_user.sent_friendships.new(requested_id: @user.id)
     if @friendship.save
+      flash.now[:notice] = "Friend request sent !"
       respond_to do |format|
-        # format.html { redirect_to @user }
         format.js
       end
     else
@@ -28,8 +28,9 @@ class FriendshipsController < ApplicationController
   def update
     @friendship = Friendship.find(params[:id])
     if @friendship.update(accepted: true)
+      flash.now[:notice] = "New friendship!"
       respond_to do |format|
-        format.js #{ flash.now[:notice] = "Friendship accepted !" }
+        format.js
       end
     else
       flash[:warning] = "There was an error."
