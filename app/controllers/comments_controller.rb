@@ -18,13 +18,16 @@ class CommentsController < ApplicationController
     end
   end
 
+  def edit
+    @comment = Comment.find(params[:id])
+    @post = Post.find(params[:post_id])
+  end
+
   def update
     @comment = Comment.find(params[:id])
     if @comment.update(post_params)
       flash.now[:notice] = "Comment updated!"
-      respond_to do |format|
-        format.js
-      end
+      redirect_to
     else
       flash.now[:warning] = "There was an error. Please try again."
     end

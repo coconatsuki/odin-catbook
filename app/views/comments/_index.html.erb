@@ -3,6 +3,9 @@
   <p>
     Author: <%= c.author.name %>
     Comment: <%= c.body %>
+    <% if c.author == current_user %>
+      <%= link_to "Edit", edit_post_comment_path(post, c) %>
+    <% end %>
    </p>
 
 <% end %>
