@@ -11,7 +11,7 @@ class LikesController < ApplicationController
     @like.post = @post
     @like.author = current_user
     if @like.save
-      flash.now[:notice] = "Post liked !"
+      # flash.now[:notice] = "Post liked !"
       respond_to do |format|
         format.js
       end
@@ -21,7 +21,16 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    
+    @like = Like.find(params[:id])
+    @post = Post.find(params[:post_id])
+    if @like.destroy
+      # flash.now[:notice] = "Post unliked !"
+      respond_to do |format|
+        format.js
+      end
+    else
+      flash.now[:warning] = "There was an error while unliking."
+    end
   end
 
 

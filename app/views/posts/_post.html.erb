@@ -6,7 +6,7 @@
 <p><%= post.body %></p>
 
 <%= link_to post_likes_path(post) do %>
-  <strong><%= post.likes.count %> people like this.</strong>
+  <strong id="likes-count"><%= post.likes.count %> people like this.</strong>
 <% end %>
 <div id="likes"><%= render partial: 'likes/likes_form', :locals => {:post => post } %></div>
 
