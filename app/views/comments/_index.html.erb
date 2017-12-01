@@ -1,11 +1,7 @@
 <% post.comments.each do |c| %>
 
-  <p>
-    Author: <%= c.author.name %>
-    Comment: <%= c.body %>
-    <% if c.author == current_user %>
-      <%= link_to "Edit", edit_post_comment_path(post, c) %>
-    <% end %>
-   </p>
+<div id="comment-<%= c.id %>" >
+  <%= render partial: 'comments/comment', locals: {post: post, comment: c} %>
+</div>
 
 <% end %>

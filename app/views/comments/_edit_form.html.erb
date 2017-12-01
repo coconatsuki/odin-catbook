@@ -1,0 +1,7 @@
+<%= form_for [post, comment], remote: true do |f| %>
+
+  <%= f.label :body %>
+  <%= f.text_field :body %>
+  <%= f.submit "Update comment" %>
+
+<% end %>
