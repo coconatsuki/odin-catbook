@@ -6,9 +6,14 @@
 <p><%= post.body %></p>
 
 <%= link_to post_likes_path(post) do %>
-  <strong id="likes-count"><%= post.likes.count %> people like this.</strong>
+  <strong id="likes-count-<%= post.id %>"><%= post.likes.size %> people like this.</strong>
 <% end %>
-<div id="likes"><%= render partial: 'likes/likes_form', :locals => {:post => post } %></div>
+
+<% if like = post.already_like(current_user) %>
+  <div id="likes-<%= post.id %>"><%= render partial: 'likes/unlike_form', :locals => {:post => post, like: like  } %></div>
+<% else %>
+  <div id="likes-<%= post.id %>"><%= render partial: 'likes/likes_form', :locals => {:post => post } %></div>
+<% end %>
 
 <strong>Comments:</strong>
 <div id="comments"><%= render partial: 'comments/index', :locals => {:post => post } %></div>

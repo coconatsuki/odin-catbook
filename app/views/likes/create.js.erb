@@ -1,2 +1,2 @@
-$("#likes-count").html("<%= post.likes.count %> people like this.");
-$("#likes").html("<%= escape_javascript(render(partial: 'likes/unlikes_form', locals: { post: @post })) %>");
+$("#likes-count-<%= @post.id %>").html("<%= @post.likes.count %> people like this.");
+$("#likes-<%= @post.id %>").html("<%= escape_javascript(render(partial: 'likes/unlike_form', locals: { post: @post, like: @like })) %>");

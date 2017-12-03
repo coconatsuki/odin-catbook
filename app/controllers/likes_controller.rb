@@ -7,6 +7,11 @@ class LikesController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
+    if @post.already_like(current_user)
+      flash.now[:warning] = "You already liked this post noob."
+      render json: {error: "You already liked this post noob."}
+      return
+    end
     @like = Like.new
     @like.post = @post
     @like.author = current_user

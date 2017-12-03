@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def index
     if current_user
       @cats = User.where.not(id: friends_ids)
@@ -7,7 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts.order(created_at: :desc)
+    @posts = @user.posts.order(created_at: :desc).includes(:likes, :author, :comments)
     @current_user_friends = current_user.friends
     @pending_friends = current_user.pending_friends
     @user_friends = @user.friends

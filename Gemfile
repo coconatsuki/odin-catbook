@@ -15,6 +15,8 @@ gem "binding_of_caller"
 gem 'faker'
 # Flexible authentication solution for Rails with Warden
 gem 'devise'
+#omniauth facebook
+gem 'omniauth-facebook'
 # Simple, Heroku-friendly Rails app configuration using ENV and a single YAML file
 gem 'figaro'
 # User MiniMagick
@@ -27,6 +29,7 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 #For pagination
 gem 'will_paginate'
+
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'

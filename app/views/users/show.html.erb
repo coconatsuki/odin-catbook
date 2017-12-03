@@ -1,5 +1,11 @@
 <h2>
-  <div class="gravatar-image"><%= gravatar_for @user %></div>
+  <div class="gravatar-image">
+    <% if @user.provider == "facebook" %>
+      <%= image_tag( @user.image ) %>
+    <% else %>
+      <%= gravatar_for @user %>
+    <% end %>
+</div>
   Name: <%= @user.name %>
 </h2>
 <% if @user == current_user %>
