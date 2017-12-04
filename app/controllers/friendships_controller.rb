@@ -1,5 +1,4 @@
 class FriendshipsController < ApplicationController
-
   def create
     @current_user = User.find(params[:requesting])
     @user = User.find(params[:requested])
@@ -21,7 +20,7 @@ class FriendshipsController < ApplicationController
     @friendship.destroy
     respond_to do |format|
       format.html { redirect_to @user }
-      format.js #{ flash.now[:notice] = "Friendship deleted !" }
+      format.js # { flash.now[:notice] = "Friendship deleted !" }
     end
   end
 
@@ -37,6 +36,4 @@ class FriendshipsController < ApplicationController
       render 'received_requests'
     end
   end
-
-
 end

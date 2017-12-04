@@ -9,8 +9,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @post = Post.new
@@ -21,26 +20,26 @@ class PostsController < ApplicationController
     @post.author_id = current_user.id
     if @post.save
       flash[:success] = "Post created!"
-      redirect_to request.referrer || root_url
+      redirect_to request.referer || root_url
     else
       render 'new'
     end
   end
 
-    def edit
-      @post = Post.find(params[:id])
-    end
+  def edit
+    @post = Post.find(params[:id])
+  end
 
-    def update
-      @post = Post.find(params[:id])
-      if @post.update(post_params)
-        flash[:notice] = "Post updated!"
-        redirect_to @post.author
-      else
-        flash[:warning] = "There was an error. Please try again."
-        render 'edit'
-      end
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      flash[:notice] = "Post updated!"
+      redirect_to @post.author
+    else
+      flash[:warning] = "There was an error. Please try again."
+      render 'edit'
     end
+  end
 
   private
 

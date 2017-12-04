@@ -9,6 +9,6 @@ class CreateFriendships < ActiveRecord::Migration[5.1]
     end
     add_index :friendships, :requested_id
     add_index :friendships, :requesting_id
-    add_index :friendships, [:requested_id, :requesting_id], unique: true
+    add_index :friendships, %i[requested_id requesting_id], unique: true
   end
 end

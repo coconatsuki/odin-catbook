@@ -1,7 +1,9 @@
 <h2>
   <div class="gravatar-image">
-    <% if @user.provider == "facebook" %>
-      <%= image_tag( @user.image ) %>
+    <% if @user.avatar.file %>
+      <%= image_tag( @user.avatar.url )  %>
+    <% elsif @user.image %>
+        <%= image_tag( @user.image ) %>
     <% else %>
       <%= gravatar_for @user %>
     <% end %>

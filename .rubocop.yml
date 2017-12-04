@@ -19,3 +19,4 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - 'Guardfile'
     - 'vendor/bundle'
+    - 'config/environments/*.rb'

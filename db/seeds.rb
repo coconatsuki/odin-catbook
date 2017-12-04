@@ -7,12 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 cat_names = []
-50.times { |n| cat_names << Faker::Cat.name }
+50.times { |_n| cat_names << Faker::Cat.name }
 CAT_NAMES = cat_names.uniq
 
 CAT_NAMES.size.times do |n|
   name = CAT_NAMES[n]
-  email = "#{name}-#{n+1}@catmail.com"
+  email = "#{name}-#{n + 1}@catmail.com"
   password = "password"
   User.create!(name: name,
                email: email,
@@ -21,17 +21,17 @@ CAT_NAMES.size.times do |n|
 end
 
 # Posts
-MOVIE_QUOTES = []
-50.times { |n| MOVIE_QUOTES << Faker::Movie.quote }
+MOVIE_QUOTES = [].freeze
+50.times { |_n| MOVIE_QUOTES << Faker::Movie.quote }
 
 users = User.all
-2.times do |n|
+2.times do |_n|
   title = "Quote of the day"
   users.each { |user| user.posts.create!(title: title, body: MOVIE_QUOTES.sample) }
 end
 
 # Friendships
-first_user  = users.first
+first_user = users.first
 requested_friends = users[2..7]
 requesting_friends = users[8..15]
 requested_friends.each { |friend| first_user.sent_friendships.create(accepted: true, requested: friend) }

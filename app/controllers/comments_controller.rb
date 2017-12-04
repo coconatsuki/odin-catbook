@@ -1,7 +1,5 @@
 class CommentsController < ApplicationController
-
-  def index
-  end
+  def index; end
 
   def create
     @post = Post.find(params[:post_id])
@@ -21,6 +19,7 @@ class CommentsController < ApplicationController
   def edit
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
+    
     respond_to do |format|
       format.js
     end

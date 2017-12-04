@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def index
     if current_user
       @cats = User.where.not(id: friends_ids)
@@ -24,6 +23,9 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    @user.image = nil if user_params[:avatar] || no_picture
+    @user.remove_avatar! if user_params[:image] || no_picture
+    @user.save
     if @user.update(user_params)
       flash[:notice] = "Profile updated!"
       redirect_to @user
@@ -43,12 +45,18 @@ class UsersController < ApplicationController
 
   private
 
+  def no_picture
+    !(user_params[:avatar] && user_params[:image])
+  end
+
   def user_params
-    params.require(:user).permit(:name, :email)
+    parameters = params.require(:user).permit(:name, :email, :avatar, :image)
+    parameters[:image] = nil if parameters[:image].blank?
+    parameters
   end
 
   def friends_ids
-    ids = current_user.all_friends.map { |friend| friend.id }
+    ids = current_user.all_friends.map(&:id)
     ids << current_user.id
   end
 end
