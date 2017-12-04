@@ -21,13 +21,12 @@ CAT_NAMES.size.times do |n|
 end
 
 # Posts
-MOVIE_QUOTES = [].freeze
-50.times { |_n| MOVIE_QUOTES << Faker::Movie.quote }
+movie_quotes = []
+50.times { |_n| movie_quotes << Faker::Movie.quote }
 
 users = User.all
 2.times do |_n|
-  title = "Quote of the day"
-  users.each { |user| user.posts.create!(title: title, body: MOVIE_QUOTES.sample) }
+  users.each { |user| user.posts.create!(body: movie_quotes.sample) }
 end
 
 # Friendships
