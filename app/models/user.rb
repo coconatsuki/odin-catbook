@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
+  validate  :picture_size
+
   #------------------- BASIC ASSOCIATIONS -----------------------------------
 
   has_many :posts, foreign_key: 'author_id', dependent: :destroy
@@ -41,7 +43,7 @@ class User < ApplicationRecord
            through: :received_friendships,
            source: :requesting
 
-  #---------------------
+  #---------------------general methods
 
   def friends
     sent_active_friends | received_active_friends
@@ -65,7 +67,7 @@ class User < ApplicationRecord
     UserMailer.welcome_mail(self).deliver_now
   end
 
-  #---------------OmniAuth
+  #------------------------------OmniAuth-----------------------------------
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -78,4 +80,12 @@ class User < ApplicationRecord
       # user.skip_confirmation!
     end
   end
+
+#--------------------------------- Validates the size of an uploaded picture.
+  def picture_size
+    if avatar.size > 5.megabytes
+      errors.add(:avatar, "should be less than 5MB")
+    end
+  end
+
 end
