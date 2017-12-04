@@ -62,6 +62,18 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "odin-catbook_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
+    # Mailtrap
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      user_name: 'bea4f52a895701',
+      password: 'a9cbfd129ff360',
+      address: 'smtp.mailtrap.io',
+      domain: 'smtp.mailtrap.io',
+      port: '2525',
+      authentication: :cram_md5
+    }
+
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false

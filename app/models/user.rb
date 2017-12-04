@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
-  after_create :send_welcome_email
+  #after_create :send_welcome_email
 
   validates :name, presence: true
 
