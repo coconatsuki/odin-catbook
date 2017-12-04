@@ -5,6 +5,8 @@
 
 <p><%= post.body %></p>
 
+<%= image_tag post.picture.url if post.picture? %>
+
 <%= link_to post_likes_path(post) do %>
   <strong id="likes-count-<%= post.id %>"><%= post.likes.size %> people like this.</strong>
 <% end %>

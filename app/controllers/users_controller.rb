@@ -59,4 +59,5 @@ class UsersController < ApplicationController
     ids = current_user.all_friends.map(&:id)
     ids << current_user.id
   end
+
 end

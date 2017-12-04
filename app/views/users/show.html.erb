@@ -3,7 +3,7 @@
     <% if @user.avatar.file %>
       <%= image_tag( @user.avatar.url )  %>
     <% elsif @user.image %>
-        <%= image_tag( @user.image ) %>
+        <%= image_tag( @user.image, height: '200' ) %>
     <% else %>
       <%= gravatar_for @user %>
     <% end %>
