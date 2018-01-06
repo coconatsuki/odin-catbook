@@ -12,7 +12,7 @@ CAT_NAMES = cat_names.uniq
 
 CAT_NAMES.size.times do |n|
   name = CAT_NAMES[n]
-  email = "#{name}-#{n + 1}@catmail.com"
+  email = "#{name}@catmail.com"
   password = "password"
   User.create!(name: name,
                email: email,
