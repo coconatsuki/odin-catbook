@@ -1,4 +1,4 @@
-#Catbook
+# Catbook
 
 This is a Facebook-like application, made with Ruby on Rails.
 
