@@ -30,6 +30,8 @@ gem 'jquery-rails'
 gem 'will_paginate'
 # For jobs
 gem 'sidekiq'
+# for timeout (puma)
+gem "rack-timeout"
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
