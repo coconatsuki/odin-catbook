@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
-  #after_create :send_welcome_email
+  after_create :send_welcome_email
 
   validates :name, presence: true
 
@@ -64,7 +64,7 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    UserMailer.welcome_mail(self).deliver_now
+    UserMailer.welcome_mail(self).deliver_later
   end
 
   #------------------------------OmniAuth-----------------------------------
