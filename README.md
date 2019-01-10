@@ -1,5 +1,8 @@
 # Catbook
 
+It you want to try it, this is the HEROKU link (it might take some time to load) =>
+https://odin-catbook.herokuapp.com/
+
 This is a Facebook-like application, made with Ruby on Rails.
 
 Catbook is an exercise from the online online bootcamp 'The Odin Project'.
