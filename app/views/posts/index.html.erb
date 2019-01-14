@@ -5,5 +5,7 @@
   <%= render 'post_form' %>
   <h3>POSTS :  </h3>
   <p>--------------------------------------</p>
+  <div id="app-container"></div>
   <%= render @posts %>
+  <%= javascript_pack_tag 'application' %>
 <% end %>
