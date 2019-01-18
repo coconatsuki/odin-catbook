@@ -5,6 +5,7 @@
     "@babel/preset-react": "^7.0.0",
     "@rails/webpacker": "https://github.com/rails/webpacker",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.21",
+    "moment": "^2.23.0",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"

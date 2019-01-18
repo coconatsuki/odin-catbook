@@ -1,14 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+import Posts from "./components/Posts";
 
-const Hello = props => <div>Hello {props.name}!</div>;
+class App extends React.Component {
+  // static propTypes = {
+  //   key: PropTypes.string.isRequired,
+  //   key: PropTypes.string
+  // }
 
-Hello.defaultProps = {
-  name: "David"
-};
+  render() {
+    return (
+      <div>
+        <Posts />
+      </div>
+    );
+  }
+}
 
-Hello.propTypes = {
-  name: PropTypes.string
-};
-
-export default Hello;
+export default App;

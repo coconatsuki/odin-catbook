@@ -3,6 +3,9 @@ Rails.application.routes.draw do
                      controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   resources :users, only: %i[show index edit update] do
+    collection do
+      get :current
+    end
     member do
       get :received_requests, :sent_requests
     end

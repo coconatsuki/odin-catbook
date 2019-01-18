@@ -43,6 +43,10 @@ class UsersController < ApplicationController
     @requests = current_user.sent_pending_friends
   end
 
+  def current
+    render json: {current_user: {id: current_user&.id, name: current_user&.name}}
+  end
+
   private
 
   def no_picture
@@ -59,5 +63,4 @@ class UsersController < ApplicationController
     ids = current_user.all_friends.map(&:id)
     ids << current_user.id
   end
-
 end

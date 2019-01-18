@@ -1,11 +1,7 @@
 <% if !user_signed_in? %>
   <%= render 'login' %>
 <% else %>
-  <p>What's in your mind today?</p>
-  <%= render 'post_form' %>
-  <h3>POSTS :  </h3>
-  <p>--------------------------------------</p>
   <div id="app-container"></div>
-  <%= render @posts %>
+  <%# <%= render @posts %>
   <%= javascript_pack_tag 'application' %>
 <% end %>
