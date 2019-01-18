@@ -49,7 +49,7 @@ class Post extends React.Component {
             toggleEdit={this.toggleEdit}
           />
         ) : (
-          <>
+          <article>
             {this.canEdit && (
               <div className="controls">
                 <ul>
@@ -74,7 +74,7 @@ class Post extends React.Component {
             <p>{post.body}</p>
             <p>MOMENT =></p>
             <p>Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}</p>
-          </>
+          </article>
         )}
         <p>--------------------------------------</p>
       </>

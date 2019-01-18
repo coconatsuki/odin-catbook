@@ -1,4 +1,5 @@
 import React from "react";
+import FlipMove from "react-flip-move";
 import PropTypes from "prop-types";
 import PostForm from "./PostForm";
 import Post from "./Post";
@@ -91,16 +92,18 @@ class Posts extends React.Component {
         <PostForm refreshPosts={this.refreshPosts} />
         <p>--------------------------------------</p>
         <p>NUMBER OF POSTS: {this.state.posts.length}</p>
-        {this.state.posts.map(post => (
-          <Post
-            key={post.id}
-            post={post}
-            currentUser={this.state.currentUser}
-            refreshPosts={this.refreshPosts}
-            deletePost={this.deletePost}
-            errorMessages={this.state.errorMessages}
-          />
-        ))}
+        <FlipMove>
+          {this.state.posts.map(post => (
+            <Post
+              key={post.id}
+              post={post}
+              currentUser={this.state.currentUser}
+              refreshPosts={this.refreshPosts}
+              deletePost={this.deletePost}
+              errorMessages={this.state.errorMessages}
+            />
+          ))}
+        </FlipMove>
       </div>
     );
   }
