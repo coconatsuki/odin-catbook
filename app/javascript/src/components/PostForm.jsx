@@ -80,10 +80,16 @@ class PostForm extends React.Component {
   handlePicChange = async e => {
     const files = e.target.files;
     const fetchedFile = await uploadFile(files);
-    this.setState({
-      image: fetchedFile.secure_url,
-      largeImage: fetchedFile.eager[0].secure_url
-    });
+    if (fetchedFile.error) {
+      this.setState({
+        errorMessages: [fetchedFile.error.message]
+      });
+    } else {
+      this.setState({
+        image: fetchedFile.secure_url,
+        largeImage: fetchedFile.eager[0].secure_url
+      });
+    }
   };
 
   render() {

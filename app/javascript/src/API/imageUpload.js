@@ -9,6 +9,7 @@ export async function uploadFile(files) {
     { method: "POST", body: data }
   );
   const file = await res.json();
+  console.log("FILE FROM API method", file);
   return file;
 }
 
