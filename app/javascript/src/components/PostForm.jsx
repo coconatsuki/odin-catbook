@@ -48,20 +48,21 @@ class PostForm extends React.Component {
     return false;
   };
 
-  savePost = (body, postToEdit, method) => {
+  savePost = (postData, postToEdit, method) => {
     if (method === "create") {
-      return addPost(body);
+      return addPost(postData);
     }
-    return updatePost(body, postToEdit.id);
+    return updatePost(postData, postToEdit.id);
   };
 
   handleSave = async e => {
     e.preventDefault();
     const { postToEdit } = this.props;
     const method = postToEdit === undefined ? "create" : "update";
-    const body = this.state.body;
+    const { body, image, largeImage } = this.state;
+    const postData = { body, image, largeImage };
     if (this.validBody(body)) {
-      const fetchedPost = await this.savePost(body, postToEdit, method);
+      const fetchedPost = await this.savePost(postData, postToEdit, method);
       if (fetchedPost.errors) {
         this.setState({
           errorMessages: fetchedPost.errors

@@ -4,6 +4,7 @@ export async function uploadFile(files) {
   const data = new FormData();
   data.append("file", files[0]);
   data.append("upload-preset", "catbook");
+  console.log("DATA FROM API method", data);
   const res = await fetch(
     "https://api.cloudinary.com/v1_1/coconatsu/image/upload",
     { method: "POST", body: data }
