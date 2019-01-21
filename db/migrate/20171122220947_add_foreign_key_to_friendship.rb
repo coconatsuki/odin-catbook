@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddForeignKeyToFriendship < ActiveRecord::Migration[5.1]
   def change
     add_foreign_key :friendships, :users, column: :requested_id

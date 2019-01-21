@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { addPost, updatePost } from "../API/posts";
+import { uploadFile } from "../API/imageUpload";
 
 class PostForm extends React.Component {
   static propTypes = {
@@ -19,7 +20,9 @@ class PostForm extends React.Component {
 
   state = {
     body: this.props.postToEdit ? this.props.postToEdit.body : "",
-    errorMessages: []
+    errorMessages: [],
+    image: null,
+    largeImage: null
   };
 
   handleChange = e => {
@@ -74,6 +77,15 @@ class PostForm extends React.Component {
     if (this.props.toggleEdit) this.props.toggleEdit();
   };
 
+  handlePicChange = async e => {
+    const files = e.target.files;
+    const fetchedFile = await uploadFile(files);
+    this.setState({
+      image: fetchedFile.secure_url,
+      largeImage: fetchedFile.eager[0].secure_url
+    });
+  };
+
   render() {
     return (
       <form onSubmit={this.handleSave}>
@@ -91,12 +103,21 @@ class PostForm extends React.Component {
           onChange={this.handleChange}
           value={this.state.body}
         />
-        {/* <input name="file" type="file"
-   class="file-upload" data-cloudinary-field="image_id"
-   data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/> */}
-
-        {/* <p>Upload an image :</p> */}
-        {/* <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png'  %> */}
+        <div className="picture-upload">
+          <label htmlFor="postPicture">
+            Upload an image for your post:
+            <input
+              type="file"
+              name="file"
+              id="postPicture"
+              placeholder="Upload an image"
+              onChange={this.handlePicChange}
+            />
+          </label>
+          {this.state.image && (
+            <img width="200" src={this.state.image} alt="uploaded Preview" />
+          )}
+        </div>
 
         <input type="submit" value="Post!" />
       </form>

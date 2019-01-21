@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   def index
     if current_user
@@ -44,7 +46,7 @@ class UsersController < ApplicationController
   end
 
   def current
-    render json: {current_user: {id: current_user&.id, name: current_user&.name}}
+    render json: { current_user: { id: current_user&.id, name: current_user&.name } }
   end
 
   private

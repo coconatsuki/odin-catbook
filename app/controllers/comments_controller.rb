@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   def index; end
 
@@ -19,7 +21,7 @@ class CommentsController < ApplicationController
   def edit
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
-    
+
     respond_to do |format|
       format.js
     end

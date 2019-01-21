@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -81,11 +83,10 @@ class User < ApplicationRecord
     end
   end
 
-#--------------------------------- Validates the size of an uploaded picture.
+  #--------------------------------- Validates the size of an uploaded picture.
   def picture_size
-    if avatar.size > 5.megabytes
-      errors.add(:avatar, "should be less than 5MB")
-    end
-  end
+    return unless avatar.size > 5.megabytes
 
+    errors.add(:avatar, "should be less than 5MB")
+  end
 end

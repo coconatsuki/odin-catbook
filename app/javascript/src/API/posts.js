@@ -1,7 +1,10 @@
+import { addCsrf } from "./helper";
+
 export async function getPosts() {
-  const posts = await fetch("/posts.json", {
+  const posts = await fetch("/posts", {
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Accept: "application/json"
     }
   });
   const jsonPosts = await posts.json();
@@ -9,38 +12,39 @@ export async function getPosts() {
 }
 
 export async function addPost(body) {
-  const post = await fetch("/posts.json", {
+  const post = await fetch("/posts", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": document.getElementsByName("csrf-token")[0].content
+      Accept: "application/json"
     },
-    body: JSON.stringify({ post: { body } }) // Formate l'objet pour qu'il corresponde à ce qu'attend le controleur => { post: {body: value} }
+    body: JSON.stringify(addCsrf({ post: { body } })) // Formate l'objet pour qu'il corresponde à ce qu'attend le controleur => { post: {body: value} }
   });
   const jsonPost = await post.json();
   return jsonPost;
 }
 
 export async function updatePost(body, postId) {
-  const post = await fetch(`/posts/${postId}.json`, {
+  const post = await fetch(`/posts/${postId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": document.getElementsByName("csrf-token")[0].content
+      Accept: "application/json"
     },
-    body: JSON.stringify({ post: { body } }) // Formate l'objet pour qu'il corresponde à ce qu'attend le controleur => { post: {body: value} }
+    body: JSON.stringify(addCsrf({ post: { body } })) // Formate l'objet pour qu'il corresponde à ce qu'attend le controleur => { post: {body: value} }
   });
   const jsonPost = await post.json();
   return jsonPost;
 }
 
 export async function destroyPost(postId) {
-  const post = await fetch(`/posts/${postId}.json`, {
+  const post = await fetch(`/posts/${postId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": document.getElementsByName("csrf-token")[0].content
-    }
+      Accept: "application/json"
+    },
+    body: JSON.stringify(addCsrf({}))
   });
   const jsonPost = await post.json();
   return jsonPost;
