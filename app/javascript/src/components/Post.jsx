@@ -5,15 +5,15 @@ import * as moment from "moment";
 
 class Post extends React.Component {
   static propTypes = {
+    author: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired
+    }),
     post: PropTypes.shape({
       id: PropTypes.number.isRequired,
       body: PropTypes.string.isRequired,
       smallImageUrl: PropTypes.string,
-      created_at: PropTypes.string.isRequired,
-      author: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired
-      })
+      created_at: PropTypes.string.isRequired
     }).isRequired,
     currentUser: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -29,8 +29,8 @@ class Post extends React.Component {
   };
 
   canEdit = () => {
-    const { currentUser, post } = this.props;
-    return currentUser && post.author.id === currentUser.id;
+    const { currentUser, author } = this.props;
+    return currentUser && author.id === currentUser.id;
   };
 
   toggleEdit = () => {
@@ -40,7 +40,7 @@ class Post extends React.Component {
   };
 
   render() {
-    const { post, currentUser, deletePost, refreshPosts } = this.props;
+    const { post, author, currentUser, deletePost, refreshPosts } = this.props;
     return (
       <>
         {this.state.edit ? (
@@ -65,7 +65,7 @@ class Post extends React.Component {
               </div>
             )}
             <p>
-              <strong>Written by => {post.author.name}</strong>
+              <strong>Written by => {author.name}</strong>
             </p>
             <p>
               CURRENT USER =>

@@ -9,12 +9,7 @@ class PostForm extends React.Component {
     toggleEdit: PropTypes.func,
     postToEdit: PropTypes.shape({
       id: PropTypes.number.isRequired,
-      body: PropTypes.string.isRequired,
-      created_at: PropTypes.string.isRequired,
-      author: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired
-      })
+      body: PropTypes.string.isRequired
     })
   };
 
@@ -59,11 +54,13 @@ class PostForm extends React.Component {
   handleSave = async e => {
     e.preventDefault();
     const { postToEdit } = this.props;
+    console.log("POST TO EDIT", postToEdit);
     const method = postToEdit === undefined ? "create" : "update";
     const { body, image, largeImage } = this.state;
     const postData = { body, image, largeImage };
     if (this.validBody(body)) {
       const fetchedPost = await this.savePost(postData, postToEdit, method);
+      console.log("SAVED POST", fetchedPost, fetchedPost.post);
       if (fetchedPost.errors) {
         this.setState({
           errorMessages: fetchedPost.errors

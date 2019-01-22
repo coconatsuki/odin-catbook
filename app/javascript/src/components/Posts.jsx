@@ -5,7 +5,11 @@ import Post from "./Post";
 
 class Posts extends React.Component {
   static propTypes = {
-    posts: PropTypes.PropTypes.arrayOf(
+    postAuthor: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired
+    }),
+    posts: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         body: PropTypes.string.isRequired,
@@ -27,19 +31,25 @@ class Posts extends React.Component {
   };
 
   render() {
+    const { postAuthor, posts } = this.props;
     return (
-      <FlipMove>
-        {this.props.posts.map(post => (
-          <Post
-            key={post.id}
-            post={post}
-            currentUser={this.props.currentUser}
-            refreshPosts={this.props.refreshPosts}
-            deletePost={this.props.deletePost}
-            errorMessages={this.props.errorMessages}
-          />
-        ))}
-      </FlipMove>
+      <>
+        <h3>POSTS : </h3>
+        <p>--------------------------------------</p>
+        <FlipMove>
+          {posts.map(post => (
+            <Post
+              key={post.id}
+              post={post}
+              author={post.author ? post.author : postAuthor}
+              currentUser={this.props.currentUser}
+              refreshPosts={this.props.refreshPosts}
+              deletePost={this.props.deletePost}
+              errorMessages={this.props.errorMessages}
+            />
+          ))}
+        </FlipMove>
+      </>
     );
   }
 }

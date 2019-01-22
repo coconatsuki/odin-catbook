@@ -1,30 +1,29 @@
 import React from "react";
+import AbstractPostsPage from "./AbstractPostsPage";
 import User from "../components/User";
+import Posts from "../components/Posts";
+import PostForm from "../components/PostForm";
 import { getUserById, getCurrentUser } from "../API/users";
 
-class UserPage extends React.Component {
+class UserPage extends AbstractPostsPage {
   state = {
     user: null,
-    currentUser: null
+    currentUser: null,
+    errorMessages: [],
+    posts: []
   };
 
   componentDidMount = async () => {
     const userId = this.getUserIdFromHtml();
-    const user = await this.fetchUser(userId);
+    await this.fetchUserAndPosts(userId);
     await this.fetchCurrentUser();
   };
 
-  fetchCurrentUser = async () => {
-    const fetchedUser = await getCurrentUser();
-    this.setState({
-      currentUser: fetchedUser ? fetchedUser.current_user : null
-    });
-  };
-
-  fetchUser = async userId => {
+  fetchUserAndPosts = async userId => {
     const fetchedUser = await getUserById(userId);
     this.setState({
-      user: fetchedUser.user
+      user: fetchedUser.user,
+      posts: fetchedUser.user.posts
     });
   };
 
@@ -40,9 +39,17 @@ class UserPage extends React.Component {
       this.state.currentUser && (
         <>
           <User user={this.state.user} currentUser={this.state.currentUser} />
-          <h3>POSTS : </h3>
-          <p>--------------------------------------</p>
-          {user.id === currentUser.id && <p>What's in your mind today?</p>}
+          {user.id === currentUser.id && (
+            <PostForm refreshPosts={this.refreshPosts} />
+          )}
+          <Posts
+            posts={this.state.posts}
+            postAuthor={this.state.user}
+            currentUser={this.state.currentUser}
+            refreshPosts={this.refreshPosts}
+            deletePost={this.deletePost}
+            errorMessages={this.state.errorMessages}
+          />
         </>
       )
     );
