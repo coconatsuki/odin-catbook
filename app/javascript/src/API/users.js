@@ -15,7 +15,7 @@ export async function getCurrentUser() {
 }
 
 export async function getUsers() {
-  const posts = await fetch("/users", {
+  const users = await fetch("/users", {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json"
@@ -23,4 +23,15 @@ export async function getUsers() {
   });
   const jsonUsers = await users.json();
   return jsonUsers;
+}
+
+export async function getUserById(id) {
+  const user = await fetch(`/users/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    }
+  });
+  const jsonUser = await user.json();
+  return jsonUser;
 }

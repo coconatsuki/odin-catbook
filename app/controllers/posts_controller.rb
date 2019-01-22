@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    if current_user
-      @user = current_user
-      @posts = @user.feed
-      @post =  Post.new
-      @comment = Comment.new
-      @like = Like.new
-    end
+    @user = current_user
+    @posts = @user.feed
+    @post =  Post.new
+    @comment = Comment.new
+    @like = Like.new
 
     respond_to do |format|
       format.html {}

@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  def index
-    if current_user
-      @cats = User.where.not(id: friends_ids)
+  before_action :authenticate_user!
 
-      respond_to do |format|
-        format.html {}
-        format.json do
-          render json: @users
-        end
+  def index
+    @cats = User.where.not(id: friends_ids << current_user.id)
+
+    respond_to do |format|
+      format.html {}
+      format.json do
+        render json: @cats
       end
     end
   end
