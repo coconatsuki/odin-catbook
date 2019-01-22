@@ -4,6 +4,13 @@ class UsersController < ApplicationController
   def index
     if current_user
       @cats = User.where.not(id: friends_ids)
+
+      respond_to do |format|
+        format.html {}
+        format.json do
+          render json: @users
+        end
+      end
     end
   end
 
@@ -17,6 +24,13 @@ class UsersController < ApplicationController
     @friendship = Friendship.new
     @comment = Comment.new
     @like = Like.new
+
+    respond_to do |format|
+      format.html {}
+      format.json do
+        render json: @user
+      end
+    end
   end
 
   def edit

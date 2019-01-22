@@ -1,4 +1,4 @@
-import { addCsrf } from "./helper";
+// import { addCsrf } from "./helper";
 
 export async function getCurrentUser() {
   const currentUser = await fetch("/users/current", {
@@ -12,4 +12,15 @@ export async function getCurrentUser() {
     return jsonCurrentUser;
   }
   return null;
+}
+
+export async function getUsers() {
+  const posts = await fetch("/users", {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    }
+  });
+  const jsonUsers = await users.json();
+  return jsonUsers;
 }

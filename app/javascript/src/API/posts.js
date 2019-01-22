@@ -12,6 +12,7 @@ export async function getPosts() {
 }
 
 export async function addPost(postData) {
+  console.log("POST DATA FROMM API", postData);
   const post = await fetch("/posts", {
     method: "POST",
     headers: {

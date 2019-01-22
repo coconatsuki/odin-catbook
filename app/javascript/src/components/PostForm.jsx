@@ -32,6 +32,7 @@ class PostForm extends React.Component {
   };
 
   validBody = msg => {
+    console.log("VALID BODY?", msg);
     this.setState({
       errorMessages: []
     });

@@ -8,6 +8,7 @@ class Post extends React.Component {
     post: PropTypes.shape({
       id: PropTypes.number.isRequired,
       body: PropTypes.string.isRequired,
+      smallImageUrl: PropTypes.string,
       created_at: PropTypes.string.isRequired,
       author: PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -72,6 +73,7 @@ class Post extends React.Component {
             </p>
             <p>POST BODY =></p>
             <p>{post.body}</p>
+            <img width="200" src={post.smallImageUrl} alt="post image" />
             <p>MOMENT =></p>
             <p>Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}</p>
           </article>
