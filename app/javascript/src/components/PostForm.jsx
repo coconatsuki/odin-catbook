@@ -97,6 +97,7 @@ class PostForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSave}>
+        <p>What's in your mind today?</p>
         <ul>
           {this.state.errorMessages.map((msg, index) => (
             <li key={`error${index}`} style={{ color: "red" }}>

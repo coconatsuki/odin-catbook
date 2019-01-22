@@ -1,12 +1,13 @@
 import React from "react";
 import FlipMove from "react-flip-move";
 import PropTypes from "prop-types";
+import AbstractPostsPage from "./AbstractPostsPage";
 import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
 import { getPosts, destroyPost } from "../API/posts";
 import { getCurrentUser } from "../API/users";
 
-class PostsPage extends React.Component {
+class HomePage extends AbstractPostsPage {
   state = {
     posts: [],
     currentUser: null,
@@ -88,7 +89,6 @@ class PostsPage extends React.Component {
       <div>
         <h3>POSTS : </h3>
         <p>--------------------------------------</p>
-        <p>What's in your mind today?</p>
         <PostForm refreshPosts={this.refreshPosts} />
         <p>--------------------------------------</p>
         <p>NUMBER OF POSTS: {this.state.posts.length}</p>
@@ -104,4 +104,4 @@ class PostsPage extends React.Component {
   }
 }
 
-export default PostsPage;
+export default HomePage;
