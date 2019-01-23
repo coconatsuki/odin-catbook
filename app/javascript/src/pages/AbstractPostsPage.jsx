@@ -4,7 +4,6 @@ import { getCurrentUser } from "../API/users";
 
 class AbstractHomePage extends React.Component {
   refreshPosts = (postToChange, method) => {
-    console.log("REFRESH POST", postToChange, method);
     const { posts } = this.state;
     switch (method) {
       case "update":
@@ -54,10 +53,10 @@ class AbstractHomePage extends React.Component {
     });
   };
 
-  fetchCurrentUser = async () => {
-    const fetchedUser = await getCurrentUser();
+  fetchCurrentUser = async data => {
+    const fetchedCurrentUser = await getCurrentUser(data);
     this.setState({
-      currentUser: fetchedUser ? fetchedUser.current_user : null
+      currentUser: fetchedCurrentUser ? fetchedCurrentUser.user : null
     });
   };
 }

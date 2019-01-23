@@ -10,11 +10,9 @@ class User extends React.Component {
     currentUser: PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired
-    })
+    }),
+    canSeeProfile: PropTypes.func.isRequired
   };
-
-  // state = {
-  // };
 
   render() {
     const { user, currentUser } = this.props;
@@ -23,7 +21,7 @@ class User extends React.Component {
         <p>Link to Edit profile here</p>
         <p>PROFILE PIC HERE</p>
         <p>{user.name}</p>
-        {currentUser.id === user.id ? (
+        {this.props.canSeeProfile() ? (
           <div className="current-user">
             <p>RENDER Friends Requests here</p>
             <p>RENDER How many friends, posts, likes...</p>

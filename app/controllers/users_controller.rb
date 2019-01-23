@@ -61,7 +61,11 @@ class UsersController < ApplicationController
   end
 
   def current
-    render json: { current_user: { id: current_user&.id, name: current_user&.name } }
+    if params[:withFriends] == "yes"
+      render json: current_user, serializer: CurrentUserWithFriendsSerializer
+    else
+      render json: current_user, serializer: CurrentUserSerializer
+    end
   end
 
   private

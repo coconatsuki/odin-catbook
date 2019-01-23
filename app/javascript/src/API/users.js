@@ -1,14 +1,18 @@
 // import { addCsrf } from "./helper";
 
-export async function getCurrentUser() {
-  const currentUser = await fetch("/users/current", {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
+export async function getCurrentUser(data) {
+  const currentUser = await fetch(
+    `/users/current${data === "withFriends" ? "?withFriends=yes" : ""}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }
     }
-  });
+  );
   const jsonCurrentUser = await currentUser.json();
-  if (jsonCurrentUser.current_user.id) {
+  console.log("FROM API", jsonCurrentUser);
+  if (jsonCurrentUser.user.id) {
     return jsonCurrentUser;
   }
   return null;

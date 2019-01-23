@@ -16,7 +16,7 @@ class UserPage extends AbstractPostsPage {
   componentDidMount = async () => {
     const userId = this.getUserIdFromHtml();
     await this.fetchUserAndPosts(userId);
-    await this.fetchCurrentUser();
+    await this.fetchCurrentUser("withFriends");
   };
 
   fetchUserAndPosts = async userId => {
@@ -32,23 +32,35 @@ class UserPage extends AbstractPostsPage {
     return parseInt(div.dataset.id);
   };
 
+  canSeeProfile = () => {
+    const { user, currentUser } = this.state;
+    return currentUser.friends.includes(user) || currentUser.id === user.id;
+  };
+
   render() {
     const { user, currentUser } = this.state;
     return (
       this.state.user &&
       this.state.currentUser && (
         <>
-          <User user={this.state.user} currentUser={this.state.currentUser} />
+          <User
+            user={this.state.user}
+            currentUser={this.state.currentUser}
+            canSeeProfile={this.canSeeProfile}
+          />
           {user.id === currentUser.id && (
             <PostForm refreshPosts={this.refreshPosts} />
           )}
-          <Posts
-            posts={this.state.posts}
-            currentUser={this.state.currentUser}
-            refreshPosts={this.refreshPosts}
-            deletePost={this.deletePost}
-            errorMessages={this.state.errorMessages}
-          />
+
+          {this.canSeeProfile() && (
+            <Posts
+              posts={this.state.posts}
+              currentUser={this.state.currentUser}
+              refreshPosts={this.refreshPosts}
+              deletePost={this.deletePost}
+              errorMessages={this.state.errorMessages}
+            />
+          )}
         </>
       )
     );
