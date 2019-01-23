@@ -4,6 +4,7 @@ import { getCurrentUser } from "../API/users";
 
 class AbstractHomePage extends React.Component {
   refreshPosts = (postToChange, method) => {
+    console.log("REFRESH POST", postToChange, method);
     const { posts } = this.state;
     switch (method) {
       case "update":

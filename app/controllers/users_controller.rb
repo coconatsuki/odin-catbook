@@ -15,20 +15,21 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @posts = @user.posts.order(created_at: :desc).includes(:likes, :author, :comments)
-    @current_user_friends = current_user.friends
-    @pending_friends = current_user.pending_friends
-    @user_friends = @user.friends
-    @post = current_user.posts.build
-    @friendship = Friendship.new
-    @comment = Comment.new
-    @like = Like.new
+    @user = User.includes(:posts, posts: %i[author comments likes]).order('posts.created_at desc').find(params[:id])
 
     respond_to do |format|
-      format.html {}
+      format.html do
+        @posts = @user.posts.order(created_at: :desc).includes(:likes, :author, :comments)
+        @current_user_friends = current_user.friends
+        @pending_friends = current_user.pending_friends
+        @user_friends = @user.friends
+        @post = current_user.posts.build
+        @friendship = Friendship.new
+        @comment = Comment.new
+        @like = Like.new
+      end
       format.json do
-        render json: @user
+        render json: @user, include: 'posts,posts.author'
       end
     end
   end

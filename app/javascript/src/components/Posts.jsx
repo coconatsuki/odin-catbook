@@ -5,10 +5,6 @@ import Post from "./Post";
 
 class Posts extends React.Component {
   static propTypes = {
-    postAuthor: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
-    }),
     posts: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -41,7 +37,6 @@ class Posts extends React.Component {
             <Post
               key={post.id}
               post={post}
-              author={post.author ? post.author : postAuthor}
               currentUser={this.props.currentUser}
               refreshPosts={this.props.refreshPosts}
               deletePost={this.props.deletePost}

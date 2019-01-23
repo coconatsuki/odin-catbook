@@ -12,7 +12,6 @@ export async function getPosts() {
 }
 
 export async function addPost(postData) {
-  console.log("POST DATA FROMM API", postData);
   const post = await fetch("/posts", {
     method: "POST",
     headers: {
@@ -27,7 +26,7 @@ export async function addPost(postData) {
           largeImageUrl: postData.largeImage
         }
       })
-    ) // Formate l'objet pour qu'il corresponde à ce qu'attend le controleur => { post: {body: value} }
+    )
   });
   const jsonPost = await post.json();
   return jsonPost;
@@ -48,7 +47,7 @@ export async function updatePost(postData, postId) {
           largeImageUrl: postData.largeImage
         }
       })
-    ) // Formate l'objet pour qu'il corresponde à ce qu'attend le controleur => { post: {body: value} }
+    )
   });
   const jsonPost = await post.json();
   return jsonPost;

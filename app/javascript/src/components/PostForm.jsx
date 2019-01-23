@@ -15,33 +15,63 @@ class PostForm extends React.Component {
 
   state = {
     body: this.props.postToEdit ? this.props.postToEdit.body : "",
+    image: this.props.postToEdit ? this.props.postToEdit.smallImageUrl : null,
+    largeImage: this.props.postToEdit
+      ? this.props.postToEdit.largeImageUrl
+      : null,
     errorMessages: [],
-    image: null,
-    largeImage: null
+    fileLoading: false
   };
 
-  handleChange = e => {
+  isEditing = () => {
+    return this.props.postToEdit !== undefined;
+  };
+
+  handleBodyChange = e => {
     this.setState({
       body: e.target.value
     });
   };
 
-  validBody = msg => {
-    console.log("VALID BODY?", msg);
+  setErrorMessages = messagesArray => {
+    this.setState({
+      errorMessages: messagesArray
+    });
+  };
+
+  clearErrorMessages = messagesArray => {
     this.setState({
       errorMessages: []
     });
-    if (msg.trim().length > 5) return true;
+  };
+
+  clearState = () => {
+    this.setState({
+      body: "",
+      image: null,
+      largeImage: null,
+      errorMessages: []
+    });
+  };
+
+  validBody = msg => {
+    this.clearErrorMessages();
     if (msg.trim().length === 0) {
-      this.setState({
-        errorMessages: ["Your message can't be empty."]
-      });
+      this.setErrorMessages(["Your message can't be empty."]);
       return false;
     }
+    if (msg.trim().length <= 5) {
+      this.setErrorMessages(["Your message is too short."]);
+      return false;
+    }
+    return true;
+  };
+
+  removeImage = () => {
     this.setState({
-      errorMessages: ["Your message is too short."]
+      image: null,
+      largeImage: null
     });
-    return false;
   };
 
   savePost = (postData, postToEdit, method) => {
@@ -51,44 +81,55 @@ class PostForm extends React.Component {
     return updatePost(postData, postToEdit.id);
   };
 
+  updateState = (fetchedPost, method) => {
+    if (fetchedPost.errors) {
+      this.setErrorMessages(fetchedPost.errors);
+    } else {
+      this.props.refreshPosts(fetchedPost.post, method);
+      this.clearState();
+    }
+  };
+
   handleSave = async e => {
     e.preventDefault();
     const { postToEdit } = this.props;
-    console.log("POST TO EDIT", postToEdit);
-    const method = postToEdit === undefined ? "create" : "update";
-    const { body, image, largeImage } = this.state;
+    const method = this.isEditing() ? "update" : "create";
+    const { body, image, largeImage, fileLoading } = this.state;
     const postData = { body, image, largeImage };
-    if (this.validBody(body)) {
+
+    if (this.validBody(body) && !fileLoading) {
       const fetchedPost = await this.savePost(postData, postToEdit, method);
-      console.log("SAVED POST", fetchedPost, fetchedPost.post);
-      if (fetchedPost.errors) {
-        this.setState({
-          errorMessages: fetchedPost.errors
-        });
-      } else {
-        this.props.refreshPosts(fetchedPost.post, method);
-        this.setState({
-          body: "",
-          errorMessages: []
-        });
-      }
+      this.updateState(fetchedPost, method);
     }
-    if (this.props.toggleEdit) this.props.toggleEdit();
+    if (this.isEditing()) this.props.toggleEdit();
+  };
+
+  toggleFileLoading = () => {
+    this.setState({
+      fileLoading: !this.state.fileLoading
+    });
   };
 
   handlePicChange = async e => {
     const files = e.target.files;
+    this.toggleFileLoading();
     const fetchedFile = await uploadFile(files);
+
     if (fetchedFile.error) {
-      this.setState({
-        errorMessages: [fetchedFile.error.message]
-      });
+      this.setErrorMessages([fetchedFile.error.message]);
     } else {
       this.setState({
         image: fetchedFile.secure_url,
         largeImage: fetchedFile.eager[0].secure_url
       });
     }
+    this.toggleFileLoading();
+  };
+
+  submitButtonValue = () => {
+    if (this.state.fileLoading) return "File loading";
+    if (this.isEditing()) return "Edit!";
+    return "Post!";
   };
 
   render() {
@@ -106,7 +147,7 @@ class PostForm extends React.Component {
         <textarea
           name="body"
           id="body"
-          onChange={this.handleChange}
+          onChange={this.handleBodyChange}
           value={this.state.body}
         />
         <div className="picture-upload">
@@ -121,11 +162,19 @@ class PostForm extends React.Component {
             />
           </label>
           {this.state.image && (
-            <img width="200" src={this.state.image} alt="uploaded Preview" />
+            <div className="pictureToSave">
+              <img width="200" src={this.state.image} alt="uploaded Preview" />
+              <button onClick={this.removeImage}>Delete this picture</button>
+            </div>
           )}
         </div>
 
-        <input type="submit" value="Post!" />
+        <input
+          type="submit"
+          value={this.submitButtonValue()}
+          disabled={this.state.fileLoading}
+        />
+        <button onClick={this.props.toggleEdit}>Cancel</button>
       </form>
     );
   }

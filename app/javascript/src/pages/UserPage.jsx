@@ -44,7 +44,6 @@ class UserPage extends AbstractPostsPage {
           )}
           <Posts
             posts={this.state.posts}
-            postAuthor={this.state.user}
             currentUser={this.state.currentUser}
             refreshPosts={this.refreshPosts}
             deletePost={this.deletePost}
