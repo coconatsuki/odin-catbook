@@ -5,4 +5,5 @@ class UserSerializer < ActiveModel::Serializer
   has_many :posts
 
   attribute(:likes_count) { object.likes.size }
+  attribute(:friends) { object.friends }
 end

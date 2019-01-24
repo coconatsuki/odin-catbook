@@ -11,6 +11,8 @@ class Posts extends React.Component {
         body: PropTypes.string.isRequired,
         smallImageUrl: PropTypes.string,
         created_at: PropTypes.string.isRequired,
+        likes_count: PropTypes.number.isRequired,
+        liked_by_current_user: PropTypes.bool.isRequired,
         author: PropTypes.shape({
           id: PropTypes.number.isRequired,
           name: PropTypes.string.isRequired

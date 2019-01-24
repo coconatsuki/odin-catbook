@@ -10,6 +10,8 @@ class Post extends React.Component {
       body: PropTypes.string.isRequired,
       smallImageUrl: PropTypes.string,
       created_at: PropTypes.string.isRequired,
+      likes_count: PropTypes.number.isRequired,
+      liked_by_current_user: PropTypes.bool.isRequired,
       author: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired
@@ -28,7 +30,7 @@ class Post extends React.Component {
     edit: false
   };
 
-  canEdit = () => {
+  currentUserIsAuthor = () => {
     const { currentUser, post } = this.props;
     return currentUser && post.author.id === currentUser.id;
   };
@@ -38,6 +40,8 @@ class Post extends React.Component {
       edit: !this.state.edit
     });
   };
+
+  likePost = () => {};
 
   render() {
     const { post, currentUser, deletePost, refreshPosts } = this.props;
@@ -51,7 +55,7 @@ class Post extends React.Component {
           />
         ) : (
           <article>
-            {this.canEdit() && (
+            {this.currentUserIsAuthor() && (
               <div className="controls">
                 <ul>
                   {this.props.errorMessages.map((msg, index) => (
@@ -67,17 +71,18 @@ class Post extends React.Component {
             <p>
               <strong>Written by => {post.author.name}</strong>
             </p>
-            <p>
-              CURRENT USER =>
-              {currentUser ? currentUser.name : ""}
-            </p>
-            <p>POST BODY =></p>
-            <p>{post.body}</p>
+            <p>POST BODY =>{post.body}</p>
             {post.smallImageUrl && (
               <img width="200" src={post.smallImageUrl} alt="post image" />
             )}
-            <p>MOMENT =></p>
             <p>Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}</p>
+            <p>{post.likes_count} likes</p>
+            <p>
+              {!this.currentUserIsAuthor() && (
+                <button onClick={likePost}>Like</button>
+              )}
+            </p>
+            {}
           </article>
         )}
         <p>--------------------------------------</p>

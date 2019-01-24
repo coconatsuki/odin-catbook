@@ -5,13 +5,15 @@ class User extends React.Component {
   static propTypes = {
     user: PropTypes.shape({
       id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
+      name: PropTypes.string.isRequired,
+      friends: PropTypes.array.isRequired
     }).isRequired,
     currentUser: PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired
     }),
-    canSeeProfile: PropTypes.func.isRequired
+    canSeeProfile: PropTypes.func.isRequired,
+    toggleDisplayFriends: PropTypes.func.isRequired
   };
 
   render() {
@@ -24,11 +26,19 @@ class User extends React.Component {
         {this.props.canSeeProfile() ? (
           <div className="current-user">
             <p>RENDER Friends Requests here</p>
-            <p>RENDER How many friends, posts, likes...</p>
-            <p>FRIENDS LISTS</p>
+            <p>
+              <a onClick={this.props.toggleDisplayFriends}>
+                {user.friends.length}
+                {user.friends.length > 1 ? "FRIENDS" : "FRIEND"}
+              </a>
+            </p>
           </div>
         ) : (
-          <p>If you're not friend with this cat, you can't see its page.</p>
+          <p>
+            <strong>
+              If you're not friend with this cat, you can't see its page.
+            </strong>
+          </p>
         )}
       </>
     );

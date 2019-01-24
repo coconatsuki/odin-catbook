@@ -11,7 +11,6 @@ export async function getCurrentUser(data) {
     }
   );
   const jsonCurrentUser = await currentUser.json();
-  console.log("FROM API", jsonCurrentUser);
   if (jsonCurrentUser.user.id) {
     return jsonCurrentUser;
   }
@@ -37,5 +36,6 @@ export async function getUserById(id) {
     }
   });
   const jsonUser = await user.json();
+  console.log("USER FROM API", jsonUser.user);
   return jsonUser;
 }
