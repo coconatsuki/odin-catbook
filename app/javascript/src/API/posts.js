@@ -1,4 +1,5 @@
 import { addCsrf } from "./helper";
+import PropTypes from "prop-types";
 
 export async function getPosts() {
   const posts = await fetch("/posts", {
@@ -7,8 +8,8 @@ export async function getPosts() {
       Accept: "application/json"
     }
   });
-  const jsonPosts = await posts.json();
-  return jsonPosts;
+  const response = await posts.json();
+  return response;
 }
 
 export async function addPost(postData) {
@@ -28,8 +29,8 @@ export async function addPost(postData) {
       })
     )
   });
-  const jsonPost = await post.json();
-  return jsonPost;
+  const response = await post.json();
+  return response;
 }
 
 export async function updatePost(postData, postId) {
@@ -49,8 +50,8 @@ export async function updatePost(postData, postId) {
       })
     )
   });
-  const jsonPost = await post.json();
-  return jsonPost;
+  const response = await post.json();
+  return response;
 }
 
 export async function destroyPost(postId) {
@@ -62,6 +63,20 @@ export async function destroyPost(postId) {
     },
     body: JSON.stringify(addCsrf({}))
   });
-  const jsonPost = await post.json();
-  return jsonPost;
+  const response = await post.json();
+  return response;
 }
+
+export const postType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  body: PropTypes.string.isRequired,
+  smallImageUrl: PropTypes.string,
+  created_at: PropTypes.string.isRequired,
+  // likes: PropTypes.array.isRequired,
+  likes_count: PropTypes.number.isRequired,
+  liked_by_current_user: PropTypes.number,
+  author: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
+  })
+});

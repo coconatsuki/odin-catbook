@@ -6,9 +6,6 @@ class PostsController < ApplicationController
   def index
     @user = current_user
     @posts = @user.feed
-    @post =  Post.new
-    @comment = Comment.new
-    @like = Like.new
 
     respond_to do |format|
       format.html {}

@@ -14,7 +14,6 @@ class UsersPage extends React.Component {
 
   fetchUsers = async () => {
     const fetchedUsers = await getUsers();
-    console.log("FETCHED USERS", fetchedUsers);
     this.setState({
       users: fetchedUsers.users
     });

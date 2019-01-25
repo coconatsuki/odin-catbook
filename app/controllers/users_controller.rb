@@ -29,7 +29,7 @@ class UsersController < ApplicationController
         @like = Like.new
       end
       format.json do
-        render json: @user, include: 'posts,posts.author'
+        render json: @user, include: 'posts,posts.author,posts.likes'
       end
     end
   end

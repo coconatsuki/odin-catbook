@@ -1,24 +1,13 @@
 import React from "react";
 import FlipMove from "react-flip-move";
 import PropTypes from "prop-types";
+import { postType } from "../API/posts";
+import { currentUserType } from "../API/users";
 import Post from "./Post";
 
 class Posts extends React.Component {
   static propTypes = {
-    posts: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        body: PropTypes.string.isRequired,
-        smallImageUrl: PropTypes.string,
-        created_at: PropTypes.string.isRequired,
-        likes_count: PropTypes.number.isRequired,
-        liked_by_current_user: PropTypes.bool.isRequired,
-        author: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired
-        })
-      })
-    ).isRequired,
+    posts: PropTypes.arrayOf(postType).isRequired,
     currentUser: PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired

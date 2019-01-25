@@ -8,34 +8,24 @@ class LikesController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    if @post.already_liked(current_user)
-      flash.now[:warning] = "You already liked this post noob."
-      render json: { error: "You already liked this post noob." }
-      return
-    end
     @like = Like.new
     @like.post = @post
     @like.author = current_user
+
     if @like.save
-      # flash.now[:notice] = "Post liked !"
-      respond_to do |format|
-        format.js
-      end
+      render json: @like
     else
-      flash.now[:warning] = "There was an error while liking a post."
+      render json: { errors: @like.errors.full_messages }
     end
   end
 
   def destroy
     @like = Like.find(params[:id])
-    @post = Post.find(params[:post_id])
+
     if @like.destroy
-      # flash.now[:notice] = "Post unliked !"
-      respond_to do |format|
-        format.js
-      end
+      render json: @like
     else
-      flash.now[:warning] = "There was an error while unliking."
+      render json: { errors: @like.errors.full_messages }
     end
   end
 end

@@ -1,33 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PostForm from "./PostForm";
+import { addLike, destroyLike } from "../API/likes";
+import { postType } from "../API/posts";
+import { currentUserType } from "../API/users";
 import * as moment from "moment";
 
 class Post extends React.Component {
   static propTypes = {
-    post: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      body: PropTypes.string.isRequired,
-      smallImageUrl: PropTypes.string,
-      created_at: PropTypes.string.isRequired,
-      likes_count: PropTypes.number.isRequired,
-      liked_by_current_user: PropTypes.bool.isRequired,
-      author: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired
-      })
-    }).isRequired,
-    currentUser: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
-    }),
+    post: postType.isRequired,
+    currentUser: currentUserType,
     refreshPosts: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
     errorMessages: PropTypes.array.isRequired
   };
 
   state = {
-    edit: false
+    edit: false,
+    likesCount: this.props.post.likes_count,
+    likedByCurrentUser: this.props.post.liked_by_current_user
+  };
+
+  componentDidMount = () => {
+    this.setState({
+      likes: this.props.post.likes
+    });
   };
 
   currentUserIsAuthor = () => {
@@ -41,10 +38,65 @@ class Post extends React.Component {
     });
   };
 
-  likePost = () => {};
+  setErrorMessages = messagesArray => {
+    this.setState({
+      errorMessages: messagesArray
+    });
+  };
+
+  clearErrorMessages = () => {
+    this.setErrorMessages([]);
+  };
+
+  refreshLikes = (likeToChange, method) => {
+    switch (method) {
+      case "create":
+        this.setState({
+          likesCount: this.state.likesCount + 1,
+          likedByCurrentUser: likeToChange.id,
+          errorMessages: []
+        });
+        break;
+
+      case "delete":
+        this.setState({
+          likesCount: this.state.likesCount - 1,
+          likedByCurrentUser: null,
+          errorMessages: []
+        });
+        break;
+    }
+  };
+
+  updateLikes = (fetchedLike, method) => {
+    if (fetchedLike.errors) return this.setErrorMessages(fetchedLike.errors);
+    this.refreshLikes(fetchedLike.like, method);
+  };
+
+  likePost = async () => {
+    const { post } = this.props;
+    const fetchedLike = await addLike(post.id);
+    this.updateLikes(fetchedLike, "create");
+  };
+
+  unlikePost = async () => {
+    const { post, currentUser } = this.props;
+    const likeId = this.state.likedByCurrentUser;
+    const fetchedLike = await destroyLike(post.id, likeId);
+    this.updateLikes(fetchedLike, "delete");
+  };
+
+  toggleLike = () => {
+    if (this.state.likedByCurrentUser) {
+      this.unlikePost();
+    } else {
+      this.likePost();
+    }
+  };
 
   render() {
     const { post, currentUser, deletePost, refreshPosts } = this.props;
+    const { likedByCurrentUser } = this.state;
     return (
       <>
         {this.state.edit ? (
@@ -76,13 +128,13 @@ class Post extends React.Component {
               <img width="200" src={post.smallImageUrl} alt="post image" />
             )}
             <p>Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}</p>
-            <p>{post.likes_count} likes</p>
             <p>
               {!this.currentUserIsAuthor() && (
-                <button onClick={likePost}>Like</button>
+                <button onClick={this.toggleLike}>
+                  {likedByCurrentUser ? "Unlike" : "Like"}
+                </button>
               )}
             </p>
-            {}
           </article>
         )}
         <p>--------------------------------------</p>
@@ -92,31 +144,3 @@ class Post extends React.Component {
 }
 
 export default Post;
-
-// <%= link_to "Edit post", edit_post_path(post) if post.author == current_user %>
-// <p><strong><%= post.author.name %></strong> wrote
-// <%= time_ago_in_words(post.created_at) %> ago:</p>
-
-// <p><%= post.body %></p>
-
-// <%= image_tag post.picture.url if post.picture? %>
-
-// <%= link_to post_likes_path(post) do %>
-//   <strong id="likes-count-<%= post.id %>"><%= post.likes.size %> people like this.</strong>
-// <% end %>
-
-// <% if like = post.already_like(current_user) %>
-//   <div id="likes-<%= post.id %>"><%= render partial: 'likes/unlike_form', :locals => {:post => post, like: like  } %></div>
-// <% else %>
-//   <div id="likes-<%= post.id %>"><%= render partial: 'likes/likes_form', :locals => {:post => post } %></div>
-// <% end %>
-
-// <strong>Comments:</strong>
-// <div id="comments"><%= render partial: 'comments/index', :locals => {:post => post } %></div>
-
-// <strong>Write a new comment :</strong>
-// <%= render partial: 'comments/form', :locals => {:post => post } %>
-
-// <p>
-//   --------------------------------------
-// </p>

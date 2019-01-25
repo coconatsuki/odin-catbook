@@ -37,7 +37,6 @@ class UserPage extends AbstractPostsPage {
   canSeeProfile = () => {
     const { user, currentUser } = this.state;
     const isFriend = currentUser.friends.find(friend => friend.id === user.id);
-    console.log("CAN SEE PROFILE, isFriend", isFriend);
     return isFriend || currentUser.id === user.id;
   };
 

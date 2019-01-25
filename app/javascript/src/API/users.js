@@ -1,4 +1,5 @@
 // import { addCsrf } from "./helper";
+import PropTypes from "prop-types";
 
 export async function getCurrentUser(data) {
   const currentUser = await fetch(
@@ -10,9 +11,9 @@ export async function getCurrentUser(data) {
       }
     }
   );
-  const jsonCurrentUser = await currentUser.json();
-  if (jsonCurrentUser.user.id) {
-    return jsonCurrentUser;
+  const response = await currentUser.json();
+  if (response.user.id) {
+    return response;
   }
   return null;
 }
@@ -24,8 +25,8 @@ export async function getUsers() {
       Accept: "application/json"
     }
   });
-  const jsonUsers = await users.json();
-  return jsonUsers;
+  const response = await users.json();
+  return response;
 }
 
 export async function getUserById(id) {
@@ -35,7 +36,11 @@ export async function getUserById(id) {
       Accept: "application/json"
     }
   });
-  const jsonUser = await user.json();
-  console.log("USER FROM API", jsonUser.user);
-  return jsonUser;
+  const response = await user.json();
+  return response;
 }
+
+export const currentUserType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired
+});
