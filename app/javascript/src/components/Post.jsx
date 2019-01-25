@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PostForm from "./PostForm";
+import Like from "./Like";
 import { addLike, destroyLike } from "../API/likes";
 import { postType } from "../API/posts";
 import { currentUserType } from "../API/users";
@@ -16,15 +17,7 @@ class Post extends React.Component {
   };
 
   state = {
-    edit: false,
-    likesCount: this.props.post.likes_count,
-    likedByCurrentUser: this.props.post.liked_by_current_user
-  };
-
-  componentDidMount = () => {
-    this.setState({
-      likes: this.props.post.likes
-    });
+    edit: false
   };
 
   currentUserIsAuthor = () => {
@@ -44,59 +37,9 @@ class Post extends React.Component {
     });
   };
 
-  clearErrorMessages = () => {
-    this.setErrorMessages([]);
-  };
-
-  refreshLikes = (likeToChange, method) => {
-    switch (method) {
-      case "create":
-        this.setState({
-          likesCount: this.state.likesCount + 1,
-          likedByCurrentUser: likeToChange.id,
-          errorMessages: []
-        });
-        break;
-
-      case "delete":
-        this.setState({
-          likesCount: this.state.likesCount - 1,
-          likedByCurrentUser: null,
-          errorMessages: []
-        });
-        break;
-    }
-  };
-
-  updateLikes = (fetchedLike, method) => {
-    if (fetchedLike.errors) return this.setErrorMessages(fetchedLike.errors);
-    this.refreshLikes(fetchedLike.like, method);
-  };
-
-  likePost = async () => {
-    const { post } = this.props;
-    const fetchedLike = await addLike(post.id);
-    this.updateLikes(fetchedLike, "create");
-  };
-
-  unlikePost = async () => {
-    const { post, currentUser } = this.props;
-    const likeId = this.state.likedByCurrentUser;
-    const fetchedLike = await destroyLike(post.id, likeId);
-    this.updateLikes(fetchedLike, "delete");
-  };
-
-  toggleLike = () => {
-    if (this.state.likedByCurrentUser) {
-      this.unlikePost();
-    } else {
-      this.likePost();
-    }
-  };
-
   render() {
     const { post, currentUser, deletePost, refreshPosts } = this.props;
-    const { likedByCurrentUser } = this.state;
+    const { likedByCurrentUser, likesCount } = this.state;
     return (
       <>
         {this.state.edit ? (
@@ -128,13 +71,13 @@ class Post extends React.Component {
               <img width="200" src={post.smallImageUrl} alt="post image" />
             )}
             <p>Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}</p>
-            <p>
-              {!this.currentUserIsAuthor() && (
-                <button onClick={this.toggleLike}>
-                  {likedByCurrentUser ? "Unlike" : "Like"}
-                </button>
-              )}
-            </p>
+            <Like
+              postId={post.id}
+              likesCount={post.likes_count}
+              likedByCurrentUser={post.liked_by_current_user}
+              setErrorMessages={this.setErrorMessages}
+              currentUserIsAuthor={this.currentUserIsAuthor}
+            />
           </article>
         )}
         <p>--------------------------------------</p>
