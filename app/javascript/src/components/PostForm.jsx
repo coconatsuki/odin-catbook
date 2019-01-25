@@ -39,12 +39,6 @@ class PostForm extends React.Component {
     });
   };
 
-  clearErrorMessages = messagesArray => {
-    this.setState({
-      errorMessages: []
-    });
-  };
-
   clearState = () => {
     this.setState({
       body: "",
@@ -55,7 +49,7 @@ class PostForm extends React.Component {
   };
 
   validBody = msg => {
-    this.clearErrorMessages();
+    this.setErrorMessages([]);
     if (msg.trim().length === 0) {
       this.setErrorMessages(["Your message can't be empty."]);
       return false;

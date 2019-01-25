@@ -2,8 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import PostForm from "./PostForm";
 import Like from "./Like";
+import Comments from "./Comments";
 import { addLike, destroyLike } from "../API/likes";
 import { postType } from "../API/posts";
+import { getComments } from "../API/comments";
 import { currentUserType } from "../API/users";
 import * as moment from "moment";
 
@@ -17,7 +19,9 @@ class Post extends React.Component {
   };
 
   state = {
-    edit: false
+    edit: false,
+    showComments: false,
+    commentsCount: this.props.post.comments_count
   };
 
   currentUserIsAuthor = () => {
@@ -37,9 +41,32 @@ class Post extends React.Component {
     });
   };
 
+  toggleComments = () => {
+    this.setState({
+      showComments: !this.state.showComments
+    });
+  };
+
+  refreshCommentsCount = method => {
+    if (method === "add") {
+      this.setState({
+        commentsCount: this.state.commentsCount + 1
+      });
+    }
+    if (method === "delete")
+      this.setState({
+        commentsCount: this.state.commentsCount - 1
+      });
+  };
+
   render() {
     const { post, currentUser, deletePost, refreshPosts } = this.props;
-    const { likedByCurrentUser, likesCount } = this.state;
+    const {
+      likedByCurrentUser,
+      likesCount,
+      showComments,
+      commentsCount
+    } = this.state;
     return (
       <>
         {this.state.edit ? (
@@ -78,6 +105,19 @@ class Post extends React.Component {
               setErrorMessages={this.setErrorMessages}
               currentUserIsAuthor={this.currentUserIsAuthor}
             />
+            <div className="comments">
+              <p>{commentsCount} comments </p>
+              <button onClick={this.toggleComments}>
+                {showComments ? "Hide comments" : "Show comments"}
+              </button>
+              {showComments && (
+                <Comments
+                  currentUser={currentUser}
+                  refreshCommentsCount={this.refreshCommentsCount}
+                  postId={post.id}
+                />
+              )}
+            </div>
           </article>
         )}
         <p>--------------------------------------</p>

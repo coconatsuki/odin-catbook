@@ -1,19 +1,19 @@
 import { addCsrf } from "./helper";
 import PropTypes from "prop-types";
 
-export async function getPosts() {
-  const posts = await fetch("/posts", {
+export async function getComments(postId) {
+  const comments = await fetch(`posts/${postId}/comments`, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json"
     }
   });
-  const response = await posts.json();
+  const response = await comments.json();
   return response;
 }
 
-export async function addPost(postData) {
-  const post = await fetch("/posts", {
+export async function addComment(postId, body) {
+  const comment = await fetch(`/posts/${postId}/comments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,20 +21,18 @@ export async function addPost(postData) {
     },
     body: JSON.stringify(
       addCsrf({
-        post: {
-          body: postData.body,
-          smallImageUrl: postData.image,
-          largeImageUrl: postData.largeImage
+        comment: {
+          body
         }
       })
     )
   });
-  const response = await post.json();
+  const response = await comment.json();
   return response;
 }
 
-export async function updatePost(postData, postId) {
-  const post = await fetch(`/posts/${postId}`, {
+export async function updateComment(postId, commentId, body) {
+  const comment = await fetch(`/posts/${postId}/comments/${commentId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -42,20 +40,18 @@ export async function updatePost(postData, postId) {
     },
     body: JSON.stringify(
       addCsrf({
-        post: {
-          body: postData.body,
-          smallImageUrl: postData.image,
-          largeImageUrl: postData.largeImage
+        comment: {
+          body
         }
       })
     )
   });
-  const response = await post.json();
+  const response = await comment.json();
   return response;
 }
 
-export async function destroyPost(postId) {
-  const post = await fetch(`/posts/${postId}`, {
+export async function destroyComment(postId, commentId) {
+  const comment = await fetch(`/posts/${postId}/comments/${commentId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -63,18 +59,14 @@ export async function destroyPost(postId) {
     },
     body: JSON.stringify(addCsrf({}))
   });
-  const response = await post.json();
+  const response = await comment.json();
   return response;
 }
 
-export const postType = PropTypes.shape({
+export const commentType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   body: PropTypes.string.isRequired,
-  smallImageUrl: PropTypes.string,
   created_at: PropTypes.string.isRequired,
-  likes_count: PropTypes.number.isRequired,
-  comments_count: PropTypes.number.isRequired,
-  liked_by_current_user: PropTypes.number,
   author: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired

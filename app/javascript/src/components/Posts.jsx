@@ -8,10 +8,7 @@ import Post from "./Post";
 class Posts extends React.Component {
   static propTypes = {
     posts: PropTypes.arrayOf(postType).isRequired,
-    currentUser: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
-    }),
+    currentUser: currentUserType,
     refreshPosts: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
     errorMessages: PropTypes.array.isRequired

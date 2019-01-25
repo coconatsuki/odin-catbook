@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :likes, only: %i[create index destroy]
-    resources :comments, only: %i[create edit update destroy]
+    resources :comments, only: %i[index create edit update destroy]
   end
 
   resources :friendships, only: %i[create destroy update]
