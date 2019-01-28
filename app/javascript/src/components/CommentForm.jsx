@@ -1,21 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { commentType, addComment, updateComment } from "../API/comments";
+import ErrorsBlock from "./ErrorsBlock";
 
 class CommentForm extends React.Component {
   static propTypes = {
     displayNewComment: PropTypes.func.isRequired,
     updateAllComments: PropTypes.func.isRequired,
+    postId: PropTypes.number.isRequired,
     toggleEdit: PropTypes.func,
     commentToEdit: PropTypes.shape({
       id: PropTypes.number.isRequired,
       body: PropTypes.string.isRequired
-    })
+    }),
+    errorMessages: PropTypes.array.isRequired,
+    setCommentErrorMessages: PropTypes.func.isRequired
   };
 
   state = {
-    body: this.props.commentToEdit ? this.props.commentToEdit.body : "",
-    errorMessages: []
+    body: this.props.commentToEdit ? this.props.commentToEdit.body : ""
   };
 
   isEditing = () => {
@@ -28,61 +31,58 @@ class CommentForm extends React.Component {
     });
   };
 
-  setErrorMessages = messagesArray => {
-    this.setState({
-      errorMessages: messagesArray
-    });
-  };
-
   clearState = () => {
     this.setState({
-      body: "",
-      errorMessages: []
+      body: ""
     });
   };
 
   validBody = msg => {
-    this.setErrorMessages([]);
+    const { setCommentErrorMessages } = this.props;
+    setCommentErrorMessages([]);
     if (msg.trim().length === 0) {
-      this.setErrorMessages(["Your message can't be empty."]);
+      setCommentErrorMessages(["Your message can't be empty."]);
       return false;
     }
     if (msg.trim().length <= 5) {
-      this.setErrorMessages(["Your message is too short."]);
+      setCommentErrorMessages(["Your message is too short."]);
       return false;
     }
     return true;
   };
 
   createComment = async body => {
+    const { postId, setCommentErrorMessages } = this.props;
     const fetchedComment = await addComment(postId, body);
     if (fetchedComment.errors) {
-      return this.setErrorMessages(fetchedComment.errors);
+      return setCommentErrorMessages(fetchedComment.errors);
     }
     this.props.displayNewComment(fetchedComment.comment);
-    this.clearState();
   };
 
   editComment = async (body, commentToEditId) => {
+    const { postId, updateAllComments, setCommentErrorMessages } = this.props;
     const fetchedComment = await updateComment(postId, commentToEditId, body);
     if (fetchedComment.errors) {
-      return this.setErrorMessages(fetchedComment.errors);
+      return setCommentErrorMessages(fetchedComment.errors);
     }
-    this.clearState();
-    if (this.isEditing()) this.props.toggleEdit();
+    updateAllComments(fetchedComment.comment);
   };
 
   handleSave = async e => {
     e.preventDefault();
-    const { commentToEdit } = this.props;
     const { body } = this.state;
     if (!this.validBody(body)) return;
 
     if (this.isEditing()) {
-      this.createComment(body);
-    } else {
+      const { commentToEdit } = this.props;
       this.editComment(body, commentToEdit.id);
+    } else {
+      this.createComment(body);
     }
+    this.clearState();
+    this.props.setCommentErrorMessages([]);
+    if (this.isEditing()) this.props.toggleEdit();
   };
 
   submitButtonValue = () => {
@@ -94,13 +94,7 @@ class CommentForm extends React.Component {
     return (
       <form onSubmit={this.handleSave}>
         <p>Write a comment...</p>
-        <ul>
-          {this.state.errorMessages.map((msg, index) => (
-            <li key={`error${index}`} style={{ color: "red" }}>
-              {msg}
-            </li>
-          ))}
-        </ul>
+        <ErrorsBlock errorMessages={this.props.errorMessages} />
         <label htmlFor="body" />
         <textarea
           name="body"
@@ -108,12 +102,12 @@ class CommentForm extends React.Component {
           onChange={this.handleChange}
           value={this.state.body}
         />
-        <input
-          type="submit"
-          value={this.submitButtonValue()}
-          disabled={this.state.fileLoading}
-        />
-        <button onClick={this.props.toggleEdit}>Cancel</button>
+        <div className="controls">
+          <input type="submit" value={this.submitButtonValue()} />
+          {this.isEditing() && (
+            <button onClick={this.props.toggleEdit}>Cancel</button>
+          )}
+        </div>
       </form>
     );
   }

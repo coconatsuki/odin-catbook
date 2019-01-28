@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
     @post = @comment.post
 
     if @comment.update(comment_params)
-      render json @comment
+      render json: @comment
     else
       render json: { errors: @comment.errors.full_messages }
     end

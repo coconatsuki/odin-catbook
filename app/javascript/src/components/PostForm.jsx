@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ErrorsBlock from "./ErrorsBlock";
 import { addPost, updatePost } from "../API/posts";
 import { uploadFile } from "../API/imageUpload";
 
@@ -130,13 +131,7 @@ class PostForm extends React.Component {
     return (
       <form onSubmit={this.handleSave}>
         <p>What's in your mind today?</p>
-        <ul>
-          {this.state.errorMessages.map((msg, index) => (
-            <li key={`error${index}`} style={{ color: "red" }}>
-              {msg}
-            </li>
-          ))}
-        </ul>
+        <ErrorsBlock errorMessages={this.state.errorMessages} />
         <label htmlFor="body" />
         <textarea
           name="body"

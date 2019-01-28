@@ -8,10 +8,13 @@ import * as moment from "moment";
 class Comment extends React.Component {
   static propTypes = {
     comment: commentType.isRequired,
+    postId: PropTypes.number.isRequired,
     currentUser: currentUserType,
-    createComment: PropTypes.func.isRequired,
+    displayNewComment: PropTypes.func.isRequired,
     updateAllComments: PropTypes.func.isRequired,
-    deleteComment: PropTypes.func.isRequired
+    deleteComment: PropTypes.func.isRequired,
+    errorMessages: PropTypes.array.isRequired,
+    setCommentErrorMessages: PropTypes.func.setCommentErrorMessages
   };
 
   state = {
@@ -30,31 +33,31 @@ class Comment extends React.Component {
     });
   };
 
-  setErrorMessages = messagesArray => {
-    this.setState({
-      errorMessages: messagesArray
-    });
-  };
-
   render() {
     const {
       comment,
       currentUser,
-      createComment,
+      displayNewComment,
       updateAllComments,
-      deleteComment
+      deleteComment,
+      postId,
+      errorMessages,
+      setCommentErrorMessages
     } = this.props;
     return (
       <>
         {this.state.edit ? (
           <CommentForm
-            createComment={createComment}
+            postId={postId}
+            displayNewComment={displayNewComment}
             updateAllComments={updateAllComments}
             commentToEdit={comment}
             toggleEdit={this.toggleEdit}
+            errorMessages={errorMessages}
+            setCommentErrorMessages={setCommentErrorMessages}
           />
         ) : (
-          <article>
+          <article style={{ paddingLeft: "40px" }}>
             {this.currentUserIsAuthor() && (
               <div className="controls">
                 <ul>
@@ -65,13 +68,13 @@ class Comment extends React.Component {
                   ))}
                 </ul>
                 <button onClick={this.toggleEdit}>Edit Comment</button>
-                <button onClick={() => deleteComment(comment.id)}>
+                <button onClick={() => deleteComment(comment)}>
                   Delete Comment
                 </button>
               </div>
             )}
             <p>
-              <strong>Written by => {comment.author.name}</strong>
+              <strong>COMMENT Written by => {comment.author.name}</strong>
             </p>
             <p>COMMENT BODY =>{comment.body}</p>
             <p>Posted {moment(comment.created_at, "YYYY-MM-DD").fromNow()}</p>

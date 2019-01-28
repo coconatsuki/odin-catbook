@@ -53,14 +53,14 @@ class UserPage extends AbstractPostsPage {
       currentUser && (
         <>
           {displayFriends ? (
-            <div className="users-friends">
+            <div className="users-friends" style={{ paddingLeft: "20px" }}>
               <a onClick={this.toggleDisplayFriends}>
                 {`Back to ${user.name} Profile`}
               </a>
               <Users users={user.friends} />
             </div>
           ) : (
-            <div className="user">
+            <div className="user" style={{ paddingLeft: "20px" }}>
               <User
                 user={this.state.user}
                 currentUser={this.state.currentUser}

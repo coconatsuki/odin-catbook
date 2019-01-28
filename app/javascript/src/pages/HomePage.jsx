@@ -28,7 +28,7 @@ class HomePage extends AbstractPostsPage {
 
   render() {
     return (
-      <div>
+      <div style={{ paddingLeft: "20px" }}>
         <h3>POSTS : </h3>
         <p>--------------------------------------</p>
         <PostForm refreshPosts={this.refreshPosts} />

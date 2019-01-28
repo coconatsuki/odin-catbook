@@ -2,7 +2,7 @@ import { addCsrf } from "./helper";
 import PropTypes from "prop-types";
 
 export async function getComments(postId) {
-  const comments = await fetch(`posts/${postId}/comments`, {
+  const comments = await fetch(`/posts/${postId}/comments`, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json"

@@ -41,16 +41,14 @@ class AbstractHomePage extends React.Component {
     }
   };
 
-  clearErrors = () => {
-    this.setState({
-      errorMessages: []
-    });
-  };
-
   updateErrorMessages = message => {
     this.setState({
       errorMessages: [...message]
     });
+  };
+
+  clearErrors = () => {
+    this.updateErrorMessages([]);
   };
 
   fetchCurrentUser = async data => {

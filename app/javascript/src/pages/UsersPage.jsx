@@ -20,7 +20,7 @@ class UsersPage extends React.Component {
   };
 
   render() {
-    return <Users users={this.state.users} />;
+    return <Users users={this.state.users} style={{ paddingLeft: "20px" }} />;
   }
 }
 
