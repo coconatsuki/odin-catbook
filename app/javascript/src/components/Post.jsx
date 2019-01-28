@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import PostForm from "./PostForm";
 import Like from "./Like";
 import CommentsBlock from "./CommentsBlock";
+import ErrorsBlock from "./ErrorsBlock";
 import { addLike, destroyLike } from "../API/likes";
 import { postType } from "../API/posts";
 import { getComments } from "../API/comments";
@@ -54,13 +55,7 @@ class Post extends React.Component {
           <article>
             {this.currentUserIsAuthor() && (
               <div className="controls">
-                <ul>
-                  {this.props.errorMessages.map((msg, index) => (
-                    <li key={`error${index}`} style={{ color: "red" }}>
-                      {msg}
-                    </li>
-                  ))}
-                </ul>
+                <ErrorsBlock errorMessages={this.props.errorMessages} />
                 <button onClick={this.toggleEdit}>Edit Post</button>
                 <button onClick={() => deletePost(post.id)}>Delete Post</button>
               </div>
