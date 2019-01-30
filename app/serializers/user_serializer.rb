@@ -6,4 +6,8 @@ class UserSerializer < ActiveModel::Serializer
 
   attribute(:likes_count) { object.likes.size }
   attribute(:friends) { object.friends }
+
+  attribute(:is_friend) { object.friend(current_user) ? object.friend(current_user).id : nil }
+  attribute(:sent_friend_request) { object.sent_friend_request(current_user) ? object.sent_friend_request(current_user).id : nil }
+  attribute(:received_friend_request) { object.received_friend_request(current_user) ? object.received_friend_request(current_user).id : nil }
 end

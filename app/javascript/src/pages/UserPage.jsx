@@ -36,8 +36,12 @@ class UserPage extends AbstractPostsPage {
 
   canSeeProfile = () => {
     const { user, currentUser } = this.state;
-    const isFriend = currentUser.friends.find(friend => friend.id === user.id);
-    return isFriend || currentUser.id === user.id;
+    return currentUser.friends.includes(friend => friend.id === user.id);
+  };
+
+  isCurrentUser = () => {
+    const { user, currentUser } = this.state;
+    return currentUser.id === user.id;
   };
 
   toggleDisplayFriends = () => {
@@ -65,6 +69,7 @@ class UserPage extends AbstractPostsPage {
                 user={this.state.user}
                 currentUser={this.state.currentUser}
                 canSeeProfile={this.canSeeProfile}
+                isCurrentUser={this.isCurrentUser}
                 toggleDisplayFriends={this.toggleDisplayFriends}
               />
               {user.id === currentUser.id && (

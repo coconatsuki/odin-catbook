@@ -6,5 +6,5 @@ class PostSerializer < ActiveModel::Serializer
 
   attribute(:likes_count) { object.likes.size }
   attribute(:comments_count) { object.comments.size }
-  attribute(:liked_by_current_user) { object.liked_by(current_user) }
+  attribute(:liked_by_current_user) { object.liked_by(current_user) ? object.liked_by(current_user).id : nil }
 end

@@ -59,6 +59,22 @@ class User < ApplicationRecord
     friends | received_pending_friends | sent_pending_friends
   end
 
+  def friend(current_user)
+    sent_active_friends.find_by(id: current_user.id) || received_active_friends.find_by(id: current_user.id)
+  end
+
+  def sent_friend_request(current_user)
+    sent_pending_friends.find_by(id: current_user.id)
+  end
+
+  def received_friend_request(current_user)
+    received_pending_friends.find_by(id: current_user.id)
+  end
+
+  def liked_by
+    likes.find_by(author_id: user.id)
+  end
+
   # Give back the posts of all the user friends, and his own.
   def feed
     users = friends << self

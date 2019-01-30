@@ -1,14 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { userType } from "../API/users";
 
 class Users extends React.Component {
   static propTypes = {
-    users: PropTypes.PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired
-      })
-    ).isRequired
+    users: PropTypes.arrayOf(userType).isRequired
   };
 
   render() {

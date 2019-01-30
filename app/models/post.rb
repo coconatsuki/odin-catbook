@@ -8,7 +8,6 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   def liked_by(user)
-    liked_by_user = likes.find { |like| like.author_id == user.id }
-    liked_by_user ? liked_by_user.id : nil
+    likes.find_by(author_id: user.id)
   end
 end

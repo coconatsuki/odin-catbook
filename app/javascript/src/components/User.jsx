@@ -1,31 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { userType, currentUserWithFriendsType } from "../API/users";
+import FriendshipButton from "./FriendshipButton";
 
 class User extends React.Component {
   static propTypes = {
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      friends: PropTypes.array.isRequired
-    }).isRequired,
-    currentUser: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
-    }),
+    user: userType.isRequired,
+    currentUser: currentUserWithFriendsType.isRequired,
     canSeeProfile: PropTypes.func.isRequired,
+    isCurrentUser: PropTypes.func.isRequired,
     toggleDisplayFriends: PropTypes.func.isRequired
   };
 
   render() {
-    const { user, currentUser } = this.props;
+    const { user, currentUser, isCurrentUser, canSeeProfile } = this.props;
     return (
       <>
         <p>Link to Edit profile here</p>
         <p>PROFILE PIC HERE</p>
         <p>{user.name}</p>
-        {this.props.canSeeProfile() ? (
+        {canSeeProfile() || isCurrentUser ? (
           <div className="current-user">
-            <p>RENDER Friends Requests here</p>
+            {!isCurrentUser() && <FriendshipButton user={user} />}
             <p>
               <a onClick={this.props.toggleDisplayFriends}>
                 {user.friends.length}
@@ -34,11 +30,14 @@ class User extends React.Component {
             </p>
           </div>
         ) : (
-          <p>
-            <strong>
-              If you're not friend with this cat, you can't see its page.
-            </strong>
-          </p>
+          <>
+            <p>
+              <strong>
+                If you're not friend with this cat, you can't see its page.
+              </strong>
+            </p>
+            <FriendshipButton user={user} />
+          </>
         )}
       </>
     );
