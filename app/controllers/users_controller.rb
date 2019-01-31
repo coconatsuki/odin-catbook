@@ -53,6 +53,10 @@ class UsersController < ApplicationController
 
   def received_requests
     @requests = Friendship.find_all_requests(current_user)
+
+    respond_to do |format|
+      format.html {}
+    end
   end
 
   def sent_requests
@@ -61,10 +65,13 @@ class UsersController < ApplicationController
 
   def current
     if params[:withFriends] == "yes"
-      render json: current_user, serializer: CurrentUserWithFriendsSerializer
-    else
-      render json: current_user, serializer: CurrentUserSerializer
+      return render json: current_user, serializer: CurrentUserWithFriendsSerializer
     end
+    if params[:withFriendRequests] == "yes"
+      return render json: current_user, serializer: CurrentUserWithRequestsSerializer, include: 'received_pending_friends, received_pending_friends.name'
+    end
+
+    render json: current_user, serializer: CurrentUserSerializer
   end
 
   private

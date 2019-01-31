@@ -18,7 +18,7 @@ class UserPage extends AbstractPostsPage {
   componentDidMount = async () => {
     const userId = this.getUserIdFromHtml();
     await this.fetchUserAndPosts(userId);
-    await this.fetchCurrentUser("withFriends");
+    await this.fetchCurrentUser("?withFriends=yes");
   };
 
   fetchUserAndPosts = async userId => {
@@ -53,7 +53,7 @@ class UserPage extends AbstractPostsPage {
   updateUser = async userId => {
     console.log("UPDATE USER", userId);
     await this.fetchUserAndPosts(userId);
-    await this.fetchCurrentUser("withFriends");
+    await this.fetchCurrentUser("?withFriends=yes");
   };
 
   render() {

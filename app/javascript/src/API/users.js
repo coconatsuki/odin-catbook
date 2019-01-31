@@ -1,16 +1,23 @@
 // import { addCsrf } from "./helper";
 import PropTypes from "prop-types";
 
-export async function getCurrentUser(data) {
-  const currentUser = await fetch(
-    `/users/current${data === "withFriends" ? "?withFriends=yes" : ""}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      }
+// currentUserFetchMethod = data => {
+//   if (data === "withFriends") {
+//     return "?withFriends=yes";
+//   }
+//   if (data === "withFriendRequests") {
+//     return "?withFriendRequests=yes";
+//   }
+//   return "";
+// };
+
+export async function getCurrentUser(params) {
+  const currentUser = await fetch(`/users/current${params}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
     }
-  );
+  });
   const response = await currentUser.json();
   if (response.user.id) {
     return response;
@@ -76,4 +83,10 @@ export const currentUserWithFriendsType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   received_friend_requests: PropTypes.array.isRequired,
   sent_friend_requests: PropTypes.array.isRequired
+});
+
+export const currentUserWithRequestsType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  received_pending_friends: PropTypes.array.isRequired
 });

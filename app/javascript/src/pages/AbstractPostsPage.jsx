@@ -51,8 +51,8 @@ class AbstractHomePage extends React.Component {
     this.updateErrorMessages([]);
   };
 
-  fetchCurrentUser = async data => {
-    const fetchedCurrentUser = await getCurrentUser(data);
+  fetchCurrentUser = async params => {
+    const fetchedCurrentUser = await getCurrentUser(params);
     this.setState({
       currentUser: fetchedCurrentUser ? fetchedCurrentUser.user : null
     });

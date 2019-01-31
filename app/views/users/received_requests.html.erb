@@ -1,13 +1,2 @@
-<h3>These friends sent you a friend request :</h3>
-<ul>
-  <% @requests.each do |request| %>
-    <li id="request-<%= request.id %>">
-      <%= request.requesting.name %>
-      <%= form_for(request, remote: true) do |f| %>
-        <%= f.submit "Accept friend request" %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to " << Back to profile", current_user %>
+  <div id="friend-requests-container"></div>
+  <%= javascript_pack_tag 'friend-requests-rendering' %>
