@@ -62,7 +62,7 @@ class UserPage extends AbstractPostsPage {
       user &&
       currentUser && (
         <>
-          <Nav />
+          <Nav currentUser={currentUser} />
           {displayFriends ? (
             <div className="users-friends" style={{ paddingLeft: "20px" }}>
               <a onClick={this.toggleDisplayFriends}>

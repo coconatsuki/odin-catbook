@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout' },
-                     controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+                     controllers: { omniauth_callbacks: "auth/omniauth_callbacks" }, path: 'auth'
 
   resources :users, only: %i[show index edit update] do
     collection do

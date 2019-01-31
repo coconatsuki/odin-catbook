@@ -23,7 +23,7 @@ class FriendRequests extends AbstractPostsPage {
     return (
       currentUser && (
         <>
-          <Nav />
+          <Nav currentUser={currentUser} />
           {currentUser.received_pending_friends.length > 0 ? (
             <h2>These friends sent you a friend request:</h2>
           ) : (

@@ -9,7 +9,9 @@
   </head>
 
   <body>
+  <% if !user_signed_in? %>
     <%= render 'layouts/nav' %>
+  <% end %>
     <div id="flash"><%= render 'layouts/flash' %></div>
     <%= yield %>
   </body>

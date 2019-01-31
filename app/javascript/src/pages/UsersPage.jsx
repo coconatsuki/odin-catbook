@@ -6,7 +6,8 @@ import { getCurrentUser, getUsers } from "../API/users";
 
 class UsersPage extends React.Component {
   state = {
-    users: []
+    users: [],
+    currentUser: null
   };
 
   async componentDidMount() {
@@ -15,17 +16,23 @@ class UsersPage extends React.Component {
 
   fetchUsers = async () => {
     const fetchedUsers = await getUsers();
+    const fetchedCurrentUser = await getCurrentUser("");
     this.setState({
-      users: fetchedUsers.users
+      users: fetchedUsers.users,
+      currentUser: fetchedCurrentUser.user
     });
   };
 
   render() {
+    const { users, currentUser } = this.state;
     return (
-      <>
-        <Nav />
-        <Users users={this.state.users} style={{ paddingLeft: "20px" }} />
-      </>
+      users &&
+      currentUser && (
+        <>
+          <Nav currentUser={this.state.currentUser} />
+          <Users users={this.state.users} style={{ paddingLeft: "20px" }} />
+        </>
+      )
     );
   }
 }

@@ -3,6 +3,7 @@ import FlipMove from "react-flip-move";
 import PropTypes from "prop-types";
 import AbstractPostsPage from "./AbstractPostsPage";
 import { getPosts } from "../API/posts";
+import { getCurrentUser } from "../API/users";
 import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
 import Nav from "../components/Nav";
@@ -16,7 +17,7 @@ class HomePage extends AbstractPostsPage {
 
   async componentDidMount() {
     await this.fetchPosts();
-    await this.fetchCurrentUser();
+    await this.fetchCurrentUser("");
   }
 
   fetchPosts = async () => {
@@ -28,22 +29,25 @@ class HomePage extends AbstractPostsPage {
   };
 
   render() {
+    const { currentUser } = this.state;
     return (
-      <>
-        <Nav />
-        <div style={{ paddingLeft: "20px" }}>
-          <h3>POSTS : </h3>
-          <p>--------------------------------------</p>
-          <PostForm refreshPosts={this.refreshPosts} />
-          <Posts
-            posts={this.state.posts}
-            currentUser={this.state.currentUser}
-            refreshPosts={this.refreshPosts}
-            deletePost={this.deletePost}
-            errorMessages={this.state.errorMessages}
-          />
-        </div>
-      </>
+      currentUser && (
+        <>
+          <Nav currentUser={this.state.currentUser} />
+          <div style={{ paddingLeft: "20px" }}>
+            <h3>POSTS : </h3>
+            <p>--------------------------------------</p>
+            <PostForm refreshPosts={this.refreshPosts} />
+            <Posts
+              posts={this.state.posts}
+              currentUser={this.state.currentUser}
+              refreshPosts={this.refreshPosts}
+              deletePost={this.deletePost}
+              errorMessages={this.state.errorMessages}
+            />
+          </div>
+        </>
+      )
     );
   }
 }

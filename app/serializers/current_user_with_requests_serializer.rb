@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-class CurrentUserWithRequestsSerializer < ActiveModel::Serializer
-  attributes :id, :name
-
+class CurrentUserWithRequestsSerializer < CurrentUserSerializer
   has_many :received_pending_friends, serializer: NotFriendSerializer
 end
