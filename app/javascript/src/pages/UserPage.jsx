@@ -4,6 +4,7 @@ import User from "../components/User";
 import Users from "../components/Users";
 import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
+import Nav from "../components/Nav";
 import { getUserById, getCurrentUser } from "../API/users";
 
 class UserPage extends AbstractPostsPage {
@@ -61,6 +62,7 @@ class UserPage extends AbstractPostsPage {
       user &&
       currentUser && (
         <>
+          <Nav />
           {displayFriends ? (
             <div className="users-friends" style={{ paddingLeft: "20px" }}>
               <a onClick={this.toggleDisplayFriends}>

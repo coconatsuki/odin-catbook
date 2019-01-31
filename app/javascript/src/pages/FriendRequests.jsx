@@ -1,6 +1,7 @@
 import React from "react";
 import AbstractPostsPage from "./AbstractPostsPage";
 import FriendshipButton from "../components/FriendshipButton";
+import Nav from "../components/Nav";
 import { getCurrentUser } from "../API/users";
 
 class FriendRequests extends AbstractPostsPage {
@@ -22,6 +23,7 @@ class FriendRequests extends AbstractPostsPage {
     return (
       currentUser && (
         <>
+          <Nav />
           {currentUser.received_pending_friends.length > 0 ? (
             <h2>These friends sent you a friend request:</h2>
           ) : (

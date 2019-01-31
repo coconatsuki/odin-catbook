@@ -5,6 +5,7 @@ import AbstractPostsPage from "./AbstractPostsPage";
 import { getPosts } from "../API/posts";
 import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
+import Nav from "../components/Nav";
 
 class HomePage extends AbstractPostsPage {
   state = {
@@ -28,18 +29,21 @@ class HomePage extends AbstractPostsPage {
 
   render() {
     return (
-      <div style={{ paddingLeft: "20px" }}>
-        <h3>POSTS : </h3>
-        <p>--------------------------------------</p>
-        <PostForm refreshPosts={this.refreshPosts} />
-        <Posts
-          posts={this.state.posts}
-          currentUser={this.state.currentUser}
-          refreshPosts={this.refreshPosts}
-          deletePost={this.deletePost}
-          errorMessages={this.state.errorMessages}
-        />
-      </div>
+      <>
+        <Nav />
+        <div style={{ paddingLeft: "20px" }}>
+          <h3>POSTS : </h3>
+          <p>--------------------------------------</p>
+          <PostForm refreshPosts={this.refreshPosts} />
+          <Posts
+            posts={this.state.posts}
+            currentUser={this.state.currentUser}
+            refreshPosts={this.refreshPosts}
+            deletePost={this.deletePost}
+            errorMessages={this.state.errorMessages}
+          />
+        </div>
+      </>
     );
   }
 }

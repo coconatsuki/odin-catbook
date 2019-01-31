@@ -1,5 +1,6 @@
 import React from "react";
 import Users from "../components/Users";
+import Nav from "../components/Nav";
 import PropTypes from "prop-types";
 import { getCurrentUser, getUsers } from "../API/users";
 
@@ -20,7 +21,12 @@ class UsersPage extends React.Component {
   };
 
   render() {
-    return <Users users={this.state.users} style={{ paddingLeft: "20px" }} />;
+    return (
+      <>
+        <Nav />
+        <Users users={this.state.users} style={{ paddingLeft: "20px" }} />
+      </>
+    );
   }
 }
 
