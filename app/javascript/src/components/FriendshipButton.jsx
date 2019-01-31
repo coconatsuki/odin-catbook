@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ErrorsBlock from "./ErrorsBlock";
-import { userType } from "../API/users";
+import { basicUserType } from "../API/users";
 import {
   createFriendRequest,
   updateFriendRequest,
@@ -10,7 +10,7 @@ import {
 
 class FriendshipButton extends React.Component {
   static propTypes = {
-    user: userType.isRequired,
+    user: basicUserType.isRequired,
     updateUser: PropTypes.func.isRequired
   };
 

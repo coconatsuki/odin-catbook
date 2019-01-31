@@ -51,7 +51,6 @@ class UserPage extends AbstractPostsPage {
   };
 
   updateUser = async userId => {
-    console.log("UPDATE USER", userId);
     await this.fetchUserAndPosts(userId);
     await this.fetchCurrentUser("?withFriends=yes");
   };

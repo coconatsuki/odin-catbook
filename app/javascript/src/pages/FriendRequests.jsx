@@ -1,6 +1,6 @@
 import React from "react";
 import AbstractPostsPage from "./AbstractPostsPage";
-// import FriendshipButton from "../components/FriendshipButton";
+import FriendshipButton from "../components/FriendshipButton";
 import { getCurrentUser } from "../API/users";
 
 class FriendRequests extends AbstractPostsPage {
@@ -13,12 +13,8 @@ class FriendRequests extends AbstractPostsPage {
     await this.fetchCurrentUser("?withFriendRequests=yes");
   };
 
-  fetchCurrentUser = async params => {
-    const fetchedCurrentUser = await getCurrentUser(params);
-    console.log("FETCHED CURRENT USER, params", fetchedCurrentUser, params);
-    this.setState({
-      currentUser: fetchedCurrentUser ? fetchedCurrentUser.user : null
-    });
+  updateUser = async userId => {
+    await this.fetchCurrentUser("?withFriendRequests=yes");
   };
 
   render() {
@@ -33,7 +29,10 @@ class FriendRequests extends AbstractPostsPage {
           )}
           <ul>
             {currentUser.received_pending_friends.map(friend => (
-              <li key={friend.id}>{friend.name}</li>
+              <div className="requesting-friend" key={friend.id}>
+                <li>{friend.name} </li>
+                <FriendshipButton user={friend} updateUser={this.updateUser} />
+              </div>
             ))}
           </ul>
 
