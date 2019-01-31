@@ -9,11 +9,18 @@ class User extends React.Component {
     currentUser: currentUserWithFriendsType.isRequired,
     canSeeProfile: PropTypes.func.isRequired,
     isCurrentUser: PropTypes.func.isRequired,
-    toggleDisplayFriends: PropTypes.func.isRequired
+    toggleDisplayFriends: PropTypes.func.isRequired,
+    updateUser: PropTypes.func.isRequired
   };
 
   render() {
-    const { user, currentUser, isCurrentUser, canSeeProfile } = this.props;
+    const {
+      user,
+      currentUser,
+      isCurrentUser,
+      canSeeProfile,
+      updateUser
+    } = this.props;
     return (
       <>
         <p>Link to Edit profile here</p>
@@ -21,11 +28,13 @@ class User extends React.Component {
         <p>{user.name}</p>
         {canSeeProfile() || isCurrentUser ? (
           <div className="current-user">
-            {!isCurrentUser() && <FriendshipButton user={user} />}
+            {!isCurrentUser() && (
+              <FriendshipButton user={user} updateUser={updateUser} />
+            )}
             <p>
               <a onClick={this.props.toggleDisplayFriends}>
                 {user.friends.length}
-                {user.friends.length > 1 ? "FRIENDS" : "FRIEND"}
+                {user.friends.length > 1 ? " FRIENDS" : " FRIEND"}
               </a>
             </p>
           </div>
@@ -36,7 +45,7 @@ class User extends React.Component {
                 If you're not friend with this cat, you can't see its page.
               </strong>
             </p>
-            <FriendshipButton user={user} />
+            <FriendshipButton user={user} updateUser={updateUser} />
           </>
         )}
       </>

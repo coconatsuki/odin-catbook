@@ -3,7 +3,7 @@
 class FriendshipsController < ApplicationController
   def create
     @current_user = current_user
-    @user = User.find(params[:requested])
+    @user = User.find(friendship_params[:requested_id])
     @friendship = @current_user.sent_friendships.new(requested_id: @user.id)
 
     if @friendship.save
@@ -30,9 +30,15 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.find(params[:id])
 
     if @friendship.destroy
-      head :destroyed
+      head :accepted
     else
-      render json: { errors: @friendship.errors.full_messages }
+      render json: { errors: "@friendship.errors.full_messages" }
     end
+  end
+
+  private
+
+  def friendship_params
+    params.require(:friendship).permit(:requested_id)
   end
 end

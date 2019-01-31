@@ -50,6 +50,12 @@ class UserPage extends AbstractPostsPage {
     });
   };
 
+  updateUser = async userId => {
+    console.log("UPDATE USER", userId);
+    await this.fetchUserAndPosts(userId);
+    await this.fetchCurrentUser("withFriends");
+  };
+
   render() {
     const { user, currentUser, displayFriends } = this.state;
     return (
@@ -71,6 +77,7 @@ class UserPage extends AbstractPostsPage {
                 canSeeProfile={this.canSeeProfile}
                 isCurrentUser={this.isCurrentUser}
                 toggleDisplayFriends={this.toggleDisplayFriends}
+                updateUser={this.updateUser}
               />
               {user.id === currentUser.id && (
                 <PostForm refreshPosts={this.refreshPosts} />

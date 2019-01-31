@@ -4,12 +4,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @cats = User.where.not(id: friends_ids << current_user.id)
-
+    @cats = User.where.not(id: friends_ids).order(:name)
     respond_to do |format|
       format.html {}
       format.json do
-        render json: @cats
+        render json: @cats, each_serializer: NotFriendSerializer
       end
     end
   end
@@ -81,7 +80,7 @@ class UsersController < ApplicationController
   end
 
   def friends_ids
-    ids = current_user.all_friends.map(&:id)
+    ids = current_user.friends.map(&:id)
     ids << current_user.id
   end
 end

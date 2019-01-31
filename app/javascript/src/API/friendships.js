@@ -1,8 +1,8 @@
 import { addCsrf } from "./helper";
 import PropTypes from "prop-types";
 
-export async function sendFriendRequest(user) {
-  const friendRequest = await fetch("/posts", {
+export async function createFriendRequest(user) {
+  const friendRequest = await fetch("/friendships", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,12 +11,12 @@ export async function sendFriendRequest(user) {
     body: JSON.stringify(
       addCsrf({
         friendship: {
-          requested: user
+          requested_id: user.id
         }
       })
     )
   });
-  if (response.ok) {
+  if (friendRequest.ok) {
     return {};
   } else {
     const response = await friendRequest.json();
@@ -24,7 +24,8 @@ export async function sendFriendRequest(user) {
   }
 }
 
-export async function acceptFriendRequest(friendShipId) {
+export async function updateFriendRequest(friendshipId) {
+  console.log("FROM API", friendshipId);
   const friendship = await fetch(`/friendships/${friendshipId}`, {
     method: "PATCH",
     headers: {
@@ -34,12 +35,12 @@ export async function acceptFriendRequest(friendShipId) {
     body: JSON.stringify(
       addCsrf({
         friendship: {
-          id: friendShipId
+          id: friendshipId
         }
       })
     )
   });
-  if (response.ok) {
+  if (friendship.ok) {
     return {};
   } else {
     const response = await friendship.json();
@@ -57,12 +58,12 @@ export async function destroyFriendship(friendshipId) {
     body: JSON.stringify(
       addCsrf({
         friendship: {
-          id: friendShipId
+          id: friendshipId
         }
       })
     )
   });
-  if (response.ok) {
+  if (friendship.ok) {
     return {};
   } else {
     const response = await friendship.json();

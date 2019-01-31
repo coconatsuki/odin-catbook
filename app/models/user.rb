@@ -60,15 +60,17 @@ class User < ApplicationRecord
   end
 
   def friend(current_user)
-    sent_active_friends.find_by(id: current_user.id) || received_active_friends.find_by(id: current_user.id)
+    Friendship.find_active_friendship(current_user, self)
   end
 
   def sent_friend_request(current_user)
-    sent_pending_friends.find_by(id: current_user.id)
+    requesting_user_id = sent_pending_friends.find_by(id: current_user.id)
+    Friendship.find_by(requested_id: requesting_user_id)
   end
 
   def received_friend_request(current_user)
-    received_pending_friends.find_by(id: current_user.id)
+    requested_user_id = received_pending_friends.find_by(id: current_user.id)
+    Friendship.find_by(requesting_id: requested_user_id)
   end
 
   def liked_by

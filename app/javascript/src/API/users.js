@@ -56,8 +56,14 @@ export const userType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   friends: PropTypes.array.isRequired,
   is_friend: PropTypes.number,
-  friend_request_sent: PropTypes.number,
-  friend_request_received: PropTypes.number
+  sent_friend_request: PropTypes.number,
+  received_friend_request: PropTypes.number
+});
+export const basicUserType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  sent_friend_request: PropTypes.number,
+  received_friend_request: PropTypes.number
 });
 
 export const currentUserType = PropTypes.shape({
