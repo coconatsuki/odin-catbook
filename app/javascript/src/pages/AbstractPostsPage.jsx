@@ -52,7 +52,7 @@ class AbstractHomePage extends React.Component {
   };
 
   fetchCurrentUser = async params => {
-    const fetchedCurrentUser = await getCurrentUser(params);
+    const fetchedCurrentUser = await getCurrentUser(params ? params : "");
     this.setState({
       currentUser: fetchedCurrentUser ? fetchedCurrentUser.user : null
     });
