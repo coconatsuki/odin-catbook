@@ -11,7 +11,8 @@ import {
 class FriendshipButton extends React.Component {
   static propTypes = {
     user: basicUserType.isRequired,
-    updateUser: PropTypes.func.isRequired
+    updateUser: PropTypes.func.isRequired,
+    deleteFriendRequest: PropTypes.bool
   };
 
   state = {
@@ -32,7 +33,6 @@ class FriendshipButton extends React.Component {
     const response = await createFriendRequest(this.props.user);
     if (response.errors) return this.setErrorMessages(response.errors);
     this.setState({
-      // buttonText: "Friend request sent",
       errorMessages: [],
       buttonDisabled: true
     });
@@ -45,22 +45,21 @@ class FriendshipButton extends React.Component {
     const response = await updateFriendRequest(user.sent_friend_request);
     if (response.errors) return this.setErrorMessages(response.errors);
     this.setState({
-      // buttonText: `Unfriend ${user.name}`,
       errorMessages: []
     });
     updateUser(user.id);
   };
 
-  // destroyFriendRequest = async () => {
-  //   const { user } = this.props;
-  //   console.log("destroying friend request !", user.sent_friend_request);
-  //   const response = await destroyFriendship(user.is_friend);
-  //   if (response.errors) return this.setErrorMessages(response.errors);
-  //   this.setState({
-  //     buttonText: `Send friend request to ${user.name}`,
-  //     errorMessages: []
-  //   });
-  // };
+  destroyFriendRequest = async () => {
+    const { user, updateUser } = this.props;
+    console.log("destroying friend request !", user.sent_friend_request);
+    const response = await destroyFriendship(user.sent_friend_request);
+    if (response.errors) return this.setErrorMessages(response.errors);
+    this.setState({
+      errorMessages: []
+    });
+    updateUser(user.id);
+  };
 
   unFriend = async () => {
     const { user, updateUser } = this.props;
@@ -68,16 +67,18 @@ class FriendshipButton extends React.Component {
     const response = await destroyFriendship(user.is_friend);
     if (response.errors) return this.setErrorMessages(response.errors);
     this.setState({
-      // buttonText: `Send friend request to ${user.name}`,
       errorMessages: []
     });
     updateUser(user.id);
   };
 
   toggleFriendship = () => {
-    const { user } = this.props;
+    const { user, deleteFriendRequest } = this.props;
     if (user.received_friend_request) {
       return;
+    }
+    if (deleteFriendRequest) {
+      return this.destroyFriendRequest();
     }
     if (user.sent_friend_request) {
       return this.acceptFriendRequest();
@@ -89,7 +90,13 @@ class FriendshipButton extends React.Component {
   };
 
   friendRequestButtonText = () => {
-    const { user } = this.props;
+    const { user, deleteFriendRequest } = this.props;
+    if (deleteFriendRequest) {
+      return `Refuse ${user.name} friend request`;
+    }
+    if (user.sent_friend_request) {
+      return `Accept ${user.name} friend request`;
+    }
     if (user.sent_friend_request) {
       return `Accept ${user.name} friend request`;
     }

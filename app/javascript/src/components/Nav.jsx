@@ -17,7 +17,7 @@ class Nav extends React.Component {
               href={`/users/${currentUser.id}`}
               style={{ textDecoration: "none" }}
             >
-              Current user page
+              {currentUser.name}
             </a>
           </li>
           <li key="home-page" style={{ marginLeft: "20px" }}>

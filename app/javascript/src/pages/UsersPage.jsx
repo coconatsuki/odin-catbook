@@ -28,10 +28,10 @@ class UsersPage extends React.Component {
     return (
       users &&
       currentUser && (
-        <>
+        <div style={{ paddingLeft: "20px", marginTop: "60px" }}>
           <Nav currentUser={this.state.currentUser} />
-          <Users users={this.state.users} style={{ paddingLeft: "20px" }} />
-        </>
+          <Users users={this.state.users} />
+        </div>
       )
     );
   }

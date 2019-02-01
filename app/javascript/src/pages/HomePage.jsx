@@ -34,7 +34,7 @@ class HomePage extends AbstractPostsPage {
       currentUser && (
         <>
           <Nav currentUser={this.state.currentUser} />
-          <div style={{ paddingLeft: "20px" }}>
+          <div style={{ paddingLeft: "20px", marginTop: "60px" }}>
             <h3>POSTS : </h3>
             <p>--------------------------------------</p>
             <PostForm refreshPosts={this.refreshPosts} />

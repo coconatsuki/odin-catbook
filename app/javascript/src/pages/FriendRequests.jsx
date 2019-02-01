@@ -22,7 +22,7 @@ class FriendRequests extends AbstractPostsPage {
     const { currentUser } = this.state;
     return (
       currentUser && (
-        <>
+        <div style={{ paddingLeft: "20px", marginTop: "60px" }}>
           <Nav currentUser={currentUser} />
           {currentUser.received_pending_friends.length > 0 ? (
             <h2>These friends sent you a friend request:</h2>
@@ -34,12 +34,15 @@ class FriendRequests extends AbstractPostsPage {
               <div className="requesting-friend" key={friend.id}>
                 <li>{friend.name} </li>
                 <FriendshipButton user={friend} updateUser={this.updateUser} />
+                <FriendshipButton
+                  user={friend}
+                  updateUser={this.updateUser}
+                  deleteFriendRequest
+                />
               </div>
             ))}
           </ul>
-
-          {/* <FriendshipButton user={user} updateUser={updateUser} /> */}
-        </>
+        </div>
       )
     );
   }
