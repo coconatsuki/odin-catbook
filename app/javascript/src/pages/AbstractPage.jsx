@@ -2,7 +2,7 @@ import React from "react";
 import { destroyPost } from "../API/posts";
 import { getCurrentUser } from "../API/users";
 
-class AbstractHomePage extends React.Component {
+class AbstractPage extends React.Component {
   refreshPosts = (postToChange, method) => {
     const { posts } = this.state;
     switch (method) {
@@ -59,4 +59,4 @@ class AbstractHomePage extends React.Component {
   };
 }
 
-export default AbstractHomePage;
+export default AbstractPage;

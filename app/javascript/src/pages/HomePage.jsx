@@ -1,14 +1,15 @@
 import React from "react";
 import FlipMove from "react-flip-move";
 import PropTypes from "prop-types";
-import AbstractPostsPage from "./AbstractPostsPage";
+import AbstractPage from "./AbstractPage";
 import { getPosts } from "../API/posts";
 import { getCurrentUser } from "../API/users";
 import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
 import Nav from "../components/Nav";
+import { Body } from "../styles/global";
 
-class HomePage extends AbstractPostsPage {
+class HomePage extends AbstractPage {
   state = {
     posts: [],
     currentUser: null,
@@ -33,7 +34,8 @@ class HomePage extends AbstractPostsPage {
     return (
       currentUser && (
         <>
-          <Nav currentUser={this.state.currentUser} />
+          <Body />
+          <Nav currentUser={this.state.currentUser} homePage />
           <div style={{ paddingLeft: "20px", marginTop: "60px" }}>
             <h3>POSTS : </h3>
             <p>--------------------------------------</p>

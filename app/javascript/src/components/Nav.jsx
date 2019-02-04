@@ -1,50 +1,47 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { currentUserType } from "../API/users";
+import { Navigation, List, ListElement, Logo } from "../styles/nav";
 
 class Nav extends React.Component {
   static propTypes = {
-    currentUser: currentUserType
+    currentUser: currentUserType,
+    homePage: PropTypes.bool,
+    usersPage: PropTypes.bool,
+    userPage: PropTypes.bool,
+    requestsPage: PropTypes.bool
   };
 
   render() {
     const { currentUser } = this.props;
     return currentUser ? (
-      <nav style={{ position: "absolute", top: "20px", right: "50px" }}>
-        <ul style={{ listStyleType: "none", display: "flex" }}>
-          <li key="current-user-page">
-            <a
-              href={`/users/${currentUser.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              {currentUser.name}
-            </a>
-          </li>
-          <li key="home-page" style={{ marginLeft: "20px" }}>
-            <a href="/posts" style={{ textDecoration: "none" }}>
-              Home
-            </a>
-          </li>
-          <li key="users-page" style={{ marginLeft: "20px" }}>
-            <a href="/users" style={{ textDecoration: "none" }}>
-              Find cat-friends
-            </a>
-          </li>
-          <li key="friend-requests-page" style={{ marginLeft: "20px" }}>
-            <a
-              href={`/users/${currentUser.id}/received_requests`}
-              style={{ textDecoration: "none" }}
-            >
+      <Navigation>
+        <Logo href="#">
+          <i />
+        </Logo>
+        <List>
+          <ListElement key="current-user-page" active={this.props.userPage}>
+            <a href={`/users/${currentUser.id}`}>{currentUser.name}</a>
+          </ListElement>
+          <ListElement key="home-page" active={this.props.homePage}>
+            <a href="/posts">Home</a>
+          </ListElement>
+          <ListElement key="users-page" active={this.props.usersPage}>
+            <a href="/users">Find cat-friends</a>
+          </ListElement>
+          <ListElement
+            key="friend-requests-page"
+            active={this.props.requestsPage}
+          >
+            <a href={`/users/${currentUser.id}/received_requests`}>
               <strong>{currentUser.requests_count}</strong> friend requests
             </a>
-          </li>
-          <li key="log-in-and-out" style={{ marginLeft: "20px" }}>
-            <a href="/auth/logout" style={{ textDecoration: "none" }}>
-              Log out
-            </a>
-          </li>
-        </ul>
-      </nav>
+          </ListElement>
+          <ListElement key="log-in-and-out">
+            <a href="/auth/logout">Log out</a>
+          </ListElement>
+        </List>
+      </Navigation>
     ) : (
       <p>LOG OUT</p>
     );

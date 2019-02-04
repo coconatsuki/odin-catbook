@@ -1,10 +1,11 @@
 import React from "react";
-import AbstractPostsPage from "./AbstractPostsPage";
+import AbstractPage from "./AbstractPage";
 import FriendshipButton from "../components/FriendshipButton";
 import Nav from "../components/Nav";
 import { getCurrentUser } from "../API/users";
+import { Body } from "../styles/global";
 
-class FriendRequests extends AbstractPostsPage {
+class FriendRequests extends AbstractPage {
   state = {
     currentUser: null,
     errorMessages: []
@@ -21,29 +22,35 @@ class FriendRequests extends AbstractPostsPage {
   render() {
     const { currentUser } = this.state;
     return (
-      currentUser && (
-        <div style={{ paddingLeft: "20px", marginTop: "60px" }}>
-          <Nav currentUser={currentUser} />
-          {currentUser.received_pending_friends.length > 0 ? (
-            <h2>These friends sent you a friend request:</h2>
-          ) : (
-            <h2>You've no friend request at the moment.</h2>
-          )}
-          <ul>
-            {currentUser.received_pending_friends.map(friend => (
-              <div className="requesting-friend" key={friend.id}>
-                <li>{friend.name} </li>
-                <FriendshipButton user={friend} updateUser={this.updateUser} />
-                <FriendshipButton
-                  user={friend}
-                  updateUser={this.updateUser}
-                  deleteFriendRequest
-                />
-              </div>
-            ))}
-          </ul>
-        </div>
-      )
+      <>
+        <Body />
+        {currentUser && (
+          <div>
+            <Nav currentUser={currentUser} requestsPage />
+            {currentUser.received_pending_friends.length > 0 ? (
+              <h2>These friends sent you a friend request:</h2>
+            ) : (
+              <h2>You've no friend request at the moment.</h2>
+            )}
+            <ul>
+              {currentUser.received_pending_friends.map(friend => (
+                <div className="requesting-friend" key={friend.id}>
+                  <li>{friend.name} </li>
+                  <FriendshipButton
+                    user={friend}
+                    updateUser={this.updateUser}
+                  />
+                  <FriendshipButton
+                    user={friend}
+                    updateUser={this.updateUser}
+                    deleteFriendRequest
+                  />
+                </div>
+              ))}
+            </ul>
+          </div>
+        )}
+      </>
     );
   }
 }

@@ -1,13 +1,14 @@
 import React from "react";
-import AbstractPostsPage from "./AbstractPostsPage";
+import AbstractPage from "./AbstractPage";
 import User from "../components/User";
 import Users from "../components/Users";
 import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
 import Nav from "../components/Nav";
 import { getUserById, getCurrentUser } from "../API/users";
+import { Body, Wrapper } from "../styles/global";
 
-class UserPage extends AbstractPostsPage {
+class UserPage extends AbstractPage {
   state = {
     user: null,
     currentUser: null,
@@ -62,22 +63,17 @@ class UserPage extends AbstractPostsPage {
       user &&
       currentUser && (
         <>
-          <Nav currentUser={currentUser} />
+          <Body />
+          <Nav currentUser={currentUser} userPage />
           {displayFriends ? (
-            <div
-              className="users-friends"
-              style={{ paddingLeft: "20px", marginTop: "60px" }}
-            >
+            <Wrapper>
               <a onClick={this.toggleDisplayFriends}>
                 {`Back to ${user.name} Profile`}
               </a>
               <Users users={user.friends} />
-            </div>
+            </Wrapper>
           ) : (
-            <div
-              className="user"
-              style={{ paddingLeft: "20px", marginTop: "60px" }}
-            >
+            <Wrapper>
               <User
                 user={this.state.user}
                 currentUser={this.state.currentUser}
@@ -99,7 +95,7 @@ class UserPage extends AbstractPostsPage {
                   errorMessages={this.state.errorMessages}
                 />
               )}
-            </div>
+            </Wrapper>
           )}
         </>
       )

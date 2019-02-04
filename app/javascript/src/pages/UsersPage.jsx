@@ -3,6 +3,7 @@ import Users from "../components/Users";
 import Nav from "../components/Nav";
 import PropTypes from "prop-types";
 import { getCurrentUser, getUsers } from "../API/users";
+import { Body } from "../styles/global";
 
 class UsersPage extends React.Component {
   state = {
@@ -26,13 +27,15 @@ class UsersPage extends React.Component {
   render() {
     const { users, currentUser } = this.state;
     return (
-      users &&
-      currentUser && (
-        <div style={{ paddingLeft: "20px", marginTop: "60px" }}>
-          <Nav currentUser={this.state.currentUser} />
-          <Users users={this.state.users} />
-        </div>
-      )
+      <>
+        <Body />
+        {users && currentUser && (
+          <div>
+            <Nav currentUser={this.state.currentUser} usersPage />
+            <Users users={this.state.users} />
+          </div>
+        )}
+      </>
     );
   }
 }

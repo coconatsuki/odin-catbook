@@ -2,6 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { userType, currentUserWithFriendsType } from "../API/users";
 import FriendshipButton from "./FriendshipButton";
+import {
+  Header,
+  CoverPic,
+  ProfileNav,
+  NavElements,
+  ProfilePic,
+  CoverFooter
+} from "../styles/user";
+import { LightGreyButton } from "../styles/global";
 
 class User extends React.Component {
   static propTypes = {
@@ -23,31 +32,34 @@ class User extends React.Component {
     } = this.props;
     return (
       <>
-        <p>Link to Edit profile here</p>
-        <p>PROFILE PIC HERE</p>
-        <p>{user.name}</p>
-        {canSeeProfile() || isCurrentUser ? (
-          <div className="current-user">
-            {!isCurrentUser() && (
-              <FriendshipButton user={user} updateUser={updateUser} />
-            )}
-            <p>
+        <Header>
+          <CoverPic>
+            <ProfilePic />
+            <CoverFooter>
+              <p>{user.name}</p>
+              {!isCurrentUser() && (
+                <FriendshipButton user={user} updateUser={updateUser} />
+              )}
+              {isCurrentUser() && (
+                <LightGreyButton>Edit Profile</LightGreyButton>
+              )}
+            </CoverFooter>
+          </CoverPic>
+          <ProfileNav>
+            <NavElements>
+              <a href="#">Timeline</a>
+            </NavElements>
+            <NavElements>
               <a onClick={this.props.toggleDisplayFriends}>
                 {user.friends.length}
-                {user.friends.length > 1 ? " FRIENDS" : " FRIEND"}
+                {user.friends.length > 1 ? " Friends" : " Friend"}
               </a>
-            </p>
-          </div>
-        ) : (
-          <>
-            <p>
-              <strong>
-                If you're not friend with this cat, you can't see its page.
-              </strong>
-            </p>
-            <FriendshipButton user={user} updateUser={updateUser} />
-          </>
-        )}
+            </NavElements>
+            <NavElements>
+              <a href="#">About me</a>
+            </NavElements>
+          </ProfileNav>
+        </Header>
       </>
     );
   }

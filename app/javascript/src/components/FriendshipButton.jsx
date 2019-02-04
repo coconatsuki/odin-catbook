@@ -7,6 +7,7 @@ import {
   updateFriendRequest,
   destroyFriendship
 } from "../API/friendships";
+import { LightGreyButton } from "../styles/global";
 
 class FriendshipButton extends React.Component {
   static propTypes = {
@@ -114,12 +115,12 @@ class FriendshipButton extends React.Component {
     return (
       <>
         <ErrorsBlock errorMessages={this.state.errorMessages} />
-        <button
+        <LightGreyButton
           disabled={user.received_friend_request || this.state.buttonDisabled}
           onClick={this.toggleFriendship}
         >
           {this.state.buttonText || this.friendRequestButtonText()}
-        </button>
+        </LightGreyButton>
       </>
     );
   }
