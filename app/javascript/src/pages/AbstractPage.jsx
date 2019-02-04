@@ -3,29 +3,41 @@ import { destroyPost } from "../API/posts";
 import { getCurrentUser } from "../API/users";
 
 class AbstractPage extends React.Component {
+  refreshNewPost = newPost => {
+    this.setState({
+      posts: [newPost, ...posts]
+    });
+  };
+
+  refreshAllPosts = updatedPost => {
+    const updatedPosts = posts.map(post =>
+      post.id === updatedPost.id ? updatedPost : post
+    );
+    this.setState({
+      posts: updatedPosts
+    });
+  };
+
+  refreshDeletedPost = deletedPost => {
+    const filteredPosts = posts.filter(post => post.id !== deletedPost.id);
+    this.setState({
+      posts: filteredPosts
+    });
+  };
+
   refreshPosts = (postToChange, method) => {
     const { posts } = this.state;
     switch (method) {
-      case "update":
-        const updatedPosts = posts.map(post =>
-          post.id === postToChange.id ? postToChange : post
-        );
-        this.setState({
-          posts: updatedPosts
-        });
+      case "create":
+        this.refreshNewPost(postToChange);
         break;
 
-      case "create":
-        this.setState({
-          posts: [postToChange, ...posts]
-        });
+      case "update":
+        this.refreshAllPosts(postToChange);
         break;
 
       case "delete":
-        const filteredPosts = posts.filter(post => post.id !== postToChange.id);
-        this.setState({
-          posts: filteredPosts
-        });
+        this.refreshDeletedPost(postToChange);
         break;
     }
   };

@@ -16,7 +16,7 @@ export const ProfileNav = styled.ul`
   list-style: none;
   display: flex;
   align-items: center;
-  padding: 0 200px;
+  padding: 0 50px 0 238px;
   margin-bottom: 0;
   border: 1px solid ${colors.pink};
   border-radius: 0 0 3px 3px;

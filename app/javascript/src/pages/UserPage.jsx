@@ -14,7 +14,7 @@ class UserPage extends AbstractPage {
     currentUser: null,
     errorMessages: [],
     posts: [],
-    displayFriends: false
+    display: "posts"
   };
 
   componentDidMount = async () => {
@@ -46,9 +46,9 @@ class UserPage extends AbstractPage {
     return currentUser.id === user.id;
   };
 
-  toggleDisplayFriends = () => {
+  toggleDisplay = sectionName => {
     this.setState({
-      displayFriends: !this.state.displayFriends
+      display: sectionName
     });
   };
 
@@ -58,45 +58,41 @@ class UserPage extends AbstractPage {
   };
 
   render() {
-    const { user, currentUser, displayFriends } = this.state;
+    const { user, currentUser, display } = this.state;
     return (
       user &&
       currentUser && (
         <>
           <Body />
           <Nav currentUser={currentUser} userPage />
-          {displayFriends ? (
-            <Wrapper>
-              <a onClick={this.toggleDisplayFriends}>
-                {`Back to ${user.name} Profile`}
-              </a>
-              <Users users={user.friends} />
-            </Wrapper>
-          ) : (
-            <Wrapper>
-              <User
-                user={this.state.user}
-                currentUser={this.state.currentUser}
-                canSeeProfile={this.canSeeProfile}
-                isCurrentUser={this.isCurrentUser}
-                toggleDisplayFriends={this.toggleDisplayFriends}
-                updateUser={this.updateUser}
-              />
-              {user.id === currentUser.id && (
-                <PostForm refreshPosts={this.refreshPosts} />
-              )}
+          <Wrapper>
+            <User
+              user={this.state.user}
+              currentUser={this.state.currentUser}
+              canSeeProfile={this.canSeeProfile}
+              isCurrentUser={this.isCurrentUser}
+              toggleDisplay={this.toggleDisplay}
+              updateUser={this.updateUser}
+            />
+            {user.id === currentUser.id && display === "posts" && (
+              <PostForm refreshPosts={this.refreshPosts} />
+            )}
 
-              {this.canSeeProfile() && (
-                <Posts
-                  posts={this.state.posts}
-                  currentUser={this.state.currentUser}
-                  refreshPosts={this.refreshPosts}
-                  deletePost={this.deletePost}
-                  errorMessages={this.state.errorMessages}
-                />
-              )}
-            </Wrapper>
-          )}
+            {this.canSeeProfile() && display === "posts" && (
+              <Posts
+                posts={this.state.posts}
+                currentUser={this.state.currentUser}
+                refreshPosts={this.refreshPosts}
+                deletePost={this.deletePost}
+                errorMessages={this.state.errorMessages}
+              />
+            )}
+            {this.canSeeProfile && display === "friends" && (
+              <Wrapper>
+                <Users users={user.friends} />
+              </Wrapper>
+            )}
+          </Wrapper>
         </>
       )
     );

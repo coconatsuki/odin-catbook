@@ -18,7 +18,7 @@ class User extends React.Component {
     currentUser: currentUserWithFriendsType.isRequired,
     canSeeProfile: PropTypes.func.isRequired,
     isCurrentUser: PropTypes.func.isRequired,
-    toggleDisplayFriends: PropTypes.func.isRequired,
+    toggleDisplay: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired
   };
 
@@ -47,10 +47,12 @@ class User extends React.Component {
           </CoverPic>
           <ProfileNav>
             <NavElements>
-              <a href="#">Timeline</a>
+              <a href="#" onClick={() => this.props.toggleDisplay("posts")}>
+                Timeline
+              </a>
             </NavElements>
             <NavElements>
-              <a onClick={this.props.toggleDisplayFriends}>
+              <a href="#" onClick={() => this.props.toggleDisplay("friends")}>
                 {user.friends.length}
                 {user.friends.length > 1 ? " Friends" : " Friend"}
               </a>
