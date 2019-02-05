@@ -6,13 +6,9 @@ class User < ApplicationRecord
 
   devise :omniauthable, omniauth_providers: [:facebook]
 
-  mount_uploader :avatar, AvatarUploader
-
   after_create :send_welcome_email
 
   validates :name, presence: true
-
-  validate  :picture_size
 
   #------------------- BASIC ASSOCIATIONS -----------------------------------
 
@@ -51,9 +47,9 @@ class User < ApplicationRecord
     sent_active_friends | received_active_friends
   end
 
-  def pending_friends
-    received_pending_friends | sent_pending_friends
-  end
+  # def pending_friends
+  #   received_pending_friends | sent_pending_friends
+  # end
 
   def all_friends
     friends | received_pending_friends | sent_pending_friends
@@ -99,12 +95,5 @@ class User < ApplicationRecord
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
-  end
-
-  #--------------------------------- Validates the size of an uploaded picture.
-  def picture_size
-    return unless avatar.size > 5.megabytes
-
-    errors.add(:avatar, "should be less than 5MB")
   end
 end

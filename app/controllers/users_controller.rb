@@ -4,10 +4,10 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @cats = User.where.not(id: friends_ids).order(:name)
     respond_to do |format|
       format.html {}
       format.json do
+        @cats = User.where.not(id: friends_ids).order(:name)
         render json: @cats, each_serializer: NotFriendSerializer
       end
     end
@@ -17,16 +17,7 @@ class UsersController < ApplicationController
     @user = User.includes(:posts, posts: %i[author comments likes]).order('posts.created_at desc').find(params[:id])
 
     respond_to do |format|
-      format.html do
-        @posts = @user.posts.order(created_at: :desc).includes(:likes, :author, :comments)
-        @current_user_friends = current_user.friends
-        @pending_friends = current_user.pending_friends
-        @user_friends = @user.friends
-        @post = current_user.posts.build
-        @friendship = Friendship.new
-        @comment = Comment.new
-        @like = Like.new
-      end
+      format.html {}
       format.json do
         render json: @user, include: 'posts,posts.author,posts.likes'
       end
@@ -76,14 +67,13 @@ class UsersController < ApplicationController
 
   private
 
-  def no_picture
-    !(user_params[:avatar] && user_params[:image])
-  end
-
   def user_params
-    parameters = params.require(:user).permit(:name, :email, :avatar, :image)
-    parameters[:image] = nil if parameters[:image].blank?
-    parameters
+    # Fetch user_params only once. Begin => We use it when we have more than one line to execute.
+    @user_params ||= begin
+      parameters = params.require(:user).permit(:name, :email, :avatar, :image)
+      parameters[:image] = nil if parameters[:image].blank?
+      parameters
+    end
   end
 
   def friends_ids
