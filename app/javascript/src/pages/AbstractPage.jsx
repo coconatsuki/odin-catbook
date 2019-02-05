@@ -4,12 +4,14 @@ import { getCurrentUser } from "../API/users";
 
 class AbstractPage extends React.Component {
   refreshNewPost = newPost => {
+    const { posts } = this.state;
     this.setState({
       posts: [newPost, ...posts]
     });
   };
 
   refreshAllPosts = updatedPost => {
+    const { posts } = this.state;
     const updatedPosts = posts.map(post =>
       post.id === updatedPost.id ? updatedPost : post
     );
@@ -19,6 +21,7 @@ class AbstractPage extends React.Component {
   };
 
   refreshDeletedPost = deletedPost => {
+    const { posts } = this.state;
     const filteredPosts = posts.filter(post => post.id !== deletedPost.id);
     this.setState({
       posts: filteredPosts
