@@ -66,6 +66,12 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'rubocop'
   gem 'selenium-webdriver'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem "nyan-cat-formatter"
+  gem 'shoulda-matchers', '~> 3.0'
+  gem 'simplecov', require: false
 end
 
 group :development do
