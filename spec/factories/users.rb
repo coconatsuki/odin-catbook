@@ -11,5 +11,17 @@ FactoryBot.define do
         create_list(:post, Random.rand(1..4), author: user)
       end
     end
+
+    trait :with_comments do
+      after(:create) do |user|
+        create_list(:comment, Random.rand(1..4), author: user)
+      end
+    end
+
+    trait :with_likes do
+      after(:create) do |user|
+        create_list(:like, Random.rand(1..4), author: user)
+      end
+    end
   end
 end

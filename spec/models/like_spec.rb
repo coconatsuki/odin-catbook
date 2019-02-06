@@ -8,4 +8,14 @@ RSpec.describe Like, type: :model do
     first_like = Like.first
     expect(first_like.author).to eq(like.author)
   end
+
+  it "belongs to an author" do
+    like = create(:like).reload
+    expect(like.author.likes.first).to eq(like)
+  end
+
+  it "belongs to a post" do
+    like = create(:like).reload
+    expect(like.post.likes.first).to eq(like)
+  end
 end
