@@ -58,3 +58,5 @@ RSpec.configure do |config|
   # Allow tests when using Devise
   config.include Devise::Test::ControllerHelpers, type: :controller
 end
+# Do not queue jobs during tests (or it can really send emails when testing)
+ActiveJob::Base.queue_adapter = :test
