@@ -33,7 +33,6 @@ class Nav extends React.Component {
   };
 
   highlightList = listToHighlight => {
-    console.log("DIV", listToHighlight);
     const linkCoords = listToHighlight.getBoundingClientRect();
     const listCoordinates = {
       width: linkCoords.width,

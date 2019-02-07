@@ -21,18 +21,20 @@ export const ProfileNav = styled.ul`
   border: 1px solid ${colors.pink};
   border-radius: 0 0 3px 3px;
   border-top: none;
-  background: ${shadows.lightGradient}
-  justify-content: space-evenly;
+  background: ${shadows.lightGradient};
 `;
 
 export const NavElements = styled.li`
   position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
   border-radius: 3px;
   height: inherit;
-  transition: all 0.3s ease;
+  width: 50%;
+  transition: all 0.2s ease;
   transition-property: transform, font-size;
+  z-index: 2;
 
   a {
     text-decoration: none;
@@ -42,14 +44,18 @@ export const NavElements = styled.li`
   }
 
   &:hover {
-    transform: scale(1.1);
     font-size: 1.2em;
-    background: ${props => props.active && colors.darkRed};
     a {
       color: ${props => (props.active ? "white" : colors.darkRed)};
     }
   }
-  background-color: ${props => props.active && colors.darkRed};
+`;
+
+export const ElementWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: ${700 / 3}px;
+  height: inherit;
 `;
 
 export const NavCat = styled.img`
@@ -64,7 +70,7 @@ export const Highlight = styled.span`
   position: absolute;
   top: 0;
   left: 0;
-  background: ${shadows.lightGradient};
+  background: ${colors.darkRed};
   z-index: 1;
   border-radius: 3px;
   display: ${props => (props.displayHighlight ? "block" : "none")};
