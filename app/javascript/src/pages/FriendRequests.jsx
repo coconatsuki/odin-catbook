@@ -26,7 +26,7 @@ class FriendRequests extends AbstractPage {
         <Body />
         {currentUser && (
           <div>
-            <Nav currentUser={currentUser} requestsPage />
+            <Nav currentUser={currentUser} activePage="requestsPage" />
             {currentUser.received_pending_friends.length > 0 ? (
               <h2>These friends sent you a friend request:</h2>
             ) : (

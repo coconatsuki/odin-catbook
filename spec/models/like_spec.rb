@@ -7,6 +7,7 @@ RSpec.describe Like, type: :model do
     like = create(:like)
     first_like = Like.first
     expect(first_like.author).to eq(like.author)
+    expect(first_like.post).to eq(like.post)
   end
 
   it "belongs to an author" do
@@ -18,4 +19,7 @@ RSpec.describe Like, type: :model do
     like = create(:like).reload
     expect(like.post.likes.first).to eq(like)
   end
+
+  it { is_expected.to belong_to(:author).class_name('User') }
+  it { is_expected.to belong_to(:post) }
 end

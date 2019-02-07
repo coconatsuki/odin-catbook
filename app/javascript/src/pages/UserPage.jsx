@@ -64,7 +64,7 @@ class UserPage extends AbstractPage {
       currentUser && (
         <>
           <Body />
-          <Nav currentUser={currentUser} userPage />
+          <Nav currentUser={currentUser} activePage="userPage" />
           <Wrapper>
             <User
               user={this.state.user}
@@ -72,6 +72,7 @@ class UserPage extends AbstractPage {
               canSeeProfile={this.canSeeProfile}
               isCurrentUser={this.isCurrentUser}
               toggleDisplay={this.toggleDisplay}
+              display={display}
               updateUser={this.updateUser}
             />
             {user.id === currentUser.id && display === "posts" && (

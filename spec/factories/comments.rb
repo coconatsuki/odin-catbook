@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :comment do
-    body { Faker::FamousLastWords.last_words }
+    body { Faker::Quote.FamousLastWords.last_words }
 
     post { create(:post) }
     author { create(:user) }

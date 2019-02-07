@@ -7,9 +7,12 @@ import {
   CoverPic,
   ProfileNav,
   NavElements,
+  NavCat,
   ProfilePic,
-  CoverFooter
+  CoverFooter,
+  Highlight
 } from "../styles/user";
+import divCat from "../images/div-cat.png";
 import { LightGreyButton } from "../styles/global";
 
 class User extends React.Component {
@@ -19,6 +22,7 @@ class User extends React.Component {
     canSeeProfile: PropTypes.func.isRequired,
     isCurrentUser: PropTypes.func.isRequired,
     toggleDisplay: PropTypes.func.isRequired,
+    display: PropTypes.string.isRequired,
     updateUser: PropTypes.func.isRequired
   };
 
@@ -28,7 +32,8 @@ class User extends React.Component {
       currentUser,
       isCurrentUser,
       canSeeProfile,
-      updateUser
+      updateUser,
+      display
     } = this.props;
     return (
       <>
@@ -46,18 +51,21 @@ class User extends React.Component {
             </CoverFooter>
           </CoverPic>
           <ProfileNav>
-            <NavElements>
+            <NavElements active={display === "posts"}>
+              <NavCat src={divCat} active={display === "posts"} />
               <a href="#" onClick={() => this.props.toggleDisplay("posts")}>
                 Timeline
               </a>
             </NavElements>
-            <NavElements>
+            <NavElements active={display === "friends"}>
+              <NavCat src={divCat} active={display === "friends"} />
               <a href="#" onClick={() => this.props.toggleDisplay("friends")}>
                 {user.friends.length}
                 {user.friends.length > 1 ? " Friends" : " Friend"}
               </a>
             </NavElements>
-            <NavElements>
+            <NavElements active={display === "about"}>
+              <NavCat src={divCat} active={display === "about"} />
               <a href="#">About me</a>
             </NavElements>
           </ProfileNav>

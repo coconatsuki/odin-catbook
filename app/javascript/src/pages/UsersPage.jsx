@@ -31,7 +31,7 @@ class UsersPage extends React.Component {
         <Body />
         {users && currentUser && (
           <div>
-            <Nav currentUser={this.state.currentUser} usersPage />
+            <Nav currentUser={this.state.currentUser} activePage="usersPage" />
             <Users users={this.state.users} />
           </div>
         )}

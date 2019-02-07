@@ -23,9 +23,28 @@ export const List = styled.ul`
   padding-right: 120px;
   width: 48%;
   height: 100%;
+  z-index: 2;
+`;
+
+export const Highlight = styled.span`
+  transition: all 0.2s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: ${shadows.lightGradient};
+  z-index: 1;
+  border-radius: 3px;
+  display: ${props => (props.displayHighlight ? "block" : "none")};
+  width: ${props => `${props.listCoordinates.width}px`};
+  height: ${props => `${props.listCoordinates.height}px`};
+  transform: ${props =>
+    `translate(${props.listCoordinates.left}px, ${
+      props.listCoordinates.top
+    }px)`};
 `;
 
 export const ListElement = styled.li`
+  position: relative;
   align-items: center;
   display: flex;
   height: 100%;
@@ -37,10 +56,10 @@ export const ListElement = styled.li`
     display: block;
     text-decoration: none;
     padding: 1.5em;
+    transition: color 0.2s;
   }
 
   &:hover {
-    background: ${shadows.lightGradient};
     a {
       color: ${colors.darkRed};
     }

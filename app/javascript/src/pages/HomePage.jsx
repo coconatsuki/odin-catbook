@@ -35,7 +35,7 @@ class HomePage extends AbstractPage {
       currentUser && (
         <>
           <Body />
-          <Nav currentUser={this.state.currentUser} homePage />
+          <Nav currentUser={this.state.currentUser} activePage="homePage" />
           <div style={{ paddingLeft: "20px", marginTop: "60px" }}>
             <h3>POSTS : </h3>
             <p>--------------------------------------</p>

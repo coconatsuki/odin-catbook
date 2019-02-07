@@ -26,25 +26,54 @@ export const ProfileNav = styled.ul`
 `;
 
 export const NavElements = styled.li`
+  position: relative;
   display: flex;
   align-items: center;
   border-radius: 3px;
   height: inherit;
   transition: all 0.3s ease;
-
-  &:hover {
-    transform: scale(1.1);
-    font-size: 1.2em;
-    box-shadow: inset 0px 1px 0px 0px #ffffff;
-    background: linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
-  }
+  transition-property: transform, font-size;
 
   a {
     text-decoration: none;
     padding: 1em;
     cursor: pointer;
-    color: #461220;
+    color: ${props => (props.active ? "white" : colors.darkRed)};
   }
+
+  &:hover {
+    transform: scale(1.1);
+    font-size: 1.2em;
+    background: ${props => props.active && colors.darkRed};
+    a {
+      color: ${props => (props.active ? "white" : colors.darkRed)};
+    }
+  }
+  background-color: ${props => props.active && colors.darkRed};
+`;
+
+export const NavCat = styled.img`
+  display: ${props => (props.active ? "block" : "none")};
+  position: absolute;
+  top: -29px;
+  left: -17px;
+`;
+
+export const Highlight = styled.span`
+  transition: all 0.2s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: ${shadows.lightGradient};
+  z-index: 1;
+  border-radius: 3px;
+  display: ${props => (props.displayHighlight ? "block" : "none")};
+  width: ${props => `${props.listCoordinates.width}px`};
+  height: ${props => `${props.listCoordinates.height}px`};
+  transform: ${props =>
+    `translate(${props.listCoordinates.left}px, ${
+      props.listCoordinates.top
+    }px)`};
 `;
 
 export const CoverPic = styled.div`
