@@ -129,7 +129,7 @@ export const CoverFooter = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 75%;
-  margin: 5px 15px;
+  margin: 10px 15px;
 
   p {
     font-size: 2em;

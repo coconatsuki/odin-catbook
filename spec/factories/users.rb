@@ -5,6 +5,15 @@ FactoryBot.define do
     name { Faker::Cat.unique.name }
     email { "#{name}@catmail.com" }
     password { Faker::Lorem.characters(10) }
+    birthday { Faker::Time.between(20.years.ago, 1.month.ago, :day) }
+    country { Faker::LordOfTheRings.location }
+    city { Faker::HarryPotter.location }
+    things_i_like { Faker::Hipster.words(Random.rand(1..5)) }
+    things_i_hate { Faker::Hipster.words(Random.rand(1..5)) }
+    small_profile_pic { "/some/awesome/small/profile/pic/url" }
+    large_profile_pic { "/some/awesome/large/profile/pic/url" }
+    small_cover_pic { "/some/awesome/small/cover/pic/url" }
+    large_cover_pic { "/some/awesome/large/profile/pic/url" }
 
     trait :with_posts do
       after(:create) do |user|

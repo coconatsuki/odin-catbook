@@ -8,6 +8,15 @@ RSpec.describe User, type: :model do
     first_user = User.first
     expect(first_user.name).to eq(user.name)
     expect(first_user.email).to eq(user.email)
+    expect(first_user.birthday).to eq(user.birthday)
+    expect(first_user.country).to eq(user.country)
+    expect(first_user.city).to eq(user.city)
+    expect(first_user.things_i_like).to eq(user.things_i_like)
+    expect(first_user.things_i_hate).to eq(user.things_i_hate)
+    expect(first_user.small_profile_pic).to eq(user.small_profile_pic)
+    expect(first_user.large_profile_pic).to eq(user.large_profile_pic)
+    expect(first_user.small_cover_pic).to eq(user.small_cover_pic)
+    expect(first_user.large_cover_pic).to eq(user.large_cover_pic)
   end
 
   it "has many posts" do

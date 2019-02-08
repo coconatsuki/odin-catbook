@@ -4,6 +4,7 @@ import User from "../components/User";
 import Users from "../components/Users";
 import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
+import AboutMe from "../components/AboutMe";
 import Nav from "../components/Nav";
 import { getUserById, getCurrentUser } from "../API/users";
 import { Body, Wrapper } from "../styles/global";
@@ -92,6 +93,9 @@ class UserPage extends AbstractPage {
               <Wrapper>
                 <Users users={user.friends} />
               </Wrapper>
+            )}
+            {this.canSeeProfile && display === "about" && (
+              <AboutMe user={user} isCurrentUser={this.isCurrentUser} />
             )}
           </Wrapper>
         </>

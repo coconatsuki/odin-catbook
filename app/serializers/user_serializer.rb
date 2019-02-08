@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :breed, :birthday, :country, :city, :things_i_like, :things_i_hate
   has_many :posts
 
   attribute(:likes_count) { object.likes.size }

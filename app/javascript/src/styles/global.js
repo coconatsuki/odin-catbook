@@ -31,14 +31,14 @@ export const Wrapper = styled.section`
 `;
 
 export const LightGreyButton = styled.button`
-  height: 33px !important;
+  height: 35px !important;
   -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
   -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
   box-shadow: inset 0px 1px 0px 0px #ffffff;
   background: ${shadows.lightGradient}
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f5eaea',GradientType=0);
   background-color: #ffffff;
-  border-radius: 3px;
+  border-radius: 20px;
   color: #666666;
   font-weight: bold;
   padding: 5px 15px;
