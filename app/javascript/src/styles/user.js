@@ -24,7 +24,7 @@ export const ProfileNav = styled.ul`
   background: ${shadows.lightGradient};
 `;
 
-export const NavElements = styled.li`
+export const NavElements = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -32,54 +32,77 @@ export const NavElements = styled.li`
   border-radius: 3px;
   height: inherit;
   width: 50%;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   transition-property: transform, font-size;
   z-index: 2;
 
   a {
+    font-size: 1.7rem;
     text-decoration: none;
     padding: 1em;
     cursor: pointer;
     color: ${props => (props.active ? "white" : colors.darkRed)};
   }
 
+  .paw {
+    transition: all 0.3 ease;
+  }
+
   &:hover {
     font-size: 1.2em;
+    transform: scale(1.1);
+    background: ${props => props.active && colors.darkRed};
     a {
       color: ${props => (props.active ? "white" : colors.darkRed)};
     }
+    .paw {
+      opacity: ${props => (props.active ? "0" : "1")};
+      visibility: ${props => (props.active ? "collapse" : "initial")};
+      transform: translateY(-40px);
+    }
   }
+  background-color: ${props => props.active && colors.darkRed};
 `;
 
-export const ElementWrapper = styled.div`
+export const ElementWrapper = styled.li`
   display: flex;
   justify-content: center;
   width: ${700 / 3}px;
   height: inherit;
 `;
 
-export const NavCat = styled.img`
+export const NavCat1 = styled.img`
   display: ${props => (props.active ? "block" : "none")};
   position: absolute;
   top: -29px;
   left: -17px;
 `;
 
-export const Highlight = styled.span`
-  transition: all 0.2s;
+export const NavCat2 = styled.img`
+  display: ${props => (props.active ? "block" : "none")};
   position: absolute;
-  top: 0;
-  left: 0;
-  background: ${colors.darkRed};
-  z-index: 1;
-  border-radius: 3px;
-  display: ${props => (props.displayHighlight ? "block" : "none")};
-  width: ${props => `${props.listCoordinates.width}px`};
-  height: ${props => `${props.listCoordinates.height}px`};
-  transform: ${props =>
-    `translate(${props.listCoordinates.left}px, ${
-      props.listCoordinates.top
-    }px)`};
+  top: -43px;
+  left: -17px;
+`;
+
+export const NavCat3 = styled.img`
+  display: ${props => (props.active ? "block" : "none")};
+  position: absolute;
+  top: -29px;
+  left: 29px;
+`;
+
+export const CatPaw = styled.img`
+  padding: 0.6em 3em;
+  visibility: collapse;
+  opacity: 0;
+  position: absolute;
+  transition: transform 0.3 ease;
+  &:hover {
+    opacity: ${props => (props.active ? "0" : "1")};
+    visibility: ${props => (props.active ? "collapse" : "initial")};
+    transform: translateY(-40px);
+  }
 `;
 
 export const CoverPic = styled.div`
