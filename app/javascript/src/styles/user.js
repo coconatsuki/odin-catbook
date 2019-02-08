@@ -45,7 +45,10 @@ export const NavElements = styled.div`
   }
 
   .paw {
-    transition: all 0.3 ease;
+    display: ${props => props.active && "none"};
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
   }
 
   &:hover {
@@ -97,12 +100,6 @@ export const CatPaw = styled.img`
   visibility: collapse;
   opacity: 0;
   position: absolute;
-  transition: transform 0.3 ease;
-  &:hover {
-    opacity: ${props => (props.active ? "0" : "1")};
-    visibility: ${props => (props.active ? "collapse" : "initial")};
-    transform: translateY(-40px);
-  }
 `;
 
 export const CoverPic = styled.div`
