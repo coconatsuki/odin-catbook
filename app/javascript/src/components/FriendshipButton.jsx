@@ -7,7 +7,7 @@ import {
   updateFriendRequest,
   destroyFriendship
 } from "../API/friendships";
-import { LightGreyButton } from "../styles/global";
+import { LightGreyButton } from "../styles/button";
 
 class FriendshipButton extends React.Component {
   static propTypes = {

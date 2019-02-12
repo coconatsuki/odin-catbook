@@ -1,16 +1,6 @@
 // import { addCsrf } from "./helper";
 import PropTypes from "prop-types";
 
-// currentUserFetchMethod = data => {
-//   if (data === "withFriends") {
-//     return "?withFriends=yes";
-//   }
-//   if (data === "withFriendRequests") {
-//     return "?withFriendRequests=yes";
-//   }
-//   return "";
-// };
-
 export async function getCurrentUser(params) {
   const currentUser = await fetch(`/users/current${params}`, {
     headers: {

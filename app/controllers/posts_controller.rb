@@ -13,21 +13,11 @@ class PostsController < ApplicationController
     end
   end
 
-  # def show; end
-
-  # def new
-  #   @post = Post.new
-  # end
-
   def create
     # merge => include the argument hash inside the first one.
     @post = Post.create!(post_params.merge(author_id: current_user.id))
     render json: @post
   end
-
-  # def edit
-  #   @post = Post.find(params[:id])
-  # end
 
   def update
     @post = Post.find(params[:id])

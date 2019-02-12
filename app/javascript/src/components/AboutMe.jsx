@@ -47,7 +47,9 @@ class AboutMe extends React.Component {
           <ProfileCard>
             <ProfileCardHeader>
               <h2>About me</h2>
-              {isCurrentUser() && <i onClick={this.toggleEdit} />}
+              {isCurrentUser() && !this.state.edit && (
+                <i onClick={this.toggleEdit} />
+              )}
             </ProfileCardHeader>
             {this.state.edit ? (
               <ProfileForm
@@ -60,58 +62,58 @@ class AboutMe extends React.Component {
               />
             ) : (
               <ProfileCardContent>
-                <p>
+                <div className="section">
                   <span className="title">My name is </span>
                   <span>{user.name}</span>
-                </p>
+                </div>
 
                 {user.breed && (
-                  <p>
+                  <div className="section">
                     <span className="title">I'm a </span>
                     <span>{user.breed}</span>
-                  </p>
+                  </div>
                 )}
                 {user.birthday && (
-                  <p>
+                  <div className="section">
                     <span className="title">I was born in </span>
                     <span> {user.birthday}</span>
-                  </p>
+                  </div>
                 )}
                 {user.city && (
-                  <p>
+                  <div className="section">
                     <span className="title">I live in </span>
                     <span>
                       {user.city}
                       {user.country && `, ${user.country}`}
                     </span>
-                  </p>
+                  </div>
                 )}
                 {!user.city && user.country && (
-                  <p>
+                  <div className="section">
                     <span className="title">I live in </span>
                     <span>{user.country}</span>
-                  </p>
+                  </div>
                 )}
 
                 {user.things_i_like.length > 0 && (
-                  <p>
+                  <div className="section">
                     <span className="title">I like: </span>
                     <TastesList>
                       {user.things_i_like.map((thing, i) => (
                         <li key={i}> {thing}</li>
                       ))}
                     </TastesList>
-                  </p>
+                  </div>
                 )}
                 {user.things_i_hate.length > 0 && (
-                  <p>
+                  <div className="section">
                     <span className="title">I hate: </span>
                     <TastesList>
                       {user.things_i_hate.map((thing, i) => (
                         <li key={i}> {thing}</li>
                       ))}
                     </TastesList>
-                  </p>
+                  </div>
                 )}
               </ProfileCardContent>
             )}

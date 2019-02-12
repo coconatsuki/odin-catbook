@@ -19,7 +19,7 @@ import divCat from "../images/div-cat.png";
 import divCat2 from "../images/div-cat2.png";
 import divCat3 from "../images/div-cat3.png";
 import catPaw from "../images/pawprintwhite.png";
-import { LightGreyButton } from "../styles/global";
+import { LightGreyButton } from "../styles/button";
 
 class User extends React.Component {
   static propTypes = {
@@ -65,7 +65,7 @@ class User extends React.Component {
                   active={display === "posts"}
                   className="paw"
                 />
-                <a href="#" onClick={() => this.props.toggleDisplay("posts")}>
+                <a href="#" onClick={e => this.props.toggleDisplay("posts", e)}>
                   Timeline
                 </a>
               </NavElements>
@@ -78,7 +78,10 @@ class User extends React.Component {
                   active={display === "friends"}
                   className="paw"
                 />
-                <a href="#" onClick={() => this.props.toggleDisplay("friends")}>
+                <a
+                  href="#"
+                  onClick={e => this.props.toggleDisplay("friends", e)}
+                >
                   {user.friends.length}
                   {user.friends.length > 1 ? " Friends" : " Friend"}
                 </a>
@@ -92,7 +95,7 @@ class User extends React.Component {
                   active={display === "about"}
                   className="paw"
                 />
-                <a href="#" onClick={() => this.props.toggleDisplay("about")}>
+                <a href="#" onClick={e => this.props.toggleDisplay("about", e)}>
                   About me
                 </a>
               </NavElements>

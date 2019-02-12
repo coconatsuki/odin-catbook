@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ErrorsBlock from "./ErrorsBlock";
 import { addPost, updatePost } from "../API/posts";
 import { uploadFile } from "../API/imageUpload";
+import { Input, Field } from "../styles/forms";
 
 class PostForm extends React.Component {
   static propTypes = {
@@ -130,15 +131,19 @@ class PostForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSave}>
-        <p>What's in your mind today?</p>
         <ErrorsBlock errorMessages={this.state.errorMessages} />
-        <label htmlFor="body" />
-        <textarea
-          name="body"
-          id="body"
-          onChange={this.handleBodyChange}
-          value={this.state.body}
-        />
+        <Field>
+          <label htmlFor="body">
+            <span>What's in your mind today?</span>
+            <Input
+              name="body"
+              tag="textarea"
+              id="body"
+              onChange={this.handleBodyChange}
+              value={this.state.body}
+            />
+          </label>
+        </Field>
         <div className="picture-upload">
           <label htmlFor="postPicture">
             Upload an image for your post:

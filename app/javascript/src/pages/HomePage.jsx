@@ -7,7 +7,8 @@ import { getCurrentUser } from "../API/users";
 import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
 import Nav from "../components/Nav";
-import { Body } from "../styles/global";
+import { Body, Wrapper } from "../styles/global";
+import { Header } from "../styles/posts";
 
 class HomePage extends AbstractPage {
   state = {
@@ -36,9 +37,8 @@ class HomePage extends AbstractPage {
         <>
           <Body />
           <Nav currentUser={this.state.currentUser} activePage="homePage" />
-          <div style={{ paddingLeft: "20px", marginTop: "60px" }}>
-            <h3>POSTS : </h3>
-            <p>--------------------------------------</p>
+          <Wrapper>
+            <Header>Recent posts of your cat-friends</Header>
             <PostForm refreshPosts={this.refreshPosts} />
             <Posts
               posts={this.state.posts}
@@ -47,7 +47,7 @@ class HomePage extends AbstractPage {
               deletePost={this.deletePost}
               errorMessages={this.state.errorMessages}
             />
-          </div>
+          </Wrapper>
         </>
       )
     );

@@ -81,7 +81,7 @@ export const ProfileCardContent = styled.div`
     display: block;
   }
 
-  p {
+  .section {
     margin-bottom: 24px;
     display: flex;
   }

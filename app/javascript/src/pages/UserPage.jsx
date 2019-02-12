@@ -47,7 +47,8 @@ class UserPage extends AbstractPage {
     return currentUser.id === user.id;
   };
 
-  toggleDisplay = sectionName => {
+  toggleDisplay = (sectionName, e) => {
+    e.preventDefault();
     this.setState({
       display: sectionName
     });
