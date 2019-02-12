@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import * as moment from "moment";
 import { userType } from "../API/users";
-// import { commentType, addComment, updateComment } from "../API/comments";
-// import ErrorsBlock from "./ErrorsBlock";
+import { updateUser } from "../API/users";
+import ErrorsBlock from "./ErrorsBlock";
 import { Form, Controls } from "../styles/profileForm";
 import { Field, Input, TagsField, TagsInput } from "../styles/forms";
 import { LightGreyButton, LightRedButton } from "../styles/button";
@@ -18,6 +18,7 @@ class ProfileForm extends React.Component {
   };
 
   state = {
+    errorMessages: [],
     breed: this.props.user.breed ? this.props.user.breed : "",
     birthday: this.props.user.birthday ? this.props.user.birthday : "",
     country: this.props.user.country ? this.props.user.country : "",
@@ -32,14 +33,17 @@ class ProfileForm extends React.Component {
       : []
   };
 
-  componentDidMount = () => {
-    const date = moment().subtract(20, "years");
-    console.log(date.format("YYYY-MM-DD"));
+  setErrorMessages = messagesArray => {
+    this.setState({
+      errorMessages: messagesArray
+    });
   };
 
   handleElementChange = e => {
     const key = e.target.name;
     const value = e.target.value;
+    if (key === "thing_i_like" && value === ",") return;
+    if (key === "thing_i_hate" && value === ",") return;
     this.setState({
       [key]: value
     });
@@ -47,11 +51,12 @@ class ProfileForm extends React.Component {
 
   handleArrayChange = e => {
     e.stopPropagation();
-    // console.log("event type, native Event", e.type, e.nativeEvent);
+    if (e.key === "Enter" || e.key === ",") e.preventDefault();
     if (e.key === "Enter" || e.key === "," || e.type === "blur") {
       const arrayName = e.target.id;
       const elementName = e.target.name;
       const value = e.target.value;
+      if (value === "") return;
       console.log(
         "TEST, key, arrayName, elementName,value",
         e.key,
@@ -66,45 +71,24 @@ class ProfileForm extends React.Component {
     }
   };
 
-  // validBody = msg => {
-  //   const { setCommentErrorMessages } = this.props;
-  //   setCommentErrorMessages([]);
-  //   if (msg.trim().length === 0) {
-  //     setCommentErrorMessages(["Your message can't be empty."]);
-  //     return false;
-  //   }
-  //   if (msg.trim().length <= 5) {
-  //     setCommentErrorMessages(["Your message is too short."]);
-  //     return false;
-  //   }
-  //   return true;
-  // };
-
-  // editComment = async (body, commentToEditId) => {
-  //   const { postId, updateAllComments, setCommentErrorMessages } = this.props;
-  //   const fetchedComment = await updateComment(postId, commentToEditId, body);
-  //   if (fetchedComment.errors) {
-  //     return setCommentErrorMessages(fetchedComment.errors);
-  //   }
-  //   updateAllComments(fetchedComment.comment);
-  // };
-
   handleSave = async e => {
     e.preventDefault();
-    const {
-      breed,
-      birthday,
-      country,
-      city,
-      things_i_hate,
-      things_i_like
-    } = this.state;
-    // if (!this.validBody(body)) return;
-    //   const { commentToEdit } = this.props;
-    //   this.editComment(body, commentToEdit.id);
-    // this.clearState();
-    // this.props.setCommentErrorMessages([]);
-    // if (this.isEditing()) this.props.toggleEdit();
+    const userData = {
+      birthday: this.state.birthday,
+      breed: this.state.breed,
+      country: this.state.country,
+      city: this.state.city,
+      things_i_like: this.state.things_i_like,
+      things_i_hate: this.state.things_i_hate
+    };
+
+    const fetchedUser = await updateUser(this.props.user.id, userData);
+    if (fetchedUser.errors) {
+      this.setErrorMessages(fetchedUser.errors);
+    } else {
+      this.props.refreshProfile(fetchedUser.user.id);
+      this.props.toggleEdit();
+    }
   };
 
   birthdayMin = moment()
@@ -126,6 +110,7 @@ class ProfileForm extends React.Component {
     } = this.state;
     return (
       <Form onSubmit={this.handleSave}>
+        <ErrorsBlock errorMessages={this.state.errorMessages} />
         <Field>
           <label htmlFor="breed">
             <span className="label">Breed</span>
@@ -191,6 +176,7 @@ class ProfileForm extends React.Component {
               <input
                 name="thing_i_like"
                 id="things_i_like"
+                placeholder="Add a new Tag here, then press Enter or write a coma (',')."
                 onKeyPress={this.handleArrayChange}
                 onBlur={this.handleArrayChange}
                 onChange={this.handleElementChange}
@@ -213,6 +199,7 @@ class ProfileForm extends React.Component {
               <input
                 name="thing_i_hate"
                 id="things_i_hate"
+                placeholder="Add a new Tag here, then press Enter or write a coma (',')."
                 onKeyPress={this.handleArrayChange}
                 onBlur={this.handleArrayChange}
                 onChange={this.handleElementChange}

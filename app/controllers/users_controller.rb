@@ -24,22 +24,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
+  # def edit
+  #   @user = User.find(params[:id])
+  # end
 
   def update
     @user = User.find(params[:id])
-    @user.image = nil if user_params[:avatar] || no_picture
-    @user.remove_avatar! if user_params[:image] || no_picture
-    @user.save
-    if @user.update(user_params)
-      flash[:notice] = "Profile updated!"
-      redirect_to @user
-    else
-      flash[:warning] = "There was an error. Please try again."
-      render 'edit'
-    end
+
+    @user.update!(user_params)
+    render json: @user
   end
 
   def received_requests
@@ -70,8 +63,8 @@ class UsersController < ApplicationController
   def user_params
     # Fetch user_params only once. Begin => We use it when we have more than one line to execute.
     @user_params ||= begin
-      parameters = params.require(:user).permit(:name, :email, :avatar, :image)
-      parameters[:image] = nil if parameters[:image].blank?
+      parameters = params.require(:user).permit(:name, :email, :breed, :birthday, :country, :city, :large_profile_pic,
+                                                :small_profile_pic, :large_cover_pic, :small_cover_pic, things_i_like: [], things_i_hate: [])
       parameters
     end
   end

@@ -82,13 +82,13 @@ export const TagsField = styled(Field)`
   }
 
   div {
-    height: 50px;
+    height: inherit;
   }
 `;
 
 export const TagsInput = styled(Input)`
   display: flex;
-  align-items: center;
+  flex-direction: column;
 
   .label {
     top: -8px;
@@ -98,6 +98,7 @@ export const TagsInput = styled(Input)`
     display: flex;
     margin-bottom: 0;
     padding-left: 0;
+    flex-wrap: wrap;
   }
 
   li {
@@ -107,6 +108,7 @@ export const TagsInput = styled(Input)`
     border: 1px solid lightgrey;
     padding: 2px 8px;
     border-radius: 8px;
+    margin-top: 5px;
 
     span:first-child {
       padding-right: 6px;
@@ -132,6 +134,7 @@ export const TagsInput = styled(Input)`
 
   input {
     border: none;
+    margin-top: 10px;
     height: 100%;
   }
 `;

@@ -14,6 +14,7 @@ import * as moment from "moment";
 
 class AboutMe extends React.Component {
   static propTypes = {
+    refreshProfile: PropTypes.func.isRequired,
     user: userType.isRequired,
     isCurrentUser: PropTypes.func.isRequired
   };
@@ -27,10 +28,6 @@ class AboutMe extends React.Component {
     this.setState({
       edit: !this.state.edit
     });
-  };
-
-  refreshProfile = () => {
-    console.log("refresh");
   };
 
   setCommentErrorMessages = message => {
@@ -54,7 +51,7 @@ class AboutMe extends React.Component {
             {this.state.edit ? (
               <ProfileForm
                 user={user}
-                refreshProfile={this.refreshProfile}
+                refreshProfile={this.props.refreshProfile}
                 profileToEdit={user}
                 toggleEdit={this.toggleEdit}
                 errorMessages={this.state.errorMessages}

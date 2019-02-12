@@ -1,4 +1,4 @@
-// import { addCsrf } from "./helper";
+import { addCsrf } from "./helper";
 import PropTypes from "prop-types";
 
 export async function getCurrentUser(params) {
@@ -23,6 +23,31 @@ export async function getUsers() {
     }
   });
   const response = await users.json();
+  return response;
+}
+
+export async function updateUser(userId, userData) {
+  console.log("USER DATA", userData);
+  const user = await fetch(`/users/${userId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: JSON.stringify(
+      addCsrf({
+        user: {
+          breed: userData.breed,
+          birthday: userData.birthday,
+          country: userData.country,
+          city: userData.city,
+          things_i_like: userData.things_i_like,
+          things_i_hate: userData.things_i_hate
+        }
+      })
+    )
+  });
+  const response = await user.json();
   return response;
 }
 

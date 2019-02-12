@@ -37,7 +37,7 @@ export const ProfileCardHeader = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 4%;
+  margin-bottom: 6%;
 
   h2 {
     color: ${colors.darkRed};

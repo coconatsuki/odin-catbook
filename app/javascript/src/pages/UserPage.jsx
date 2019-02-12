@@ -96,7 +96,11 @@ class UserPage extends AbstractPage {
               </Wrapper>
             )}
             {this.canSeeProfile && display === "about" && (
-              <AboutMe user={user} isCurrentUser={this.isCurrentUser} />
+              <AboutMe
+                user={user}
+                isCurrentUser={this.isCurrentUser}
+                refreshProfile={this.updateUser}
+              />
             )}
           </Wrapper>
         </>
