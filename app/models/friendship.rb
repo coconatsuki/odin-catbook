@@ -1,5 +1,18 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: friendships
+#
+#  id            :bigint(8)        not null, primary key
+#  requested_id  :integer
+#  requesting_id :integer
+#  accepted      :boolean          default(FALSE)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+
 class Friendship < ApplicationRecord
   belongs_to :requested, class_name: 'User'
   belongs_to :requesting, class_name: 'User'

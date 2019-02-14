@@ -29,7 +29,8 @@ export const Wrapper = styled.section`
     font-family: ${omnes.basic};
   }
 
-  input {
+  input,
+  textarea {
     &:focus {
       outline: none;
     }

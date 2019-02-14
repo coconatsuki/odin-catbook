@@ -7,8 +7,16 @@ import { getCurrentUser } from "../API/users";
 import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
 import Nav from "../components/Nav";
-import { Body, Wrapper } from "../styles/global";
-import { Header } from "../styles/posts";
+import { Body } from "../styles/global";
+import {
+  PostsWrapper,
+  Aside,
+  Main,
+  FormWrapper,
+  Img,
+  Stats
+} from "../styles/home";
+import postsCat from "../images/posts-cat.png";
 
 class HomePage extends AbstractPage {
   state = {
@@ -30,6 +38,11 @@ class HomePage extends AbstractPage {
     });
   };
 
+  currentUserPosts = () =>
+    this.state.posts.filter(
+      post => post.author.id === this.state.currentUser.id
+    );
+
   render() {
     const { currentUser } = this.state;
     return (
@@ -37,17 +50,28 @@ class HomePage extends AbstractPage {
         <>
           <Body />
           <Nav currentUser={this.state.currentUser} activePage="homePage" />
-          <Wrapper>
-            <Header>Recent posts of your cat-friends</Header>
-            <PostForm refreshPosts={this.refreshPosts} />
-            <Posts
-              posts={this.state.posts}
-              currentUser={this.state.currentUser}
-              refreshPosts={this.refreshPosts}
-              deletePost={this.deletePost}
-              errorMessages={this.state.errorMessages}
-            />
-          </Wrapper>
+          <PostsWrapper>
+            <Aside>
+              <Img src={postsCat} />
+            </Aside>
+            <Main>
+              <FormWrapper>
+                <PostForm refreshPosts={this.refreshPosts} />
+              </FormWrapper>
+              <Posts
+                posts={this.state.posts}
+                currentUser={this.state.currentUser}
+                refreshPosts={this.refreshPosts}
+                deletePost={this.deletePost}
+                errorMessages={this.state.errorMessages}
+              />
+            </Main>
+            <Aside>
+              <Stats>
+                <p>Number of posts: {this.currentUserPosts().length}</p>
+              </Stats>
+            </Aside>
+          </PostsWrapper>
         </>
       )
     );

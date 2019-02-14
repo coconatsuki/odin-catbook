@@ -1,10 +1,22 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: friendships
+#
+#  id            :bigint(8)        not null, primary key
+#  requested_id  :integer
+#  requesting_id :integer
+#  accepted      :boolean          default(FALSE)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe Friendship, type: :model do
   it 'is creatable' do
-    friendship = create(:friendship)
+    friendship = create(:friendship).reload
     first_friendship = Friendship.first
     expect(first_friendship.requested).to eq(friendship.requested)
     expect(first_friendship.requesting).to eq(friendship.requesting)

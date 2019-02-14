@@ -58,22 +58,6 @@ Input.defaultProps = {
   tag: "input"
 };
 
-// --------------- TEXTAREA ---------------
-
-export const TextareaField = styled(Field)`
-  .label {
-    top: -9px;
-  }
-`;
-
-export const Textarea = styled(Input)`
-  height: 70px;
-`;
-
-Textarea.defaultProps = {
-  tag: "textarea"
-};
-
 // --------------- TAGS ---------------
 
 export const TagsField = styled(Field)`

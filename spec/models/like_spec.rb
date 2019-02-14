@@ -1,10 +1,21 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: likes
+#
+#  id         :bigint(8)        not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  author_id  :integer
+#  post_id    :integer
+#
+
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
   it 'is creatable' do
-    like = create(:like)
+    like = create(:like).reload
     first_like = Like.first
     expect(first_like.author).to eq(like.author)
     expect(first_like.post).to eq(like.post)

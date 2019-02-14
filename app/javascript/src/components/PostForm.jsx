@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ErrorsBlock from "./ErrorsBlock";
 import { addPost, updatePost } from "../API/posts";
 import { uploadFile } from "../API/imageUpload";
-import { Input, Field } from "../styles/forms";
+import { Form, Textarea, TextareaField } from "../styles/postForm";
 
 class PostForm extends React.Component {
   static propTypes = {
@@ -130,38 +130,44 @@ class PostForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSave}>
-        <ErrorsBlock errorMessages={this.state.errorMessages} />
-        <Field>
+      <Form onSubmit={this.handleSave}>
+        {this.state.errorMessages.length > 0 && (
+          <ErrorsBlock errorMessages={this.state.errorMessages} />
+        )}
+        <TextareaField>
           <label htmlFor="body">
-            <span>What's in your mind today?</span>
-            <Input
+            <span className="label">What's in your mind today?</span>
+            <Textarea
+              placeholder="Prrrrrr..."
               name="body"
-              tag="textarea"
               id="body"
               onChange={this.handleBodyChange}
               value={this.state.body}
             />
+            <span className="border" />
           </label>
-        </Field>
-        <div className="picture-upload">
-          <label htmlFor="postPicture">
-            Upload an image for your post:
-            <input
-              type="file"
-              name="file"
-              id="postPicture"
-              placeholder="Upload an image"
-              onChange={this.handlePicChange}
-            />
-          </label>
-          {this.state.image && (
-            <div className="pictureToSave">
-              <img width="200" src={this.state.image} alt="uploaded Preview" />
-              <button onClick={this.removeImage}>Delete this picture</button>
-            </div>
-          )}
-        </div>
+          <div className="picture-upload">
+            <label htmlFor="postPicture">
+              <input
+                type="file"
+                name="file"
+                id="postPicture"
+                placeholder="Add a Picture"
+                onChange={this.handlePicChange}
+              />
+            </label>
+            {this.state.image && (
+              <div className="pictureToSave">
+                <img
+                  width="200"
+                  src={this.state.image}
+                  alt="uploaded Preview"
+                />
+                <button onClick={this.removeImage}>Delete this picture</button>
+              </div>
+            )}
+          </div>
+        </TextareaField>
 
         <input
           type="submit"
@@ -169,7 +175,7 @@ class PostForm extends React.Component {
           disabled={this.state.fileLoading}
         />
         <button onClick={this.props.toggleEdit}>Cancel</button>
-      </form>
+      </Form>
     );
   }
 }

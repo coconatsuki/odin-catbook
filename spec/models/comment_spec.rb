@@ -1,10 +1,22 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: comments
+#
+#  id         :bigint(8)        not null, primary key
+#  body       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  author_id  :integer
+#  post_id    :integer
+#
+
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
   it 'is creatable' do
-    comment = create(:comment)
+    comment = create(:comment).reload
     first_comment = Comment.first
     expect(first_comment.body).to eq(comment.body)
   end
