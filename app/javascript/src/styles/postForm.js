@@ -2,10 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { colors, shadows } from "../design/colors";
 import { Field, Input } from "./forms";
+import { LightGreyButton, LightRedButton } from "./button";
 
 export const Form = styled.form`
   width: 90%;
   padding: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 // --------------- TEXTAREA ---------------
@@ -23,7 +27,7 @@ export const TextareaField = styled(Field)`
   &:hover {
     outline: none;
     opacity: 1;
-    border: 2px solid ${colors.deepRed};
+    border: 1px solid ${colors.deepRed};
     -webkit-box-shadow: 0px 5px 5px 0px rgba(178, 58, 72, 0.5);
     -moz-box-shadow: 0px 5px 5px 0px rgba(178, 58, 72, 0.5);
     box-shadow: 0px 5px 5px 0px rgba(178, 58, 72, 0.5);
@@ -34,6 +38,7 @@ export const TextareaField = styled(Field)`
     flex-direction: column;
     align-items: center;
     padding: 15px;
+    margin-bottom: 0;
   }
 
   .label {
@@ -58,9 +63,49 @@ export const Textarea = styled.textarea`
   font-weight: 400;
   color: black;
   font-size: 1.3rem;
+  letter-spacing: 0.04rem;
   line-height: 1.5;
 
   &:focus {
     height: 150px;
   }
+`;
+
+export const FileUploadWrapper = styled(LightGreyButton)`
+  position: relative;
+  width: 30%;
+  align-self: center;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  width: 25%;
+`;
+
+export const ShareButton = styled(LightRedButton)`
+  width: 80%;
+  font-size: 1.6rem;
+  margin-top: 15px;
+`;
+
+export const FileUploadButton = styled.div`
+  opacity: 0;
+  width: 100%;
+  height: 33px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  input,
+  button {
+    width: 100%;
+    height: inherit;
+  }
+`;
+
+export const PicturePreview = styled.div`
+  align-self: center;
+  max-height: 200px;
+  margin: 0 15px 15px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

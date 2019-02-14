@@ -1,9 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ErrorsBlock from "./ErrorsBlock";
+import FileUpload from "./FileUpload";
 import { addPost, updatePost } from "../API/posts";
-import { uploadFile } from "../API/imageUpload";
-import { Form, Textarea, TextareaField } from "../styles/postForm";
+import { LightGreyButton } from "../styles/button";
+
+import {
+  Form,
+  Textarea,
+  TextareaField,
+  FileUploadWrapper,
+  PicturePreview,
+  ShareButton
+} from "../styles/postForm";
 
 class PostForm extends React.Component {
   static propTypes = {
@@ -17,7 +26,9 @@ class PostForm extends React.Component {
 
   state = {
     body: this.props.postToEdit ? this.props.postToEdit.body : "",
-    image: this.props.postToEdit ? this.props.postToEdit.smallImageUrl : null,
+    smallImage: this.props.postToEdit
+      ? this.props.postToEdit.smallImageUrl
+      : null,
     largeImage: this.props.postToEdit
       ? this.props.postToEdit.largeImageUrl
       : null,
@@ -44,7 +55,7 @@ class PostForm extends React.Component {
   clearState = () => {
     this.setState({
       body: "",
-      image: null,
+      smallImage: null,
       largeImage: null,
       errorMessages: []
     });
@@ -63,10 +74,10 @@ class PostForm extends React.Component {
     return true;
   };
 
-  removeImage = () => {
+  updateImages = (smallImage, largeImage) => {
     this.setState({
-      image: null,
-      largeImage: null
+      smallImage,
+      largeImage
     });
   };
 
@@ -90,8 +101,8 @@ class PostForm extends React.Component {
     e.preventDefault();
     const { postToEdit } = this.props;
     const method = this.isEditing() ? "update" : "create";
-    const { body, image, largeImage, fileLoading } = this.state;
-    const postData = { body, image, largeImage };
+    const { body, smallImage, largeImage, fileLoading } = this.state;
+    const postData = { body, smallImage, largeImage };
 
     if (this.validBody(body) && !fileLoading) {
       const fetchedPost = await this.savePost(postData, postToEdit, method);
@@ -106,26 +117,10 @@ class PostForm extends React.Component {
     });
   };
 
-  handlePicChange = async e => {
-    const files = e.target.files;
-    this.toggleFileLoading();
-    const fetchedFile = await uploadFile(files);
-
-    if (fetchedFile.error) {
-      this.setErrorMessages([fetchedFile.error.message]);
-    } else {
-      this.setState({
-        image: fetchedFile.secure_url,
-        largeImage: fetchedFile.eager[0].secure_url
-      });
-    }
-    this.toggleFileLoading();
-  };
-
   submitButtonValue = () => {
     if (this.state.fileLoading) return "File loading";
     if (this.isEditing()) return "Edit!";
-    return "Post!";
+    return "Share!";
   };
 
   render() {
@@ -146,35 +141,34 @@ class PostForm extends React.Component {
             />
             <span className="border" />
           </label>
-          <div className="picture-upload">
-            <label htmlFor="postPicture">
-              <input
-                type="file"
-                name="file"
-                id="postPicture"
-                placeholder="Add a Picture"
-                onChange={this.handlePicChange}
+          <FileUploadWrapper>
+            {this.state.smallImage ? "Delete this image" : "Upload an Image"}
+            <FileUpload
+              toggleFileLoading={this.toggleFileLoading}
+              smallImage={this.state.smallImage}
+              largeImage={this.state.largeImage}
+              updateImages={this.updateImages}
+            />
+          </FileUploadWrapper>
+          {this.state.smallImage && (
+            <PicturePreview>
+              <img
+                width="200"
+                src={this.state.smallImage}
+                alt="uploaded Preview"
               />
-            </label>
-            {this.state.image && (
-              <div className="pictureToSave">
-                <img
-                  width="200"
-                  src={this.state.image}
-                  alt="uploaded Preview"
-                />
-                <button onClick={this.removeImage}>Delete this picture</button>
-              </div>
-            )}
-          </div>
+            </PicturePreview>
+          )}
         </TextareaField>
 
-        <input
-          type="submit"
-          value={this.submitButtonValue()}
-          disabled={this.state.fileLoading}
-        />
-        <button onClick={this.props.toggleEdit}>Cancel</button>
+        <ShareButton type="submit" disabled={this.state.fileLoading}>
+          {this.submitButtonValue()}
+        </ShareButton>
+        {this.isEditing() && (
+          <LightGreyButton onClick={this.props.toggleEdit}>
+            Cancel
+          </LightGreyButton>
+        )}
       </Form>
     );
   }

@@ -14,7 +14,7 @@ export const Main = styled.div`
   width: 60%;
 `;
 
-export const PostsWrapper = styled(Wrapper)`
+export const HomeWrapper = styled(Wrapper)`
   margin: 2% 1%;
   flex-direction: row;
   align-items: flex-start;
@@ -40,7 +40,37 @@ export const Stats = styled.div`
   background: white;
   border: 1px solid ${colors.pink};
   border-radius: 30px;
-  padding: 30px;
-  align-items: center;
+  padding: 20px;
   width: 80%;
+
+  h3 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 5%;
+  }
+`;
+
+export const PostsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 90%;
+`;
+
+export const PostWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%%;
+  background: white;
+  border: 1px solid ${colors.pink};
+  border-radius: 30px;
+  margin-top: 2%;
+  padding: 20px;
+
+  article {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+  }
 `;

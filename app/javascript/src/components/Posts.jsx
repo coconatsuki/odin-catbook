@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { postType } from "../API/posts";
 import { currentUserType } from "../API/users";
 import Post from "./Post";
+import { PostsWrapper } from "../styles/home";
 
 class Posts extends React.Component {
   static propTypes = {
@@ -17,9 +18,7 @@ class Posts extends React.Component {
   render() {
     const { postAuthor, posts } = this.props;
     return (
-      <>
-        <h3>POSTS : </h3>
-        <p>--------------------------------------</p>
+      <PostsWrapper>
         <FlipMove>
           {posts.map(post => (
             <Post
@@ -32,7 +31,7 @@ class Posts extends React.Component {
             />
           ))}
         </FlipMove>
-      </>
+      </PostsWrapper>
     );
   }
 }

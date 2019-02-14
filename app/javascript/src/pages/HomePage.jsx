@@ -9,7 +9,7 @@ import PostForm from "../components/PostForm";
 import Nav from "../components/Nav";
 import { Body } from "../styles/global";
 import {
-  PostsWrapper,
+  HomeWrapper,
   Aside,
   Main,
   FormWrapper,
@@ -43,6 +43,11 @@ class HomePage extends AbstractPage {
       post => post.author.id === this.state.currentUser.id
     );
 
+  friendsPosts = () =>
+    this.state.posts.filter(
+      post => post.author.id !== this.state.currentUser.id
+    );
+
   render() {
     const { currentUser } = this.state;
     return (
@@ -50,7 +55,7 @@ class HomePage extends AbstractPage {
         <>
           <Body />
           <Nav currentUser={this.state.currentUser} activePage="homePage" />
-          <PostsWrapper>
+          <HomeWrapper>
             <Aside>
               <Img src={postsCat} />
             </Aside>
@@ -68,10 +73,12 @@ class HomePage extends AbstractPage {
             </Main>
             <Aside>
               <Stats>
-                <p>Number of posts: {this.currentUserPosts().length}</p>
+                <h3>Posts</h3>
+                <p>Your posts: {this.currentUserPosts().length}</p>
+                <p>Your friends posts: {this.friendsPosts().length}</p>
               </Stats>
             </Aside>
-          </PostsWrapper>
+          </HomeWrapper>
         </>
       )
     );

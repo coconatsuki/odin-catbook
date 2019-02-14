@@ -8,6 +8,7 @@ import { addLike, destroyLike } from "../API/likes";
 import { postType } from "../API/posts";
 import { getComments } from "../API/comments";
 import { currentUserType } from "../API/users";
+import { PostWrapper } from "../styles/home";
 import * as moment from "moment";
 
 class Post extends React.Component {
@@ -44,7 +45,7 @@ class Post extends React.Component {
     const { post, currentUser, deletePost, refreshPosts } = this.props;
     const { likedByCurrentUser, likesCount, commentsCount } = this.state;
     return (
-      <>
+      <PostWrapper>
         {this.state.edit ? (
           <PostForm
             refreshPosts={refreshPosts}
@@ -83,7 +84,7 @@ class Post extends React.Component {
           </article>
         )}
         <p>--------------------------------------</p>
-      </>
+      </PostWrapper>
     );
   }
 }
