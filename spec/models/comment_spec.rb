@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: comments
@@ -10,6 +9,11 @@
 #  updated_at :datetime         not null
 #  author_id  :integer
 #  post_id    :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (author_id => users.id)
+#  fk_rails_...  (post_id => posts.id)
 #
 
 require 'rails_helper'

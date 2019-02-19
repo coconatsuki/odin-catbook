@@ -1,13 +1,21 @@
 import { addCsrf } from "./helper";
 
-export async function addLike(postId) {
+export async function addLike(postId, key) {
+  const positive = key === "dislike" ? false : true;
+
   const like = await fetch(`/posts/${postId}/likes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json"
     },
-    body: JSON.stringify(addCsrf({}))
+    body: JSON.stringify(
+      addCsrf({
+        like: {
+          positive
+        }
+      })
+    )
   });
   const response = await like.json();
   return response;

@@ -8,24 +8,35 @@ class LikesController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @like = Like.new
-    @like.post = @post
-    @like.author = current_user
 
-    if @like.save
-      render json: @like
-    else
-      render json: { errors: @like.errors.full_messages }
-    end
+    return no_duplication if @post.evaluated_by(current_user)
+    return not_permited if @post.author_id == current_user.id
+
+    @like = Like.create!(like_params.merge(author_id: current_user.id).merge(post_id: @post.id))
+    render json: @like, include: 'post,post.author'
   end
 
   def destroy
     @like = Like.find(params[:id])
 
     if @like.destroy
-      render json: @like
+      render json: @like, include: 'post,post.author'
     else
       render json: { errors: @like.errors.full_messages }
     end
+  end
+
+  private
+
+  def like_params
+    params.require(:like).permit(:positive)
+  end
+
+  def no_duplication
+    render json: { errors: ["Sorry, you can't evaluate a post twice."] }
+  end
+
+  def not_permited
+    render json: { errors: ["Sorry, you can't evaluate your own posts."] }
   end
 end

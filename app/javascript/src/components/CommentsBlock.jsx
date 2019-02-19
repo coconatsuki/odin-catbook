@@ -7,6 +7,8 @@ import { getComments, destroyComment } from "../API/comments";
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
 import Comment from "./Comment";
+import { Counter } from "../styles/comment";
+import { Border } from "../styles/global";
 
 class CommentsBlock extends React.Component {
   static propTypes = {
@@ -96,14 +98,16 @@ class CommentsBlock extends React.Component {
             setCommentErrorMessages={this.setCommentErrorMessages}
           />
           <div className="comments">
-            <p>{commentsCount} comments </p>
-            <button onClick={this.toggleComments}>
-              {showComments ? "Hide comments" : "Show comments"}
-            </button>
+            <Counter>
+              <button onClick={this.toggleComments}>
+                {showComments
+                  ? `Hide comments (${commentsCount})`
+                  : `View comments (${commentsCount})`}
+              </button>
+            </Counter>
             {showComments && (
               <>
-                <h6>Comments on this post : </h6>
-                <p>--------------------------------------</p>
+                <Border />
                 <Comments
                   comments={this.state.comments}
                   postId={this.props.postId}

@@ -31,8 +31,6 @@ class Comments extends React.Component {
     return (
       comments && (
         <>
-          <h6>Comments on this post : </h6>
-          <p>--------------------------------------</p>
           <FlipMove>
             {comments.map(comment => (
               <Comment

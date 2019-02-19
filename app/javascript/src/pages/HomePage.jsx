@@ -73,9 +73,20 @@ class HomePage extends AbstractPage {
             </Main>
             <Aside>
               <Stats>
-                <h3>Posts</h3>
-                <p>Your posts: {this.currentUserPosts().length}</p>
-                <p>Your friends posts: {this.friendsPosts().length}</p>
+                <h3>Who wins ?</h3>
+                <h4>This week</h4>
+                <p>
+                  <span>The most active: NAME (NUMBER)</span>
+                  <span>You: NUMBER</span>
+                </p>
+                <p>
+                  <span>Most LIKE-ICON: NAME (NUMBER)</span>
+                  <span>You: NUMBER</span>
+                </p>
+                <p>
+                  <span>Most DISLIKE-ICON: NAME (NUMBER)</span>
+                  <span>You: NUMBER</span>
+                </p>
               </Stats>
             </Aside>
           </HomeWrapper>

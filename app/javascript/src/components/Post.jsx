@@ -8,7 +8,8 @@ import { addLike, destroyLike } from "../API/likes";
 import { postType } from "../API/posts";
 import { getComments } from "../API/comments";
 import { currentUserType } from "../API/users";
-import { PostWrapper } from "../styles/home";
+import { Controls, PostWrapper, PostHeader, PostContent } from "../styles/post";
+import { Border } from "../styles/global";
 import * as moment from "moment";
 
 class Post extends React.Component {
@@ -55,27 +56,35 @@ class Post extends React.Component {
         ) : (
           <article>
             {this.currentUserIsAuthor() && (
-              <div className="controls">
+              <Controls>
                 <ErrorsBlock errorMessages={this.props.errorMessages} />
                 <button onClick={this.toggleEdit}>Edit Post</button>
                 <button onClick={() => deletePost(post.id)}>Delete Post</button>
-              </div>
+              </Controls>
             )}
-            <p>
-              <strong>POST Written by => {post.author.name}</strong>
-            </p>
-            <p>POST BODY =>{post.body}</p>
+            <PostHeader>
+              <h3>{post.author.name}</h3>
+              <span>
+                Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}
+              </span>
+            </PostHeader>
+            <Border />
+            <PostContent>{post.body}</PostContent>
             {post.smallImageUrl && (
               <img width="200" src={post.smallImageUrl} alt="post image" />
             )}
-            <p>Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}</p>
             <Like
               postId={post.id}
               likesCount={post.likes_count}
-              likedByCurrentUser={post.liked_by_current_user}
+              dislikesCount={post.dislikes_count}
+              evaluatedByCurrentUser={post.evaluated_by_currentUser}
+              likedByCurrentUser={post.liked_by_currentUser}
+              dislikedByCurrentUser={post.disliked_by_currentUser}
               setErrorMessages={this.setErrorMessages}
               currentUserIsAuthor={this.currentUserIsAuthor}
+              refreshPosts={this.props.refreshPosts}
             />
+            <Border />
             <CommentsBlock
               currentUser={currentUser}
               commentsCount={post.comments_count}
@@ -83,7 +92,6 @@ class Post extends React.Component {
             />
           </article>
         )}
-        <p>--------------------------------------</p>
       </PostWrapper>
     );
   }

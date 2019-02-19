@@ -8,6 +8,7 @@ import AboutMe from "../components/AboutMe";
 import Nav from "../components/Nav";
 import { getUserById, getCurrentUser } from "../API/users";
 import { Body, Wrapper } from "../styles/global";
+import { Aside, UserPageWrapper, Main, FormWrapper } from "../styles/userPage";
 
 class UserPage extends AbstractPage {
   state = {
@@ -67,42 +68,49 @@ class UserPage extends AbstractPage {
         <>
           <Body />
           <Nav currentUser={currentUser} activePage="userPage" />
-          <Wrapper>
-            <User
-              user={this.state.user}
-              currentUser={this.state.currentUser}
-              canSeeProfile={this.canSeeProfile}
-              isCurrentUser={this.isCurrentUser}
-              toggleDisplay={this.toggleDisplay}
-              display={display}
-              updateUser={this.updateUser}
-            />
-            {user.id === currentUser.id && display === "posts" && (
-              <PostForm refreshPosts={this.refreshPosts} />
-            )}
-
-            {this.canSeeProfile() && display === "posts" && (
-              <Posts
-                posts={this.state.posts}
+          <UserPageWrapper>
+            <Aside />
+            <Main>
+              <User
+                user={this.state.user}
                 currentUser={this.state.currentUser}
-                refreshPosts={this.refreshPosts}
-                deletePost={this.deletePost}
-                errorMessages={this.state.errorMessages}
-              />
-            )}
-            {this.canSeeProfile && display === "friends" && (
-              <Wrapper>
-                <Users users={user.friends} />
-              </Wrapper>
-            )}
-            {this.canSeeProfile && display === "about" && (
-              <AboutMe
-                user={user}
+                canSeeProfile={this.canSeeProfile}
                 isCurrentUser={this.isCurrentUser}
-                refreshProfile={this.updateUser}
+                toggleDisplay={this.toggleDisplay}
+                display={display}
+                updateUser={this.updateUser}
               />
-            )}
-          </Wrapper>
+              {user.id === currentUser.id && display === "posts" && (
+                <FormWrapper>
+                  <PostForm refreshPosts={this.refreshPosts} />
+                </FormWrapper>
+              )}
+
+              {(this.isCurrentUser() || this.canSeeProfile()) &&
+                display === "posts" && (
+                  <Posts
+                    posts={this.state.posts}
+                    currentUser={this.state.currentUser}
+                    refreshPosts={this.refreshPosts}
+                    deletePost={this.deletePost}
+                    errorMessages={this.state.errorMessages}
+                  />
+                )}
+              {this.canSeeProfile && display === "friends" && (
+                <Wrapper>
+                  <Users users={user.friends} />
+                </Wrapper>
+              )}
+              {this.canSeeProfile && display === "about" && (
+                <AboutMe
+                  user={user}
+                  isCurrentUser={this.isCurrentUser}
+                  refreshProfile={this.updateUser}
+                />
+              )}
+            </Main>
+            <Aside />
+          </UserPageWrapper>
         </>
       )
     );

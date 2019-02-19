@@ -22,6 +22,7 @@ export const TextareaField = styled(Field)`
   opacity: 0.8;
   -webkit-transition: all 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
 
   &:focus,
   &:hover {
@@ -44,14 +45,6 @@ export const TextareaField = styled(Field)`
   .label {
     top: -6px;
   }
-
-  .border {
-    width: 80%;
-    display: block;
-    height: 1px;
-    border: 1px solid lightgrey;
-    margin-top: 10px;
-  }
 `;
 
 export const Textarea = styled.textarea`
@@ -65,6 +58,9 @@ export const Textarea = styled.textarea`
   font-size: 1.3rem;
   letter-spacing: 0.04rem;
   line-height: 1.5;
+  -webkit-transition: height 0.2s ease-in;
+  -moz-transition: height 0.2s ease-in;
+  transition: height 0.2s ease-in;
 
   &:focus {
     height: 150px;
@@ -83,7 +79,6 @@ export const FileUploadWrapper = styled(LightGreyButton)`
 export const ShareButton = styled(LightRedButton)`
   width: 80%;
   font-size: 1.6rem;
-  margin-top: 15px;
 `;
 
 export const FileUploadButton = styled.div`
@@ -108,4 +103,15 @@ export const PicturePreview = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const Controls = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 15px;
+
+  button {
+    width: ${props => (props.edit ? "20%" : "80%")};
+  }
 `;

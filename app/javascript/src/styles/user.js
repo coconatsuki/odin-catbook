@@ -6,7 +6,7 @@ export const Header = styled.div`
   display: flex;
   flex-direction: column;
   height: 300px;
-  width: 80%;
+  width: 100%;
   box-shadow: 0px 10px 9px -4px rgba(140, 47, 57, 0.71);
 `;
 

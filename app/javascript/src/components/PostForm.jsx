@@ -4,15 +4,16 @@ import ErrorsBlock from "./ErrorsBlock";
 import FileUpload from "./FileUpload";
 import { addPost, updatePost } from "../API/posts";
 import { LightGreyButton } from "../styles/button";
-
 import {
   Form,
   Textarea,
   TextareaField,
   FileUploadWrapper,
   PicturePreview,
-  ShareButton
+  ShareButton,
+  Controls
 } from "../styles/postForm";
+import { Border } from "../styles/global";
 
 class PostForm extends React.Component {
   static propTypes = {
@@ -139,7 +140,7 @@ class PostForm extends React.Component {
               onChange={this.handleBodyChange}
               value={this.state.body}
             />
-            <span className="border" />
+            <Border />
           </label>
           <FileUploadWrapper>
             {this.state.smallImage ? "Delete this image" : "Upload an Image"}
@@ -160,15 +161,16 @@ class PostForm extends React.Component {
             </PicturePreview>
           )}
         </TextareaField>
-
-        <ShareButton type="submit" disabled={this.state.fileLoading}>
-          {this.submitButtonValue()}
-        </ShareButton>
-        {this.isEditing() && (
-          <LightGreyButton onClick={this.props.toggleEdit}>
-            Cancel
-          </LightGreyButton>
-        )}
+        <Controls edit={this.isEditing()}>
+          <ShareButton type="submit" disabled={this.state.fileLoading}>
+            {this.submitButtonValue()}
+          </ShareButton>
+          {this.isEditing() && (
+            <LightGreyButton onClick={this.props.toggleEdit}>
+              Cancel
+            </LightGreyButton>
+          )}
+        </Controls>
       </Form>
     );
   }

@@ -47,6 +47,7 @@ export const Stats = styled.div`
     text-align: center;
     margin: 0;
     margin-bottom: 5%;
+    color: ${colors.darkRed};
   }
 `;
 
@@ -55,22 +56,4 @@ export const PostsWrapper = styled.div`
   flex-direction: column;
   margin-top: 20px;
   width: 90%;
-`;
-
-export const PostWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%%;
-  background: white;
-  border: 1px solid ${colors.pink};
-  border-radius: 30px;
-  margin-top: 2%;
-  padding: 20px;
-
-  article {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-  }
 `;

@@ -73,8 +73,11 @@ export const postType = PropTypes.shape({
   smallImageUrl: PropTypes.string,
   created_at: PropTypes.string.isRequired,
   likes_count: PropTypes.number.isRequired,
+  dislikes_count: PropTypes.number.isRequired,
   comments_count: PropTypes.number.isRequired,
+  evaluated_by_current_user: PropTypes.number,
   liked_by_current_user: PropTypes.number,
+  disliked_by_current_user: PropTypes.number,
   author: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired

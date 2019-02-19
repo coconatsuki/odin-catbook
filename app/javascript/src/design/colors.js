@@ -3,7 +3,9 @@ export const colors = {
   deepRed: "hsl(353, 51%, 46%)",
   middleRed: "hsl(353, 51%, 46%)",
   pink: "hsl(6, 93%, 84%)",
-  lightRed: "hsl(17, 37%, 96%)"
+  lightRed: "hsl(17, 37%, 96%)",
+  lightGrey: "hsl(24, 2%, 94%)",
+  editBlue: "hsl(210, 71%, 48%)"
 };
 
 export const shadows = {

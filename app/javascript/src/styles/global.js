@@ -30,9 +30,19 @@ export const Wrapper = styled.section`
   }
 
   input,
-  textarea {
+  textarea,
+  button {
     &:focus {
       outline: none;
     }
   }
+`;
+
+export const Border = styled.span`
+  opacity: 0.7;
+  width: 100%;
+  display: block;
+  height: 1px;
+  border-bottom: 1px solid lightgrey;
+  margin: 5px 0;
 `;

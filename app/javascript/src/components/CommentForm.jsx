@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { commentType, addComment, updateComment } from "../API/comments";
 import ErrorsBlock from "./ErrorsBlock";
+import { Textarea, EditComment } from "../styles/comment";
+import { Controls } from "../styles/postForm";
+import { LightGreyButton } from "../styles/button";
 
 class CommentForm extends React.Component {
   static propTypes = {
@@ -93,21 +96,25 @@ class CommentForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSave}>
-        <p>Write a comment...</p>
         <ErrorsBlock errorMessages={this.props.errorMessages} />
         <label htmlFor="body" />
-        <textarea
+        <Textarea
+          type="text"
+          placeholder="Write a comment..."
           name="body"
           id="body"
           onChange={this.handleChange}
           value={this.state.body}
         />
-        <div className="controls">
-          <input type="submit" value={this.submitButtonValue()} />
-          {this.isEditing() && (
-            <button onClick={this.props.toggleEdit}>Cancel</button>
-          )}
-        </div>
+        {this.isEditing() && (
+          <Controls>
+            <EditComment type="submit" value={this.submitButtonValue()} />
+
+            <LightGreyButton onClick={this.props.toggleEdit}>
+              Cancel
+            </LightGreyButton>
+          </Controls>
+        )}
       </form>
     );
   }

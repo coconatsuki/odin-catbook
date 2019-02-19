@@ -4,6 +4,7 @@ import CommentForm from "./CommentForm";
 import { commentType } from "../API/comments";
 import { currentUserType } from "../API/users";
 import * as moment from "moment";
+import { Article, CommentControls } from "../styles/comment";
 
 class Comment extends React.Component {
   static propTypes = {
@@ -57,7 +58,7 @@ class Comment extends React.Component {
             setCommentErrorMessages={setCommentErrorMessages}
           />
         ) : (
-          <article style={{ paddingLeft: "40px" }}>
+          <Article style={{ paddingLeft: "40px" }}>
             {this.currentUserIsAuthor() && (
               <div className="controls">
                 <ul>
@@ -67,20 +68,19 @@ class Comment extends React.Component {
                     </li>
                   ))}
                 </ul>
-                <button onClick={this.toggleEdit}>Edit Comment</button>
-                <button onClick={() => deleteComment(comment)}>
-                  Delete Comment
-                </button>
+                <CommentControls>
+                  <button onClick={this.toggleEdit}>Edit Comment</button>
+                  <button onClick={() => deleteComment(comment)}>
+                    Delete Comment
+                  </button>
+                </CommentControls>
               </div>
             )}
-            <p>
-              <strong>COMMENT Written by => {comment.author.name}</strong>
-            </p>
-            <p>COMMENT BODY =>{comment.body}</p>
+            <p>{comment.author.name}</p>
             <p>Posted {moment(comment.created_at, "YYYY-MM-DD").fromNow()}</p>
-          </article>
+            <p>{comment.body}</p>
+          </Article>
         )}
-        <p>--------------------------------------</p>
       </>
     );
   }

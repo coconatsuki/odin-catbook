@@ -74,7 +74,7 @@ class Nav extends React.Component {
             onMouseLeave={this.highlightActiveList}
             ref={this.homePageDiv}
           >
-            <a href="/posts">Home</a>
+            <a href="/posts">Posts</a>
           </ListElement>
           <ListElement
             key="users-page"
