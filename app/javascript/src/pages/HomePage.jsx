@@ -1,21 +1,14 @@
 import React from "react";
-import FlipMove from "react-flip-move";
 import PropTypes from "prop-types";
 import AbstractPage from "./AbstractPage";
 import { getPosts } from "../API/posts";
 import { getCurrentUser } from "../API/users";
 import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
+import Stats from "../components/Stats";
 import Nav from "../components/Nav";
 import { Body } from "../styles/global";
-import {
-  HomeWrapper,
-  Aside,
-  Main,
-  FormWrapper,
-  Img,
-  Stats
-} from "../styles/home";
+import { HomeWrapper, Aside, Main, FormWrapper, CatImg } from "../styles/home";
 import postsCat from "../images/posts-cat.png";
 
 class HomePage extends AbstractPage {
@@ -38,6 +31,13 @@ class HomePage extends AbstractPage {
     });
   };
 
+  fetchStats = async () => {
+    const fetchedStats = await getStats();
+    this.setState({
+      stats: fetchedStats
+    });
+  };
+
   currentUserPosts = () =>
     this.state.posts.filter(
       post => post.author.id === this.state.currentUser.id
@@ -54,10 +54,10 @@ class HomePage extends AbstractPage {
       currentUser && (
         <>
           <Body />
-          <Nav currentUser={this.state.currentUser} activePage="homePage" />
+          <Nav currentUser={currentUser} activePage="homePage" />
           <HomeWrapper>
             <Aside>
-              <Img src={postsCat} />
+              <CatImg src={postsCat} />
             </Aside>
             <Main>
               <FormWrapper>
@@ -65,29 +65,17 @@ class HomePage extends AbstractPage {
               </FormWrapper>
               <Posts
                 posts={this.state.posts}
-                currentUser={this.state.currentUser}
+                currentUser={currentUser}
                 refreshPosts={this.refreshPosts}
                 deletePost={this.deletePost}
                 errorMessages={this.state.errorMessages}
               />
             </Main>
             <Aside>
-              <Stats>
-                <h3>Who wins ?</h3>
-                <h4>This week</h4>
-                <p>
-                  <span>The most active: NAME (NUMBER)</span>
-                  <span>You: NUMBER</span>
-                </p>
-                <p>
-                  <span>Most LIKE-ICON: NAME (NUMBER)</span>
-                  <span>You: NUMBER</span>
-                </p>
-                <p>
-                  <span>Most DISLIKE-ICON: NAME (NUMBER)</span>
-                  <span>You: NUMBER</span>
-                </p>
-              </Stats>
+              <Stats
+                currentUserPosts={this.currentUserPosts()}
+                currentUser={currentUser}
+              />
             </Aside>
           </HomeWrapper>
         </>

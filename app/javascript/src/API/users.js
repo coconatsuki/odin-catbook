@@ -73,6 +73,17 @@ export async function getUserById(id) {
   return response;
 }
 
+export async function getStats() {
+  const user = await fetch(`/users/stats`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    }
+  });
+  const response = await user.json();
+  return response;
+}
+
 export const userType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,

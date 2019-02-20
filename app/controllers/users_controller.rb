@@ -58,6 +58,15 @@ class UsersController < ApplicationController
     render json: current_user, serializer: CurrentUserSerializer
   end
 
+  def stats
+    max_posts = SelectUserWithMaxPosts.execute(current_user.id)
+    max_comments = SelectUserWithMaxComments.execute(current_user.id)
+    max_likes = SelectUserWithMaxLikes.execute(current_user.id)
+    max_poo = SelectUserWithMaxPoo.execute(current_user.id)
+    render json: { max_posts: max_posts.to_h, max_comments: max_comments.to_h, max_likes: max_likes.to_h,
+                   max_poo: max_poo.to_h }
+  end
+
   private
 
   def user_params

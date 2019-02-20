@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { colors, shadows } from "../design/colors";
 import { Wrapper } from "./global";
+import { Img } from "../styles/like";
 
 export const Aside = styled.aside`
   width: 20%;
@@ -30,25 +31,76 @@ export const FormWrapper = styled.div`
   background-color: white;
 `;
 
-export const Img = styled.img`
+export const CatImg = styled.img`
   width: 250px;
 `;
 
-export const Stats = styled.div`
+export const StatsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background: white;
   border: 1px solid ${colors.pink};
   border-radius: 30px;
-  padding: 20px;
-  width: 80%;
+  padding: 15px;
+  width: 100%;
 
   h3 {
+    color: ${colors.darkRed};
     text-align: center;
     margin: 0;
-    margin-bottom: 5%;
-    color: ${colors.darkRed};
+    font-weight: 600;
   }
+
+  .subtitle {
+    margin: 5px 0 10px 0;
+    font-weight: 400;
+  }
+
+  p.last-line {
+    margin-bottom: 0;
+  }
+`;
+
+export const Stat = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+
+  h4 {
+    text-align: center;
+    color: ${colors.darkRed};
+    margin-bottom: 5px;
+  }
+
+  p {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  p span {
+    flex-grow: 1;
+  }
+
+  p span:first-child {
+    color: ${colors.middleRed};
+    text-align: left;
+    padding-left: 10px;
+    font-size: 1.6rem;
+  }
+
+  p span:last-child {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 1.5rem;
+  }
+
+  .faded {
+    opacity: 0.5;
+  }
+`;
+
+export const Icons = styled(Img)`
+  margin: 0 3px;
 `;
 
 export const PostsWrapper = styled.div`
