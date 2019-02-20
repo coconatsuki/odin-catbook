@@ -107,8 +107,10 @@ class CommentForm extends React.Component {
           value={this.state.body}
         />
         {this.isEditing() && (
-          <Controls>
-            <EditComment type="submit" value={this.submitButtonValue()} />
+          <Controls edit={this.isEditing()}>
+            <EditComment type="submit" value={this.submitButtonValue()}>
+              {this.submitButtonValue()}
+            </EditComment>
 
             <LightGreyButton onClick={this.props.toggleEdit}>
               Cancel

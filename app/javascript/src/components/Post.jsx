@@ -8,7 +8,13 @@ import { addLike, destroyLike } from "../API/likes";
 import { postType } from "../API/posts";
 import { getComments } from "../API/comments";
 import { currentUserType } from "../API/users";
-import { Controls, PostWrapper, PostHeader, PostContent } from "../styles/post";
+import {
+  PostArticle,
+  Controls,
+  PostWrapper,
+  PostHeader,
+  PostContent
+} from "../styles/post";
 import { Border } from "../styles/global";
 import * as moment from "moment";
 
@@ -54,7 +60,7 @@ class Post extends React.Component {
             toggleEdit={this.toggleEdit}
           />
         ) : (
-          <article>
+          <PostArticle>
             {this.currentUserIsAuthor() && (
               <Controls>
                 <ErrorsBlock errorMessages={this.props.errorMessages} />
@@ -90,7 +96,7 @@ class Post extends React.Component {
               commentsCount={post.comments_count}
               postId={post.id}
             />
-          </article>
+          </PostArticle>
         )}
       </PostWrapper>
     );

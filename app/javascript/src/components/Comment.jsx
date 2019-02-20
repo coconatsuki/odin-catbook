@@ -4,7 +4,12 @@ import CommentForm from "./CommentForm";
 import { commentType } from "../API/comments";
 import { currentUserType } from "../API/users";
 import * as moment from "moment";
-import { Article, CommentControls } from "../styles/comment";
+import {
+  Article,
+  CommentControls,
+  CommentHeader,
+  CommentBody
+} from "../styles/comment";
 
 class Comment extends React.Component {
   static propTypes = {
@@ -58,7 +63,7 @@ class Comment extends React.Component {
             setCommentErrorMessages={setCommentErrorMessages}
           />
         ) : (
-          <Article style={{ paddingLeft: "40px" }}>
+          <Article>
             {this.currentUserIsAuthor() && (
               <div className="controls">
                 <ul>
@@ -76,9 +81,14 @@ class Comment extends React.Component {
                 </CommentControls>
               </div>
             )}
-            <p>{comment.author.name}</p>
-            <p>Posted {moment(comment.created_at, "YYYY-MM-DD").fromNow()}</p>
-            <p>{comment.body}</p>
+            <CommentHeader>
+              <h4>{comment.author.name}</h4>
+              <span>
+                Posted {moment(comment.created_at, "YYYY-MM-DD").fromNow()}
+              </span>
+            </CommentHeader>
+
+            <CommentBody>{comment.body}</CommentBody>
           </Article>
         )}
       </>

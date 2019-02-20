@@ -85,6 +85,16 @@ class CommentsBlock extends React.Component {
     });
   };
 
+  commentsCountDisplay = () => {
+    const { commentsCount, showComments } = this.state;
+    if (commentsCount === 0) {
+      return `comments ( ${commentsCount} )`;
+    } else {
+      if (showComments) return `Hide comments ( ${commentsCount} )`;
+      if (commentsCount > 0) return `View comments ( ${commentsCount} )`;
+    }
+  };
+
   render() {
     const { comments, commentsCount, errorMessages, showComments } = this.state;
     return (
@@ -98,11 +108,12 @@ class CommentsBlock extends React.Component {
             setCommentErrorMessages={this.setCommentErrorMessages}
           />
           <div className="comments">
-            <Counter>
-              <button onClick={this.toggleComments}>
-                {showComments
-                  ? `Hide comments (${commentsCount})`
-                  : `View comments (${commentsCount})`}
+            <Counter disabled={commentsCount === 0}>
+              <button
+                onClick={this.toggleComments}
+                disabled={commentsCount === 0}
+              >
+                {this.commentsCountDisplay()}
               </button>
             </Counter>
             {showComments && (

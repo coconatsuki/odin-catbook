@@ -2,11 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { colors, shadows } from "../design/colors";
 
+export const PostArticle = styled.div`
+  width: 95%;
+  position: relative;
+  margin: 6px 0;
+`;
+
 export const Controls = styled.div`
   display: flex;
-  justify-content: flex-end;
+  position: absolute;
+  right: 15px;
 
   button {
+    padding-top: 0;
     border: none;
     color: ${colors.editBlue};
     padding: 5px 10px;
@@ -15,10 +23,15 @@ export const Controls = styled.div`
     -moz-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
     background-color: transparent;
+    font-size: 1.3rem;
 
     &:hover {
       background-color: ${colors.lightGrey};
       color: black;
+    }
+
+    button:last-child {
+      margin-right: 10px;
     }
   }
 `;
@@ -32,7 +45,7 @@ export const PostWrapper = styled.div`
   border: 1px solid ${colors.pink};
   border-radius: 30px;
   margin-top: 2%;
-  padding: 20px;
+  padding: 10px;
 
   article {
     display: flex;
