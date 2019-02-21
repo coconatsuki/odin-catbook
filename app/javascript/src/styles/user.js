@@ -31,6 +31,25 @@ export const ProfileNav = styled.ul`
   background: ${shadows.lightGradient};
 `;
 
+export const CroppingBar = styled.div`
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 10%;
+  margin-bottom: 0;
+  border: 1px solid hsl(6, 93%, 84%);
+  border-radius: 0 0 3px 3px;
+  border-top: none;
+  background: linear-gradient(to bottom, #ffffff 5%, #f5eaea 100%);
+
+  button {
+    width: 25%;
+    height: 85% !important;
+    font-size: 1.6rem;
+  }
+`;
+
 export const NavElements = styled.div`
   position: relative;
   display: flex;
@@ -109,8 +128,18 @@ export const CatPaw = styled.img`
   position: absolute;
 `;
 
-export const CoverPic = styled.div`
+export const CoverPicWrapper = styled.div`
+  position: relative;
   height: 260px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+`;
+
+export const CoverPic = styled.div`
+  width: 100%;
+  height: 260px;
+  position: absolute;
   background-color: ${colors.pink};
   background-image: url(${props => props.imageUrl && props.imageUrl});
   background-size: cover;

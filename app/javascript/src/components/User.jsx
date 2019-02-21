@@ -2,11 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { userType, currentUserWithFriendsType } from "../API/users";
 import FriendshipButton from "./FriendshipButton";
+import CropCoverPicture from "./CropCoverPicture";
 import FileUpload from "./FileUpload";
 import {
   Header,
+  CoverPicWrapper,
   CoverPic,
   ProfileNav,
+  CroppingBar,
   NavElements,
   ElementWrapper,
   NavCat1,
@@ -22,7 +25,6 @@ import divCat from "../images/div-cat.png";
 import divCat2 from "../images/div-cat2.png";
 import divCat3 from "../images/div-cat3.png";
 import catPaw from "../images/pawprintwhite.png";
-import { LightGreyButton } from "../styles/button";
 
 class User extends React.Component {
   static propTypes = {
@@ -40,7 +42,7 @@ class User extends React.Component {
     largeCoverImage: this.props.user.large_cover_pic,
     smallProfileImage: this.props.user.small_profile_pic,
     largeProfileImage: this.props.user.large_profile_pic,
-    fileLoading: false
+    fileCropping: false
   };
 
   toggleFileLoading = () => {
@@ -63,6 +65,17 @@ class User extends React.Component {
     });
   };
 
+  saveCroppedCoverPicture = () => {};
+
+  toggleCropping = () => {
+    this.setState({
+      croppingImage: !this.state.croppingImage
+    });
+  };
+
+  croppingImage = () =>
+    this.state.smallCoverImage || this.state.smallProfileImage;
+
   render() {
     const {
       user,
@@ -73,15 +86,22 @@ class User extends React.Component {
       display
     } = this.props;
     return (
-      <>
-        <Header>
-          <CoverPic imageUrl={this.state.smallCoverImage}>
+      <Header>
+        {this.state.smallCoverImage ? (
+          <CropCoverPicture
+            imageUrl={this.state.smallCoverImage}
+            saveCroppedCoverPicture={this.saveCroppedCoverPicture}
+            toggleCropping={this.toggleCropping}
+          />
+        ) : (
+          <CoverPicWrapper>
+            <CoverPic imageUrl={this.state.croppedCoverImage} />
             <ProfilePic />
             <TopControl>
               {!isCurrentUser() && (
                 <FriendshipButton user={user} updateUser={updateUser} />
               )}
-              {isCurrentUser() && (
+              {isCurrentUser() && !this.croppingImage() && (
                 <FileUploadWrapper style={{ width: "100%" }}>
                   Edit Cover Picture
                   <FileUpload
@@ -96,7 +116,9 @@ class User extends React.Component {
             <CoverFooter>
               <p>{user.name}</p>
             </CoverFooter>
-          </CoverPic>
+          </CoverPicWrapper>
+        )}
+        {!this.state.smallCoverImage && (
           <ProfileNav>
             <ElementWrapper>
               <NavElements active={display === "posts"} ref={this.postsDiv}>
@@ -142,8 +164,8 @@ class User extends React.Component {
               </NavElements>
             </ElementWrapper>
           </ProfileNav>
-        </Header>
-      </>
+        )}
+      </Header>
     );
   }
 }
