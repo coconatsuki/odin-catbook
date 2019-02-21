@@ -8,11 +8,11 @@ import {
   Form,
   Textarea,
   TextareaField,
-  FileUploadWrapper,
   PicturePreview,
   ShareButton,
   Controls
 } from "../styles/postForm";
+import { FileUploadWrapper } from "../styles/fileUpload";
 import { Border } from "../styles/global";
 
 class PostForm extends React.Component {

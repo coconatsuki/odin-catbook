@@ -68,7 +68,7 @@ const Button = styled.button`
 `;
 
 export const LikeButton = styled(Button)`
-  display: ${props => (props.display ? "flex" : "none")};
+  display: ${props => (props.show ? "flex" : "none")};
   width: ${props => (props.remove ? "127px" : "73px")};
 
   i {
@@ -77,7 +77,7 @@ export const LikeButton = styled(Button)`
 `;
 
 export const DislikeButton = styled(Button)`
-  display: ${props => (props.display ? "flex" : "none")};
+  display: ${props => (props.show ? "flex" : "none")};
   width: ${props => (props.remove ? "146px" : "90px")};
   i {
     background-image: url(${poo});

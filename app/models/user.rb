@@ -85,14 +85,6 @@ class User < ApplicationRecord
     sent_active_friends | received_active_friends
   end
 
-  # def pending_friends
-  #   received_pending_friends | sent_pending_friends
-  # end
-
-  def all_friends
-    friends | received_pending_friends | sent_pending_friends
-  end
-
   def friend(current_user)
     Friendship.find_active_friendship(current_user, self)
   end
@@ -111,7 +103,7 @@ class User < ApplicationRecord
     likes.find_by(author_id: user.id)
   end
 
-  # Give back the posts of all the user friends, and his own.
+  # Give back the posts of all the user's friends, and his own.
   def feed
     users = friends << self
     @posts = Post.where(author: users).order(created_at: :desc).includes(:likes, :author, :comments)

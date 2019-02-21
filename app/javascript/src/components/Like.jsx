@@ -83,7 +83,7 @@ class Like extends React.Component {
           <Controls>
             <LikeButton
               onClick={() => this.toggleEvaluation("likes")}
-              display={!dislikedByCurrentUser}
+              show={!dislikedByCurrentUser}
               remove={likedByCurrentUser}
             >
               <i />
@@ -91,7 +91,7 @@ class Like extends React.Component {
             </LikeButton>
             <DislikeButton
               onClick={() => this.toggleEvaluation("dislike")}
-              display={!likedByCurrentUser}
+              show={!likedByCurrentUser}
               remove={dislikedByCurrentUser}
             >
               <i />

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { userType, currentUserWithFriendsType } from "../API/users";
 import FriendshipButton from "./FriendshipButton";
+import FileUpload from "./FileUpload";
 import {
   Header,
   CoverPic,
@@ -13,8 +14,10 @@ import {
   NavCat3,
   CatPaw,
   ProfilePic,
-  CoverFooter
+  CoverFooter,
+  TopControl
 } from "../styles/user";
+import { FileUploadWrapper } from "../styles/fileUpload";
 import divCat from "../images/div-cat.png";
 import divCat2 from "../images/div-cat2.png";
 import divCat3 from "../images/div-cat3.png";
@@ -32,6 +35,34 @@ class User extends React.Component {
     updateUser: PropTypes.func.isRequired
   };
 
+  state = {
+    smallCoverImage: this.props.user.small_cover_pic,
+    largeCoverImage: this.props.user.large_cover_pic,
+    smallProfileImage: this.props.user.small_profile_pic,
+    largeProfileImage: this.props.user.large_profile_pic,
+    fileLoading: false
+  };
+
+  toggleFileLoading = () => {
+    this.setState({
+      fileLoading: !this.state.fileLoading
+    });
+  };
+
+  updateCoverImages = (smallImage, largeImage) => {
+    this.setState({
+      smallCoverImage: smallImage,
+      largeCoverImage: largeImage
+    });
+  };
+
+  updateProfileImages = (smallImage, largeImage) => {
+    this.setState({
+      smallProfileImage: smallImage,
+      largeProfileImage: largeImage
+    });
+  };
+
   render() {
     const {
       user,
@@ -44,16 +75,26 @@ class User extends React.Component {
     return (
       <>
         <Header>
-          <CoverPic>
+          <CoverPic imageUrl={this.state.smallCoverImage}>
             <ProfilePic />
-            <CoverFooter>
-              <p>{user.name}</p>
+            <TopControl>
               {!isCurrentUser() && (
                 <FriendshipButton user={user} updateUser={updateUser} />
               )}
               {isCurrentUser() && (
-                <LightGreyButton>Edit Profile</LightGreyButton>
+                <FileUploadWrapper style={{ width: "100%" }}>
+                  Edit Cover Picture
+                  <FileUpload
+                    toggleFileLoading={this.toggleFileLoading}
+                    smallImage={this.state.smallCoverImage}
+                    largeImage={this.state.largeCoverImage}
+                    updateImages={this.updateCoverImages}
+                  />
+                </FileUploadWrapper>
               )}
+            </TopControl>
+            <CoverFooter>
+              <p>{user.name}</p>
             </CoverFooter>
           </CoverPic>
           <ProfileNav>

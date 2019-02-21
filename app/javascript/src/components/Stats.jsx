@@ -30,20 +30,27 @@ class Stats extends React.Component {
 
   fetchStats = async () => {
     const fetchedStats = await getStats();
-    this.setState({
-      maxPosts: fetchedStats.max_posts,
-      maxComments: fetchedStats.max_comments,
-      maxLikes: fetchedStats.max_likes,
-      maxPoo: fetchedStats.max_poo
-    });
     console.log(fetchedStats);
+    this.setState({
+      maxPosts: fetchedStats.max_posts.user_id
+        ? fetchedStats.max_posts
+        : this.state.maxPosts,
+      maxComments: fetchedStats.max_comments.user_id
+        ? fetchedStats.max_comments
+        : this.state.maxComments,
+      maxLikes: fetchedStats.max_likes.user_id
+        ? fetchedStats.max_likes
+        : this.state.maxLikes,
+      maxPoo: fetchedStats.max_poo.user_id
+        ? fetchedStats.max_poo
+        : this.state.maxPoo
+    });
   };
 
   winnerIsCurrentUser = id => id === this.props.currentUser.id;
 
   winnerName = stat => {
     const { currentUser } = this.props;
-    console.log("STAT", stat, this.state[stat]);
     const { user_id, user_name } = this.state[stat];
     if (user_id === currentUser.id) {
       return "You";

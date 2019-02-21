@@ -3,11 +3,18 @@ import styled from "styled-components";
 import { colors, shadows } from "../design/colors";
 
 export const Header = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 300px;
   width: 100%;
   box-shadow: 0px 10px 9px -4px rgba(140, 47, 57, 0.71);
+`;
+
+export const TopControl = styled.div`
+  position: absolute;
+  top: 8px;
+  right: 12px;
 `;
 
 export const ProfileNav = styled.ul`
@@ -105,6 +112,9 @@ export const CatPaw = styled.img`
 export const CoverPic = styled.div`
   height: 260px;
   background-color: ${colors.pink};
+  background-image: url(${props => props.imageUrl && props.imageUrl});
+  background-size: cover;
+  background-position: center;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;

@@ -13,11 +13,11 @@ export const Wrapper = styled.section`
 `;
 
 export const ProfileCard = styled.div`
-  width: 60%;
+  width: 75%;
   display: flex;
   flex-direction: column;
   background: white;
-  border-radius: 3px;
+  border-radius: 30px;
   border: 1px solid ${colors.pink};
 `;
 
@@ -69,8 +69,9 @@ export const ProfileCardHeader = styled.header`
 export const ProfileCardContent = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 15%;
+  margin: 0 7%;
   font-size: 1.6rem;
+  font-family: omnes;
 
   span.title {
     color: #90949c;

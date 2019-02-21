@@ -20,7 +20,7 @@ class Comment extends React.Component {
     updateAllComments: PropTypes.func.isRequired,
     deleteComment: PropTypes.func.isRequired,
     errorMessages: PropTypes.array.isRequired,
-    setCommentErrorMessages: PropTypes.func.setCommentErrorMessages
+    setCommentErrorMessages: PropTypes.func.isRequired
   };
 
   state = {

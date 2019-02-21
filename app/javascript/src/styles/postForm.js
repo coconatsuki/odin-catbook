@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { colors, shadows } from "../design/colors";
 import { Field, Input } from "./forms";
-import { LightGreyButton, LightRedButton } from "./button";
+import { LightRedButton } from "./button";
 
 export const Form = styled.form`
   width: 90%;
@@ -65,15 +65,6 @@ export const Textarea = styled.textarea`
   &:focus {
     height: 150px;
   }
-`;
-
-export const FileUploadWrapper = styled(LightGreyButton)`
-  position: relative;
-  width: 30%;
-  align-self: center;
-  margin-bottom: 15px;
-  font-size: 1.5rem;
-  width: 25%;
 `;
 
 export const ShareButton = styled(LightRedButton)`
