@@ -38,22 +38,37 @@ class User extends React.Component {
     isCurrentUser: PropTypes.func.isRequired,
     toggleDisplay: PropTypes.func.isRequired,
     display: PropTypes.string.isRequired,
-    updateUser: PropTypes.func.isRequired
+    updateUser: PropTypes.func.isRequired,
+    refreshUser: PropTypes.func.isRequired
   };
 
   state = {
-    smallCoverImage: this.props.user.small_cover_pic,
-    croppedCoverImage: this.props.user.cropped_cover_pic,
-    smallProfileImage: this.props.user.small_profile_pic,
-    croppedProfileImage: this.props.user.cropped_profile_pic,
+    smallCoverImage: "",
+    croppedCoverImage: "",
+    smallProfileImage: "",
+    croppedProfileImage: "",
     fileCropping: false,
     fileLoading: false
   };
 
   toggleFileLoading = () => {
     this.setState({
-      fileLoading: !this.state.fileLoading,
+      fileLoading: !this.state.fileLoading
+    });
+  };
+
+  toggleFileCropping = () => {
+    this.setState({
       fileCropping: !this.state.fileCropping
+    });
+  };
+
+  clearState = () => {
+    this.setState({
+      smallCoverImage: "",
+      croppedCoverImage: "",
+      smallProfileImage: "",
+      croppedProfileImage: ""
     });
   };
 
@@ -69,24 +84,13 @@ class User extends React.Component {
     });
   };
 
-  toggleCropping = () => {
-    this.setState({
-      fileCropping: !this.state.fileCropping
-    });
+  refreshUser = async userId => {
+    this.props.refreshUser(userId);
+    this.clearState();
   };
 
   croppingImage = () =>
     this.state.smallCoverImage || this.state.smallProfileImage;
-
-  refreshUser = async userId => {
-    const fetchedUser = await getUserById(userId);
-    this.setState({
-      smallCoverImage: fetchedUser.user.small_cover_pic,
-      croppedCoverImage: fetchedUser.user.cropped_cover_pic,
-      smallProfileImage: fetchedUser.user.small_profile_pic,
-      croppedProfileImage: fetchedUser.user.cropped_profile_pic
-    });
-  };
 
   render() {
     const {
@@ -102,13 +106,13 @@ class User extends React.Component {
         {this.state.fileCropping && this.croppingImage() ? (
           <CropCoverPicture
             imageUrl={this.state.smallCoverImage}
-            toggleCropping={this.toggleCropping}
+            toggleFileCropping={this.toggleFileCropping}
             refreshUser={this.refreshUser}
             userId={user.id}
           />
         ) : (
           <CoverPicWrapper>
-            <CoverPic imageUrl={this.state.croppedCoverImage} />
+            <CoverPic imageUrl={user.cropped_cover_pic} />
             <ProfilePic />
             <TopControl>
               {!isCurrentUser() && (
@@ -119,7 +123,7 @@ class User extends React.Component {
                   Edit Cover Picture
                   <FileUpload
                     toggleFileLoading={this.toggleFileLoading}
-                    toggleCropping={this.toggleCropping}
+                    toggleFileCropping={this.toggleFileCropping}
                     smallImage={this.state.smallCoverImage}
                     updateImages={this.updateCoverImages}
                   />

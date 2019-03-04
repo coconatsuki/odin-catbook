@@ -60,6 +60,13 @@ class UserPage extends AbstractPage {
     await this.fetchCurrentUser("?withFriends=yes");
   };
 
+  refreshUser = async userId => {
+    const fetchedUser = await getUserById(userId);
+    this.setState({
+      user: fetchedUser.user
+    });
+  };
+
   render() {
     const { user, currentUser, display } = this.state;
     return (
@@ -79,6 +86,7 @@ class UserPage extends AbstractPage {
                 toggleDisplay={this.toggleDisplay}
                 display={display}
                 updateUser={this.updateUser}
+                refreshUser={this.refreshUser}
               />
               {user.id === currentUser.id && display === "posts" && (
                 <FormWrapper>

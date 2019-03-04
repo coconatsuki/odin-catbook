@@ -10,7 +10,7 @@ import { LightGreyButton, LightRedButton } from "../styles/button";
 class CropCoverPicture extends React.Component {
   static propTypes = {
     imageUrl: PropTypes.string.isRequired,
-    toggleCropping: PropTypes.func.isRequired,
+    toggleFileCropping: PropTypes.func.isRequired,
     refreshUser: PropTypes.func.isRequired,
     userId: PropTypes.number.isRequired
   };
@@ -42,7 +42,7 @@ class CropCoverPicture extends React.Component {
     const croppedFile = this.stringToFile(img, fileType, fileName);
     const fetchedFile = await uploadFile([croppedFile]);
     this.assignPictureToUser(fetchedFile.secure_url);
-    this.props.toggleCropping();
+    this.props.toggleFileCropping();
   };
 
   assignPictureToUser = async fileUrl => {
