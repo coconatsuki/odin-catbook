@@ -29,6 +29,7 @@ import divCat from "../images/div-cat.png";
 import divCat2 from "../images/div-cat2.png";
 import divCat3 from "../images/div-cat3.png";
 import catPaw from "../images/pawprintwhite.png";
+import defaultCat from "../images/default-cat.png";
 
 class User extends React.Component {
   static propTypes = {
@@ -113,7 +114,10 @@ class User extends React.Component {
         ) : (
           <CoverPicWrapper>
             <CoverPic imageUrl={user.cropped_cover_pic} />
-            <ProfilePic />
+            <ProfilePic
+              imageUrl={user.cropped_profile_pic || defaultCat}
+              default={!user.cropped_profile_pic}
+            />
             <TopControl>
               {!isCurrentUser() && (
                 <FriendshipButton user={user} refreshUser={refreshUser} />

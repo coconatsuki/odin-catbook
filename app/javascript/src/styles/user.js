@@ -152,7 +152,11 @@ export const CoverPic = styled.div`
 export const ProfilePic = styled.div`
   margin-bottom: -30px;
   margin-left: 20px;
-  background-color: red;
+  background-color: ${colors.deepRed};
+  background: ${colors.deepRed}
+    url(${props => props.imageUrl && props.imageUrl}) no-repeat;
+  background-size: cover;
+  background-position: ${props => props.default && "-27px 20px"};
   border-radius: 50%;
   width: 168px;
   height: 168px;
