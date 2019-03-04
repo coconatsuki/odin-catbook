@@ -12,7 +12,7 @@ import { LightGreyButton } from "../styles/button";
 class FriendshipButton extends React.Component {
   static propTypes = {
     user: basicUserType.isRequired,
-    updateUser: PropTypes.func.isRequired,
+    refreshUser: PropTypes.func.isRequired,
     deleteFriendRequest: PropTypes.bool
   };
 
@@ -29,7 +29,7 @@ class FriendshipButton extends React.Component {
   };
 
   sendFriendRequest = async () => {
-    const { user, updateUser } = this.props;
+    const { user, refreshUser } = this.props;
     console.log("sending friend request !");
     const response = await createFriendRequest(this.props.user);
     if (response.errors) return this.setErrorMessages(response.errors);
@@ -37,40 +37,40 @@ class FriendshipButton extends React.Component {
       errorMessages: [],
       buttonDisabled: true
     });
-    updateUser(user.id);
+    refreshUser(user.id);
   };
 
   acceptFriendRequest = async () => {
-    const { user, updateUser } = this.props;
+    const { user, refreshUser } = this.props;
     console.log("accepting friend request !", user.sent_friend_request);
     const response = await updateFriendRequest(user.sent_friend_request);
     if (response.errors) return this.setErrorMessages(response.errors);
     this.setState({
       errorMessages: []
     });
-    updateUser(user.id);
+    refreshUser(user.id);
   };
 
   destroyFriendRequest = async () => {
-    const { user, updateUser } = this.props;
+    const { user, refreshUser } = this.props;
     console.log("destroying friend request !", user.sent_friend_request);
     const response = await destroyFriendship(user.sent_friend_request);
     if (response.errors) return this.setErrorMessages(response.errors);
     this.setState({
       errorMessages: []
     });
-    updateUser(user.id);
+    refreshUser(user.id);
   };
 
   unFriend = async () => {
-    const { user, updateUser } = this.props;
+    const { user, refreshUser } = this.props;
     console.log("unfriending !", user.is_friend);
     const response = await destroyFriendship(user.is_friend);
     if (response.errors) return this.setErrorMessages(response.errors);
     this.setState({
       errorMessages: []
     });
-    updateUser(user.id);
+    refreshUser(user.id);
   };
 
   toggleFriendship = () => {

@@ -33,6 +33,13 @@ class UserPage extends AbstractPage {
     });
   };
 
+  refreshUser = async userId => {
+    const fetchedUser = await getUserById(userId);
+    this.setState({
+      user: fetchedUser.user
+    });
+  };
+
   getUserIdFromHtml = () => {
     const div = document.getElementById("user-container");
     return parseInt(div.dataset.id);
@@ -55,18 +62,6 @@ class UserPage extends AbstractPage {
     });
   };
 
-  updateUser = async userId => {
-    await this.fetchUserAndPosts(userId);
-    await this.fetchCurrentUser("?withFriends=yes");
-  };
-
-  refreshUser = async userId => {
-    const fetchedUser = await getUserById(userId);
-    this.setState({
-      user: fetchedUser.user
-    });
-  };
-
   render() {
     const { user, currentUser, display } = this.state;
     return (
@@ -85,7 +80,6 @@ class UserPage extends AbstractPage {
                 isCurrentUser={this.isCurrentUser}
                 toggleDisplay={this.toggleDisplay}
                 display={display}
-                updateUser={this.updateUser}
                 refreshUser={this.refreshUser}
               />
               {user.id === currentUser.id && display === "posts" && (
@@ -113,7 +107,7 @@ class UserPage extends AbstractPage {
                 <AboutMe
                   user={user}
                   isCurrentUser={this.isCurrentUser}
-                  refreshProfile={this.updateUser}
+                  refreshProfile={this.refreshUser}
                 />
               )}
             </Main>

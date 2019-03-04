@@ -11,6 +11,7 @@ class CropCoverPicture extends React.Component {
   static propTypes = {
     imageUrl: PropTypes.string.isRequired,
     toggleFileCropping: PropTypes.func.isRequired,
+    toggleFileLoading: PropTypes.func.isRequired,
     refreshUser: PropTypes.func.isRequired,
     userId: PropTypes.number.isRequired
   };
@@ -34,6 +35,7 @@ class CropCoverPicture extends React.Component {
   };
 
   handleSave = async () => {
+    this.props.toggleFileLoading();
     const img = this.editor.getImageScaledToCanvas().toDataURL();
     const fileName = `image${Math.floor(
       Math.random() * Math.floor(2000000000)
@@ -42,6 +44,7 @@ class CropCoverPicture extends React.Component {
     const croppedFile = this.stringToFile(img, fileType, fileName);
     const fetchedFile = await uploadFile([croppedFile]);
     this.assignPictureToUser(fetchedFile.secure_url);
+    this.props.toggleFileLoading();
     this.props.toggleFileCropping();
   };
 

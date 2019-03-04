@@ -38,7 +38,6 @@ class User extends React.Component {
     isCurrentUser: PropTypes.func.isRequired,
     toggleDisplay: PropTypes.func.isRequired,
     display: PropTypes.string.isRequired,
-    updateUser: PropTypes.func.isRequired,
     refreshUser: PropTypes.func.isRequired
   };
 
@@ -98,7 +97,7 @@ class User extends React.Component {
       currentUser,
       isCurrentUser,
       canSeeProfile,
-      updateUser,
+      refreshUser,
       display
     } = this.props;
     return (
@@ -107,6 +106,7 @@ class User extends React.Component {
           <CropCoverPicture
             imageUrl={this.state.smallCoverImage}
             toggleFileCropping={this.toggleFileCropping}
+            toggleFileLoading={this.toggleFileLoading}
             refreshUser={this.refreshUser}
             userId={user.id}
           />
@@ -116,7 +116,7 @@ class User extends React.Component {
             <ProfilePic />
             <TopControl>
               {!isCurrentUser() && (
-                <FriendshipButton user={user} updateUser={updateUser} />
+                <FriendshipButton user={user} refreshUser={refreshUser} />
               )}
               {isCurrentUser() && !this.croppingImage() && (
                 <FileUploadWrapper style={{ width: "100%" }}>
