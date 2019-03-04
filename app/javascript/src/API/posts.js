@@ -23,8 +23,7 @@ export async function addPost(postData) {
       addCsrf({
         post: {
           body: postData.body,
-          smallImageUrl: postData.image,
-          largeImageUrl: postData.largeImage
+          smallImageUrl: postData.image
         }
       })
     )
@@ -44,8 +43,7 @@ export async function updatePost(postData, postId) {
       addCsrf({
         post: {
           body: postData.body,
-          smallImageUrl: postData.image,
-          largeImageUrl: postData.largeImage
+          smallImageUrl: postData.image
         }
       })
     )

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -8,12 +9,12 @@
 #  breed                  :string
 #  city                   :string
 #  country                :string
+#  cropped_cover_pic      :string
+#  cropped_profile_pic    :string
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  large_cover_pic        :string
-#  large_profile_pic      :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  name                   :string
@@ -48,9 +49,9 @@ FactoryBot.define do
     things_i_like { Faker::Hipster.words(Random.rand(1..5)) }
     things_i_hate { Faker::Hipster.words(Random.rand(1..5)) }
     small_profile_pic { "/some/awesome/small/profile/pic/url" }
-    large_profile_pic { "/some/awesome/large/profile/pic/url" }
+    cropped_profile_pic { "/some/awesome/cropped/profile/pic/url" }
     small_cover_pic { "/some/awesome/small/cover/pic/url" }
-    large_cover_pic { "/some/awesome/large/profile/pic/url" }
+    cropped_cover_pic { "/some/awesome/cover/profile/pic/url" }
 
     trait :with_posts do
       after(:create) do |user|

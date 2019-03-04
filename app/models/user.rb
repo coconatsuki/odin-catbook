@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -9,12 +8,12 @@
 #  breed                  :string
 #  city                   :string
 #  country                :string
+#  cropped_cover_pic      :string
+#  cropped_profile_pic    :string
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  large_cover_pic        :string
-#  large_profile_pic      :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  name                   :string

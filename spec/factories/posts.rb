@@ -5,7 +5,6 @@
 #
 #  id            :bigint(8)        not null, primary key
 #  body          :string
-#  largeImageUrl :string
 #  smallImageUrl :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -20,7 +19,6 @@ FactoryBot.define do
   factory :post do
     body { Faker::Movie.quote }
     smallImageUrl { "some/small/image.url" }
-    largeImageUrl { "some/large/image.url" }
 
     author { create(:user) }
 

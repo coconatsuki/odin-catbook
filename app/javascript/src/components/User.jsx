@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { userType, currentUserWithFriendsType } from "../API/users";
+import {
+  userType,
+  currentUserWithFriendsType,
+  getUserById
+} from "../API/users";
 import FriendshipButton from "./FriendshipButton";
 import CropCoverPicture from "./CropCoverPicture";
 import FileUpload from "./FileUpload";
@@ -39,42 +43,50 @@ class User extends React.Component {
 
   state = {
     smallCoverImage: this.props.user.small_cover_pic,
-    largeCoverImage: this.props.user.large_cover_pic,
+    croppedCoverImage: this.props.user.cropped_cover_pic,
     smallProfileImage: this.props.user.small_profile_pic,
-    largeProfileImage: this.props.user.large_profile_pic,
-    fileCropping: false
+    croppedProfileImage: this.props.user.cropped_profile_pic,
+    fileCropping: false,
+    fileLoading: false
   };
 
   toggleFileLoading = () => {
     this.setState({
-      fileLoading: !this.state.fileLoading
+      fileLoading: !this.state.fileLoading,
+      fileCropping: !this.state.fileCropping
     });
   };
 
-  updateCoverImages = (smallImage, largeImage) => {
+  updateCoverImages = smallImage => {
     this.setState({
-      smallCoverImage: smallImage,
-      largeCoverImage: largeImage
+      smallCoverImage: smallImage
     });
   };
 
-  updateProfileImages = (smallImage, largeImage) => {
+  updateProfileImages = smallImage => {
     this.setState({
-      smallProfileImage: smallImage,
-      largeProfileImage: largeImage
+      smallProfileImage: smallImage
     });
   };
-
-  saveCroppedCoverPicture = () => {};
 
   toggleCropping = () => {
     this.setState({
-      croppingImage: !this.state.croppingImage
+      fileCropping: !this.state.fileCropping
     });
   };
 
   croppingImage = () =>
     this.state.smallCoverImage || this.state.smallProfileImage;
+
+  refreshUser = async userId => {
+    const fetchedUser = await getUserById(userId);
+    this.setState({
+      smallCoverImage: fetchedUser.user.small_cover_pic,
+      croppedCoverImage: fetchedUser.user.cropped_cover_pic,
+      smallProfileImage: fetchedUser.user.small_profile_pic,
+      croppedProfileImage: fetchedUser.user.cropped_profile_pic
+    });
+  };
 
   render() {
     const {
@@ -87,11 +99,12 @@ class User extends React.Component {
     } = this.props;
     return (
       <Header>
-        {this.state.smallCoverImage ? (
+        {this.state.fileCropping && this.croppingImage() ? (
           <CropCoverPicture
             imageUrl={this.state.smallCoverImage}
-            saveCroppedCoverPicture={this.saveCroppedCoverPicture}
             toggleCropping={this.toggleCropping}
+            refreshUser={this.refreshUser}
+            userId={user.id}
           />
         ) : (
           <CoverPicWrapper>
@@ -106,8 +119,8 @@ class User extends React.Component {
                   Edit Cover Picture
                   <FileUpload
                     toggleFileLoading={this.toggleFileLoading}
+                    toggleCropping={this.toggleCropping}
                     smallImage={this.state.smallCoverImage}
-                    largeImage={this.state.largeCoverImage}
                     updateImages={this.updateCoverImages}
                   />
                 </FileUploadWrapper>

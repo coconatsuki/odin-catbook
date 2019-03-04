@@ -1,12 +1,10 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: posts
 #
 #  id            :bigint(8)        not null, primary key
 #  body          :string
-#  largeImageUrl :string
 #  smallImageUrl :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -18,7 +16,7 @@
 #
 
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :body, :smallImageUrl, :largeImageUrl, :created_at
+  attributes :id, :body, :smallImageUrl, :created_at
   belongs_to :author, serializer: AuthorSerializer
 
   attribute(:likes_count) { object.likes.positive.size }

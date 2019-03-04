@@ -9,12 +9,12 @@
 #  breed                  :string
 #  city                   :string
 #  country                :string
+#  cropped_cover_pic      :string
+#  cropped_profile_pic    :string
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  large_cover_pic        :string
-#  large_profile_pic      :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  name                   :string
@@ -39,7 +39,7 @@
 #
 
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :breed, :birthday, :country, :city, :things_i_like, :things_i_hate
+  attributes :id, :name, :breed, :birthday, :country, :city, :things_i_like, :things_i_hate, :cropped_cover_pic, :cropped_profile_pic, :small_cover_pic, :small_profile_pic
   has_many :posts
 
   attribute(:likes_count) { object.likes.positive.size }

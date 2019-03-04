@@ -5,7 +5,6 @@
 #
 #  id            :bigint(8)        not null, primary key
 #  body          :string
-#  largeImageUrl :string
 #  smallImageUrl :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -28,7 +27,6 @@ RSpec.describe Post, type: :model do
     first_post = Post.first
     expect(first_post.body).to eq(post.body)
     expect(first_post.smallImageUrl).to eq(post.smallImageUrl)
-    expect(first_post.largeImageUrl).to eq(post.largeImageUrl)
   end
 
   it "has many comments" do

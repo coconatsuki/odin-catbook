@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -8,12 +9,12 @@
 #  breed                  :string
 #  city                   :string
 #  country                :string
+#  cropped_cover_pic      :string
+#  cropped_profile_pic    :string
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  large_cover_pic        :string
-#  large_profile_pic      :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  name                   :string
@@ -51,9 +52,9 @@ RSpec.describe User, type: :model do
     expect(first_user.things_i_like).to eq(user.things_i_like)
     expect(first_user.things_i_hate).to eq(user.things_i_hate)
     expect(first_user.small_profile_pic).to eq(user.small_profile_pic)
-    expect(first_user.large_profile_pic).to eq(user.large_profile_pic)
+    expect(first_user.cropped_profile_pic).to eq(user.cropped_profile_pic)
     expect(first_user.small_cover_pic).to eq(user.small_cover_pic)
-    expect(first_user.large_cover_pic).to eq(user.large_cover_pic)
+    expect(first_user.cropped_cover_pic).to eq(user.cropped_cover_pic)
   end
 
   it "has many posts" do

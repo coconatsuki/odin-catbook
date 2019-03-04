@@ -7,9 +7,9 @@ import { FileUploadButton } from "../styles/postForm";
 class FileUpload extends React.Component {
   static propTypes = {
     toggleFileLoading: PropTypes.func.isRequired,
+    toggleCropping: PropTypes.func,
     updateImages: PropTypes.func.isRequired,
-    smallImage: PropTypes.string,
-    largeImage: PropTypes.string
+    smallImage: PropTypes.string
   };
 
   state = {
@@ -26,17 +26,16 @@ class FileUpload extends React.Component {
     const files = e.target.files;
     this.props.toggleFileLoading();
     const fetchedFile = await uploadFile(files);
+    console.log("FETCHED FILE", fetchedFile, fetchedFile.secure_url);
 
     if (fetchedFile.error) {
       this.setErrorMessages([fetchedFile.error.message]);
     } else {
-      this.props.updateImages(
-        fetchedFile.secure_url,
-        fetchedFile.eager[0].secure_url
-      );
+      this.props.updateImages(fetchedFile.secure_url);
       console.log("file uploaded !");
     }
-    this.props.toggleFileLoading();
+    // this.props.toggleFileLoading();
+    // if (this.props.toggleCropping) this.props.toggleCropping();
   };
 
   render() {

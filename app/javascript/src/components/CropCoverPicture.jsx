@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import AvatarEditor from "react-avatar-editor";
+import { updateUser } from "../API/users";
+import { uploadFile } from "../API/imageUpload";
 import { uploadCroppedCoverPicture } from "../API/imageUpload";
 import { CoverPicWrapper, CroppingBar } from "../styles/user";
 import { LightGreyButton, LightRedButton } from "../styles/button";
@@ -8,8 +10,9 @@ import { LightGreyButton, LightRedButton } from "../styles/button";
 class CropCoverPicture extends React.Component {
   static propTypes = {
     imageUrl: PropTypes.string.isRequired,
-    saveCroppedCoverPicture: PropTypes.func.isRequired,
-    toggleCropping: PropTypes.func.isRequired
+    toggleCropping: PropTypes.func.isRequired,
+    refreshUser: PropTypes.func.isRequired,
+    userId: PropTypes.number.isRequired
   };
   setEditorRef = editor => (this.editor = editor);
 
@@ -37,23 +40,19 @@ class CropCoverPicture extends React.Component {
     )}_cropped`;
     const fileType = this.getFileType(img);
     const croppedFile = this.stringToFile(img, fileType, fileName);
-    console.log(croppedFile);
-
-    //   const fetchedFile = await this.uploadCroppedCoverPicture(croppedFile);
-    //   this.props.saveCroppedCoverPicture(fetchedFile.secure_url);
-    //   console.log("file uploaded !");
-    // }
-    // this.props.toggleCropping();
+    const fetchedFile = await uploadFile([croppedFile]);
+    this.assignPictureToUser(fetchedFile.secure_url);
+    this.props.toggleCropping();
   };
 
-  onClickSave = async () => {
-    const canvas = this.editor.getImage().toDataURL();
-    console.log("canvas", canvas);
-    let imageURL;
-    await fetch(canvas)
-      .then(res => res.blob())
-      .then(blob => (imageURL = window.URL.createObjectURL(blob)));
-    console.log("imageUrl", imageURL);
+  assignPictureToUser = async fileUrl => {
+    const { userId } = this.props;
+    const userData = {
+      cropped_cover_pic: fileUrl,
+      small_cover_pic: this.props.imageUrl
+    };
+    const fetchedUser = await updateUser(userId, userData);
+    await this.props.refreshUser(userId);
   };
 
   render() {

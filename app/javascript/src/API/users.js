@@ -27,7 +27,7 @@ export async function getUsers() {
 }
 
 export async function updateUser(userId, userData) {
-  console.log("USER DATA", userData);
+  console.log("USER Id and DATA", userId, userData);
   const user = await fetch(`/users/${userId}`, {
     method: "PATCH",
     headers: {
@@ -36,14 +36,7 @@ export async function updateUser(userId, userData) {
     },
     body: JSON.stringify(
       addCsrf({
-        user: {
-          breed: userData.breed,
-          birthday: userData.birthday,
-          country: userData.country,
-          city: userData.city,
-          things_i_like: userData.things_i_like,
-          things_i_hate: userData.things_i_hate
-        }
+        user: userData
       })
     )
   });
@@ -94,9 +87,9 @@ export const userType = PropTypes.shape({
   things_i_like: PropTypes.array.isRequired,
   things_i_hate: PropTypes.array.isRequired,
   small_profile_pic: PropTypes.string,
-  large_profile_pic: PropTypes.string,
+  cropped_profile_pic: PropTypes.string,
   small_cover_pic: PropTypes.string,
-  large_cover_pic: PropTypes.string,
+  cropped_cover_pic: PropTypes.string,
   friends: PropTypes.array.isRequired,
   is_friend: PropTypes.number,
   sent_friend_request: PropTypes.number,

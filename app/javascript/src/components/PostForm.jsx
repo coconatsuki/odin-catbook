@@ -30,9 +30,6 @@ class PostForm extends React.Component {
     smallImage: this.props.postToEdit
       ? this.props.postToEdit.smallImageUrl
       : null,
-    largeImage: this.props.postToEdit
-      ? this.props.postToEdit.largeImageUrl
-      : null,
     errorMessages: [],
     fileLoading: false
   };
@@ -57,7 +54,6 @@ class PostForm extends React.Component {
     this.setState({
       body: "",
       smallImage: null,
-      largeImage: null,
       errorMessages: []
     });
   };
@@ -75,10 +71,9 @@ class PostForm extends React.Component {
     return true;
   };
 
-  updateImages = (smallImage, largeImage) => {
+  updateImages = smallImage => {
     this.setState({
-      smallImage,
-      largeImage
+      smallImage
     });
   };
 
@@ -102,8 +97,8 @@ class PostForm extends React.Component {
     e.preventDefault();
     const { postToEdit } = this.props;
     const method = this.isEditing() ? "update" : "create";
-    const { body, smallImage, largeImage, fileLoading } = this.state;
-    const postData = { body, smallImage, largeImage };
+    const { body, smallImage, fileLoading } = this.state;
+    const postData = { body, smallImage };
 
     if (this.validBody(body) && !fileLoading) {
       const fetchedPost = await this.savePost(postData, postToEdit, method);
@@ -147,7 +142,6 @@ class PostForm extends React.Component {
             <FileUpload
               toggleFileLoading={this.toggleFileLoading}
               smallImage={this.state.smallImage}
-              largeImage={this.state.largeImage}
               updateImages={this.updateImages}
             />
           </FileUploadWrapper>
