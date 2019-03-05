@@ -50,6 +50,15 @@ export const CroppingBar = styled.div`
   }
 `;
 
+export const ProfileCroppingControls = styled.div`
+  display: flex;
+  justify-content: space-around;
+
+  button {
+    z-index: 2;
+  }
+`;
+
 export const NavElements = styled.div`
   position: relative;
   display: flex;
@@ -158,7 +167,17 @@ export const ProfilePicWrapper = styled.div`
   z-index: 1;
   border-radius: 50%;
   box-shadow: 0px 10px 9px -4px rgba(140, 47, 57, 0.71);
+`;
+
+export const CropProfileWrapper = styled.div`
+  position: relative;
+  width: 168px;
+  height: 208px;
+  margin-bottom: -30px;
+  margin-left: 20px;
+  z-index: 1;
   border-radius: 50%;
+  box-shadow: 0px 10px 9px -4px rgba(140, 47, 57, 0.71);
 `;
 
 export const ProfilePicUploadWrapper = styled.div`

@@ -7,6 +7,7 @@ import {
 } from "../API/users";
 import FriendshipButton from "./FriendshipButton";
 import CropCoverPicture from "./CropCoverPicture";
+import CropProfilePicture from "./CropProfilePicture";
 import FileUpload from "./FileUpload";
 import {
   Header,
@@ -21,6 +22,7 @@ import {
   NavCat3,
   CatPaw,
   ProfilePicWrapper,
+  CropProfileWrapper,
   ProfilePicUploadWrapper,
   ProfilePic,
   CoverFooter,
@@ -70,7 +72,9 @@ class User extends React.Component {
       smallCoverImage: "",
       croppedCoverImage: "",
       smallProfileImage: "",
-      croppedProfileImage: ""
+      croppedProfileImage: "",
+      fileCropping: false,
+      fileLoading: false
     });
   };
 
@@ -111,32 +115,48 @@ class User extends React.Component {
     } = this.props;
     return (
       <Header>
-        {this.state.fileCropping && this.croppingImage() ? (
+        {this.state.fileCropping && this.state.smallCoverImage ? (
           <CropCoverPicture
             imageUrl={this.state.smallCoverImage}
             toggleFileCropping={this.toggleFileCropping}
             toggleFileLoading={this.toggleFileLoading}
+            clearState={this.clearState}
             refreshUser={this.refreshUser}
             userId={user.id}
           />
         ) : (
           <CoverPicWrapper>
             <CoverPic imageUrl={user.cropped_cover_pic} />
-            <ProfilePicWrapper>
-              <ProfilePicUploadWrapper>
-                <p>EDIT</p>
-                <FileUpload
-                  toggleFileLoading={this.toggleFileLoading}
+
+            {this.state.smallProfileImage ? (
+              <CropProfileWrapper>
+                <CropProfilePicture
+                  imageUrl={this.state.smallProfileImage}
                   toggleFileCropping={this.toggleFileCropping}
-                  updateImages={this.updateProfileImages}
-                  profile
+                  toggleFileLoading={this.toggleFileLoading}
+                  clearState={this.clearState}
+                  refreshUser={this.refreshUser}
+                  userId={user.id}
                 />
-              </ProfilePicUploadWrapper>
-              <ProfilePic
-                imageUrl={user.cropped_profile_pic || defaultCat}
-                default={!user.cropped_profile_pic}
-              />
-            </ProfilePicWrapper>
+              </CropProfileWrapper>
+            ) : (
+              <ProfilePicWrapper>
+                <ProfilePicUploadWrapper>
+                  <p>EDIT</p>
+                  <FileUpload
+                    toggleFileLoading={this.toggleFileLoading}
+                    toggleFileCropping={this.toggleFileCropping}
+                    updateImages={this.updateProfileImages}
+                    profile
+                  />
+                </ProfilePicUploadWrapper>
+                <ProfilePic
+                  imageUrl={user.cropped_profile_pic || defaultCat}
+                  default={!user.cropped_profile_pic}
+                />
+              </ProfilePicWrapper>
+            )}
+
             <TopControl>
               {!isCurrentUser() && (
                 <FriendshipButton user={user} refreshUser={refreshUser} />

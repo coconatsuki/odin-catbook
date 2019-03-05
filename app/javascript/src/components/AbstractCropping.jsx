@@ -23,6 +23,8 @@ class AbstractCropping extends React.Component {
     return imgString.match(regex)[1];
   };
 
+  handleCancel = () => this.props.clearState();
+
   handleSave = async () => {
     this.props.toggleFileLoading();
     const img = this.editor.getImageScaledToCanvas().toDataURL();

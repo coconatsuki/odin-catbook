@@ -12,6 +12,7 @@ class CropCoverPicture extends AbstractCropping {
     imageUrl: PropTypes.string.isRequired,
     toggleFileCropping: PropTypes.func.isRequired,
     toggleFileLoading: PropTypes.func.isRequired,
+    clearState: PropTypes.func.isRequired,
     refreshUser: PropTypes.func.isRequired,
     userId: PropTypes.number.isRequired
   };
@@ -47,7 +48,7 @@ class CropCoverPicture extends AbstractCropping {
           <LightRedButton onClick={this.handleSave}>
             Crop picture
           </LightRedButton>
-          <LightGreyButton>Cancel</LightGreyButton>
+          <LightGreyButton onClick={this.handleCancel}>Cancel</LightGreyButton>
         </CroppingBar>
       </>
     );
