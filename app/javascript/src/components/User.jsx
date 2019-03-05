@@ -20,6 +20,8 @@ import {
   NavCat2,
   NavCat3,
   CatPaw,
+  ProfilePicWrapper,
+  ProfilePicUploadWrapper,
   ProfilePic,
   CoverFooter,
   TopControl
@@ -78,6 +80,12 @@ class User extends React.Component {
     });
   };
 
+  updateCoverImages = smallImage => {
+    this.setState({
+      smallProfileImage: smallImage
+    });
+  };
+
   updateProfileImages = smallImage => {
     this.setState({
       smallProfileImage: smallImage
@@ -114,10 +122,21 @@ class User extends React.Component {
         ) : (
           <CoverPicWrapper>
             <CoverPic imageUrl={user.cropped_cover_pic} />
-            <ProfilePic
-              imageUrl={user.cropped_profile_pic || defaultCat}
-              default={!user.cropped_profile_pic}
-            />
+            <ProfilePicWrapper>
+              <ProfilePicUploadWrapper>
+                <p>EDIT</p>
+                <FileUpload
+                  toggleFileLoading={this.toggleFileLoading}
+                  toggleFileCropping={this.toggleFileCropping}
+                  updateImages={this.updateProfileImages}
+                  profile
+                />
+              </ProfilePicUploadWrapper>
+              <ProfilePic
+                imageUrl={user.cropped_profile_pic || defaultCat}
+                default={!user.cropped_profile_pic}
+              />
+            </ProfilePicWrapper>
             <TopControl>
               {!isCurrentUser() && (
                 <FriendshipButton user={user} refreshUser={refreshUser} />
@@ -128,7 +147,6 @@ class User extends React.Component {
                   <FileUpload
                     toggleFileLoading={this.toggleFileLoading}
                     toggleFileCropping={this.toggleFileCropping}
-                    smallImage={this.state.smallCoverImage}
                     updateImages={this.updateCoverImages}
                   />
                 </FileUploadWrapper>

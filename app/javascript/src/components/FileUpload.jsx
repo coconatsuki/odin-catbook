@@ -9,7 +9,8 @@ class FileUpload extends React.Component {
     toggleFileLoading: PropTypes.func.isRequired,
     toggleFileCropping: PropTypes.func,
     updateImages: PropTypes.func.isRequired,
-    smallImage: PropTypes.string
+    smallImage: PropTypes.string,
+    profile: PropTypes.bool
   };
 
   state = {
@@ -40,7 +41,7 @@ class FileUpload extends React.Component {
   render() {
     const { likedByCurrentUser, likesCount } = this.state;
     return (
-      <FileUploadButton>
+      <FileUploadButton profile={this.props.profile}>
         {this.state.errorMessages.length > 0 && (
           <ErrorsBlock errorMessages={this.state.errorMessages} />
         )}
@@ -50,7 +51,7 @@ class FileUpload extends React.Component {
           </button>
         ) : (
           <input
-            style={{ width: "100%" }}
+            style={{ width: "100%", cursor: "pointer" }}
             type="file"
             name="file"
             id="postPicture"

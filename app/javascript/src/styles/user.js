@@ -149,19 +149,58 @@ export const CoverPic = styled.div`
   justify-content: space-between;
 `;
 
-export const ProfilePic = styled.div`
+export const ProfilePicWrapper = styled.div`
+  position: relative;
+  width: 168px;
+  height: 168px;
   margin-bottom: -30px;
   margin-left: 20px;
+  z-index: 1;
+  border-radius: 50%;
+  box-shadow: 0px 10px 9px -4px rgba(140, 47, 57, 0.71);
+  border-radius: 50%;
+`;
+
+export const ProfilePicUploadWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: inherit;
+  height: inherit;
+  bottom: 0;
+  z-index: 2;
+  border-radius: 50%;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+
+  p {
+    display: none;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: white;
+  }
+
+  &:hover {
+    background-color: rgba(140, 47, 57, 0.71);
+
+    p {
+      display: block;
+    }
+  }
+`;
+
+export const ProfilePic = styled.div`
   background-color: ${colors.deepRed};
   background: ${colors.deepRed}
     url(${props => props.imageUrl && props.imageUrl}) no-repeat;
   background-size: cover;
   background-position: ${props => props.default && "-27px 20px"};
   border-radius: 50%;
-  width: 168px;
-  height: 168px;
-  z-index: 1;
-  box-shadow: 0px 10px 9px -4px rgba(140, 47, 57, 0.71);
+  width: inherit;
+  height: inherit;
 `;
 
 export const CoverFooter = styled.div`

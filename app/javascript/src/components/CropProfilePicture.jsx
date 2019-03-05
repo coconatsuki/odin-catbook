@@ -4,10 +4,11 @@ import AvatarEditor from "react-avatar-editor";
 import AbstractCropping from "./AbstractCropping";
 import { updateUser } from "../API/users";
 import { uploadFile } from "../API/imageUpload";
+import { uploadCroppedCoverPicture } from "../API/imageUpload";
 import { CoverPicWrapper, CroppingBar } from "../styles/user";
 import { LightGreyButton, LightRedButton } from "../styles/button";
 
-class CropCoverPicture extends AbstractCropping {
+class CropProfilePicture extends AbstractCropping {
   static propTypes = {
     imageUrl: PropTypes.string.isRequired,
     toggleFileCropping: PropTypes.func.isRequired,
@@ -54,4 +55,4 @@ class CropCoverPicture extends AbstractCropping {
   }
 }
 
-export default CropCoverPicture;
+export default CropProfilePicture;
