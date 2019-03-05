@@ -7,6 +7,7 @@ import ErrorsBlock from "./ErrorsBlock";
 import { Form, Controls } from "../styles/profileForm";
 import { Field, Input, TagsField, TagsInput } from "../styles/forms";
 import { LightGreyButton, LightRedButton } from "../styles/button";
+import { list } from "postcss";
 
 class ProfileForm extends React.Component {
   static propTypes = {
@@ -46,6 +47,15 @@ class ProfileForm extends React.Component {
     if (key === "thing_i_hate" && value === ",") return;
     this.setState({
       [key]: value
+    });
+  };
+
+  removeTagFromList = (list, thing) => {
+    const listFromState = this.state[list];
+    const thingIndex = listFromState.indexOf(thing);
+    const updatedList = listFromState.splice(thingIndex, 1);
+    this.setState({
+      [thing]: updatedList
     });
   };
 
@@ -169,7 +179,12 @@ class ProfileForm extends React.Component {
               <ul>
                 {things_i_like.map((thing, i) => (
                   <li key={`thing-${i}`}>
-                    <span>{thing}</span> <i />
+                    <span>{thing}</span>{" "}
+                    <i
+                      onClick={() =>
+                        this.removeTagFromList("things_i_like", thing)
+                      }
+                    />
                   </li>
                 ))}
               </ul>
@@ -192,7 +207,12 @@ class ProfileForm extends React.Component {
               <ul>
                 {things_i_hate.map((thing, i) => (
                   <li key={`thing-${i}`}>
-                    <span>{thing}</span> <i />
+                    <span>{thing}</span>
+                    <i
+                      onClick={() =>
+                        this.removeTagFromList("things_i_hate", thing)
+                      }
+                    />
                   </li>
                 ))}
               </ul>
