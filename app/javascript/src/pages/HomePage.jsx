@@ -56,7 +56,7 @@ class HomePage extends AbstractPage {
           <Body />
           <Nav currentUser={currentUser} activePage="homePage" />
           <HomeWrapper>
-            <Aside>
+            <Aside className="left-aside">
               <CatImg src={postsCat} />
             </Aside>
             <Main>

@@ -6,6 +6,12 @@ import { Img } from "../styles/like";
 
 export const Aside = styled.aside`
   width: 20%;
+
+  &.left-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const Main = styled.div`
@@ -32,7 +38,7 @@ export const FormWrapper = styled.div`
 `;
 
 export const CatImg = styled.img`
-  width: 250px;
+  width: 200px;
 `;
 
 export const StatsWrapper = styled.div`

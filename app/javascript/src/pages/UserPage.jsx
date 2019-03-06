@@ -8,7 +8,14 @@ import AboutMe from "../components/AboutMe";
 import Nav from "../components/Nav";
 import { getUserById, getCurrentUser } from "../API/users";
 import { Body, Wrapper } from "../styles/global";
-import { Aside, UserPageWrapper, Main, FormWrapper } from "../styles/userPage";
+import {
+  Aside,
+  UserPageWrapper,
+  Main,
+  FormWrapper,
+  CatImg
+} from "../styles/userPage";
+import profileCat from "../images/profile-cat.png";
 
 class UserPage extends AbstractPage {
   state = {
@@ -71,7 +78,9 @@ class UserPage extends AbstractPage {
           <Body />
           <Nav currentUser={currentUser} activePage="userPage" />
           <UserPageWrapper>
-            <Aside />
+            <Aside>
+              <CatImg src={profileCat} />
+            </Aside>
             <Main>
               <User
                 user={this.state.user}

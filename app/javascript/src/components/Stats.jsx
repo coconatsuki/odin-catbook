@@ -21,7 +21,7 @@ class Stats extends React.Component {
       number_of_comments: 0
     },
     maxLikes: { user_id: null, user_name: "No winner yet", likes_received: 0 },
-    maxPoo: { user_id: null, user_name: "No winner yet", likes_received: 0 }
+    maxPoo: { user_id: null, user_name: "No winner yet", poo_received: 0 }
   };
 
   componentDidMount = () => {

@@ -32,3 +32,9 @@ export const FormWrapper = styled.div`
   border-radius: 30px;
   margin-top: 2%;
 `;
+
+export const CatImg = styled.img`
+  width: 200px;
+  margin-top: 20px;
+  padding-right: 29px;
+`;
