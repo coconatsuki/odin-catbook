@@ -3,7 +3,10 @@ import Users from "../components/Users";
 import Nav from "../components/Nav";
 import PropTypes from "prop-types";
 import { getCurrentUser, getUsers } from "../API/users";
+import { UsersPageWrapper, UsersBlock } from "../styles/usersPage";
 import { Body } from "../styles/global";
+import { Aside, CatImg } from "../styles/global";
+import friendsCat from "../images/friends-cat.png";
 
 class UsersPage extends React.Component {
   state = {
@@ -29,10 +32,20 @@ class UsersPage extends React.Component {
     return (
       <>
         <Body />
+
         {users && currentUser && (
           <div>
             <Nav currentUser={this.state.currentUser} activePage="usersPage" />
-            <Users users={this.state.users} />
+            <UsersPageWrapper>
+              <Aside className="left-aside">
+                <CatImg src={friendsCat} />
+              </Aside>
+              <UsersBlock>
+                <h1>Find new cat-friends</h1>
+                <Users users={this.state.users} />
+              </UsersBlock>
+              <Aside className="right-aside" />
+            </UsersPageWrapper>
           </div>
         )}
       </>

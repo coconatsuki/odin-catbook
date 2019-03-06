@@ -8,7 +8,8 @@ import PostForm from "../components/PostForm";
 import Stats from "../components/Stats";
 import Nav from "../components/Nav";
 import { Body } from "../styles/global";
-import { HomeWrapper, Aside, Main, FormWrapper, CatImg } from "../styles/home";
+import { HomeWrapper, Main, FormWrapper } from "../styles/home";
+import { Aside, CatImg } from "../styles/global";
 import postsCat from "../images/posts-cat.png";
 
 class HomePage extends AbstractPage {

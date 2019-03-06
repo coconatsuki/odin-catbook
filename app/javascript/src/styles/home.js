@@ -4,16 +4,6 @@ import { colors, shadows } from "../design/colors";
 import { Wrapper } from "./global";
 import { Img } from "../styles/like";
 
-export const Aside = styled.aside`
-  width: 20%;
-
-  &.left-aside {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,10 +25,6 @@ export const FormWrapper = styled.div`
   border: 1px solid ${colors.pink};
   border-radius: 30px;
   background-color: white;
-`;
-
-export const CatImg = styled.img`
-  width: 200px;
 `;
 
 export const StatsWrapper = styled.div`

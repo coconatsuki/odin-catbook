@@ -8,13 +8,8 @@ import AboutMe from "../components/AboutMe";
 import Nav from "../components/Nav";
 import { getUserById, getCurrentUser } from "../API/users";
 import { Body, Wrapper } from "../styles/global";
-import {
-  Aside,
-  UserPageWrapper,
-  Main,
-  FormWrapper,
-  CatImg
-} from "../styles/userPage";
+import { UserPageWrapper, Main, FormWrapper } from "../styles/userPage";
+import { Aside, CatImg } from "../styles/global";
 import profileCat from "../images/profile-cat.png";
 
 class UserPage extends AbstractPage {
@@ -78,8 +73,8 @@ class UserPage extends AbstractPage {
           <Body />
           <Nav currentUser={currentUser} activePage="userPage" />
           <UserPageWrapper>
-            <Aside>
-              <CatImg src={profileCat} />
+            <Aside style={{ marginTop: "2%" }}>
+              <CatImg src={profileCat} style={{ width: "150px" }} />
             </Aside>
             <Main>
               <User

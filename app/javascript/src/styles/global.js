@@ -46,3 +46,17 @@ export const Border = styled.span`
   border-bottom: 1px solid lightgrey;
   margin: 5px 0;
 `;
+
+export const Aside = styled.aside`
+  width: 20%;
+
+  &.left-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+export const CatImg = styled.img`
+  width: 200px;
+`;
