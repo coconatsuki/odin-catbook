@@ -45,7 +45,7 @@ module.exports = function(api) {
     plugins: [
       require("babel-plugin-styled-components"),
       require("babel-plugin-macros"),
-      // require("emotion"),
+      require("emotion"),
       require("@babel/plugin-syntax-dynamic-import").default,
       isTestEnv && require("babel-plugin-dynamic-import-node"),
       require("@babel/plugin-transform-destructuring").default,
