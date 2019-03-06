@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { css } from "@emotion/core";
+import { ClipLoader } from "react-spinners";
 import {
   userType,
   currentUserWithFriendsType,
@@ -15,6 +17,8 @@ import {
   CoverPic,
   ProfileNav,
   CroppingBar,
+  spinner,
+  SpinnerWrapper,
   NavElements,
   ElementWrapper,
   NavCat1,
@@ -84,12 +88,6 @@ class User extends React.Component {
     });
   };
 
-  updateCoverImages = smallImage => {
-    this.setState({
-      smallProfileImage: smallImage
-    });
-  };
-
   updateProfileImages = smallImage => {
     this.setState({
       smallProfileImage: smallImage
@@ -140,23 +138,36 @@ class User extends React.Component {
                 />
               </CropProfileWrapper>
             ) : (
-              <ProfilePicWrapper>
-                <ProfilePicUploadWrapper>
-                  <p>EDIT</p>
-                  <FileUpload
-                    toggleFileLoading={this.toggleFileLoading}
-                    toggleFileCropping={this.toggleFileCropping}
-                    updateImages={this.updateProfileImages}
-                    profile
-                  />
-                </ProfilePicUploadWrapper>
-                <ProfilePic
-                  imageUrl={user.cropped_profile_pic || defaultCat}
-                  default={!user.cropped_profile_pic}
-                />
-              </ProfilePicWrapper>
+              <>
+                {this.state.fileLoading ? (
+                  <SpinnerWrapper>
+                    <ClipLoader
+                      css={spinner}
+                      sizeUnit={"px"}
+                      size={100}
+                      color={"white"}
+                      loading={this.state.fileLoading}
+                    />
+                  </SpinnerWrapper>
+                ) : (
+                  <ProfilePicWrapper>
+                    <ProfilePicUploadWrapper>
+                      <p>EDIT</p>
+                      <FileUpload
+                        toggleFileLoading={this.toggleFileLoading}
+                        toggleFileCropping={this.toggleFileCropping}
+                        updateImages={this.updateProfileImages}
+                        profile
+                      />
+                    </ProfilePicUploadWrapper>
+                    <ProfilePic
+                      imageUrl={user.cropped_profile_pic || defaultCat}
+                      default={!user.cropped_profile_pic}
+                    />
+                  </ProfilePicWrapper>
+                )}
+              </>
             )}
-
             <TopControl>
               {!isCurrentUser() && (
                 <FriendshipButton user={user} refreshUser={refreshUser} />

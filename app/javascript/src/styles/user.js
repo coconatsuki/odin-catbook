@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { css } from "@emotion/core";
 import { colors, shadows } from "../design/colors";
 
 export const Header = styled.div`
@@ -57,6 +58,20 @@ export const ProfileCroppingControls = styled.div`
   button {
     z-index: 2;
   }
+`;
+
+export const SpinnerWrapper = styled.div`
+  margin-left: 20px;
+  margin-bottom: 20px;
+  z-index: 4000;
+
+  /* div {
+    border: 4px solid;
+  } */
+`;
+
+export const spinner = css`
+  border: 4px solid;
 `;
 
 export const NavElements = styled.div`
