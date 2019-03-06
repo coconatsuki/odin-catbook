@@ -10,6 +10,15 @@ export const UserPageWrapper = styled(Wrapper)`
   justify-content: space-between;
 `;
 
+export const FriendsWrapper = styled.div`
+  width: 100%;
+  padding: 15px;
+
+  li {
+    width: 40%;
+  }
+`;
+
 export const Aside = styled.aside`
   width: 15%;
   height: 200px;

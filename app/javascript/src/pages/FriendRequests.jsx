@@ -12,11 +12,15 @@ class FriendRequests extends AbstractPage {
   };
 
   componentDidMount = async () => {
-    await this.fetchCurrentUser("?withFriendRequests=yes");
+    this.refreshUser();
   };
 
-  updateUser = async userId => {
-    await this.fetchCurrentUser("?withFriendRequests=yes");
+  refreshUser = async () => {
+    const currentUser = await getCurrentUser("?withFriendRequests=yes");
+    console.log(currentUser);
+    this.setState({
+      currentUser: currentUser.user
+    });
   };
 
   render() {
@@ -38,11 +42,11 @@ class FriendRequests extends AbstractPage {
                   <li>{friend.name} </li>
                   <FriendshipButton
                     user={friend}
-                    updateUser={this.updateUser}
+                    refreshUser={this.refreshUser}
                   />
                   <FriendshipButton
                     user={friend}
-                    updateUser={this.updateUser}
+                    refreshUser={this.refreshUser}
                     deleteFriendRequest
                   />
                 </div>

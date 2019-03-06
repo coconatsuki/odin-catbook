@@ -8,7 +8,12 @@ import AboutMe from "../components/AboutMe";
 import Nav from "../components/Nav";
 import { getUserById, getCurrentUser } from "../API/users";
 import { Body, Wrapper } from "../styles/global";
-import { UserPageWrapper, Main, FormWrapper } from "../styles/userPage";
+import {
+  UserPageWrapper,
+  FriendsWrapper,
+  Main,
+  FormWrapper
+} from "../styles/userPage";
 import { Aside, CatImg } from "../styles/global";
 import profileCat from "../images/profile-cat.png";
 
@@ -103,9 +108,9 @@ class UserPage extends AbstractPage {
                   />
                 )}
               {this.canSeeProfile && display === "friends" && (
-                <Wrapper>
+                <FriendsWrapper>
                   <Users users={user.friends} />
-                </Wrapper>
+                </FriendsWrapper>
               )}
               {this.canSeeProfile && display === "about" && (
                 <AboutMe
