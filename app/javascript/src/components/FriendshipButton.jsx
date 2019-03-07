@@ -42,7 +42,6 @@ class FriendshipButton extends React.Component {
 
   acceptFriendRequest = async () => {
     const { user, refreshUser } = this.props;
-    console.log("FRIEND", user);
     console.log("accepting friend request !", user.sent_friend_request);
     const response = await updateFriendRequest(user.sent_friend_request);
     if (response.errors) return this.setErrorMessages(response.errors);

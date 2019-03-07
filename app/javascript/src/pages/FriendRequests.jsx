@@ -4,6 +4,9 @@ import FriendshipButton from "../components/FriendshipButton";
 import Nav from "../components/Nav";
 import { getCurrentUser } from "../API/users";
 import { Body } from "../styles/global";
+import { FriendsWrapper, Main, RequestsList } from "../styles/friendRequests";
+import { Aside, CatImg } from "../styles/global";
+import requestsCat from "../images/requests-cat.png";
 
 class FriendRequests extends AbstractPage {
   state = {
@@ -17,7 +20,6 @@ class FriendRequests extends AbstractPage {
 
   refreshUser = async () => {
     const currentUser = await getCurrentUser("?withFriendRequests=yes");
-    console.log(currentUser);
     this.setState({
       currentUser: currentUser.user
     });
@@ -31,27 +33,35 @@ class FriendRequests extends AbstractPage {
         {currentUser && (
           <div>
             <Nav currentUser={currentUser} activePage="requestsPage" />
-            {currentUser.received_pending_friends.length > 0 ? (
-              <h2>These friends sent you a friend request:</h2>
-            ) : (
-              <h2>You've no friend request at the moment.</h2>
-            )}
-            <ul>
-              {currentUser.received_pending_friends.map(friend => (
-                <div className="requesting-friend" key={friend.id}>
-                  <li>{friend.name} </li>
-                  <FriendshipButton
-                    user={friend}
-                    refreshUser={this.refreshUser}
-                  />
-                  <FriendshipButton
-                    user={friend}
-                    refreshUser={this.refreshUser}
-                    deleteFriendRequest
-                  />
-                </div>
-              ))}
-            </ul>
+            <FriendsWrapper>
+              <Aside className="left-aside">
+                <CatImg src={requestsCat} />
+              </Aside>
+              <Main>
+                {currentUser.received_pending_friends.length > 0 ? (
+                  <h1>These friends sent you a friend request:</h1>
+                ) : (
+                  <h1>No friend request at the moment.</h1>
+                )}
+                <RequestsList>
+                  {currentUser.received_pending_friends.map(friend => (
+                    <div className="requesting-friend" key={friend.id}>
+                      <li>{friend.name} </li>
+                      <FriendshipButton
+                        user={friend}
+                        refreshUser={this.refreshUser}
+                      />
+                      <FriendshipButton
+                        user={friend}
+                        refreshUser={this.refreshUser}
+                        deleteFriendRequest
+                      />
+                    </div>
+                  ))}
+                </RequestsList>
+              </Main>
+              <Aside className="left-aside" />
+            </FriendsWrapper>
           </div>
         )}
       </>
