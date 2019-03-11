@@ -1,38 +1,28 @@
 import React from "react";
+import PropTypes from "prop-types";
 import AbstractPage from "./AbstractPage";
 import FriendshipButton from "../components/FriendshipButton";
-import Nav from "../components/Nav";
-import { getCurrentUser } from "../API/users";
-import { Body } from "../styles/global";
+import { currentUserWithFriendsType } from "../API/users";
 import { FriendsWrapper, Main, RequestsList } from "../styles/friendRequests";
 import { Aside, CatImg } from "../styles/global";
 import requestsCat from "../images/requests-cat.png";
 
 class FriendRequests extends AbstractPage {
+  static propTypes = {
+    refreshUser: currentUserWithFriendsType.isRequired,
+    currentUser: PropTypes.func.isRequired
+  };
+
   state = {
-    currentUser: null,
     errorMessages: []
   };
 
-  componentDidMount = async () => {
-    this.refreshUser();
-  };
-
-  refreshUser = async () => {
-    const currentUser = await getCurrentUser("?withFriendRequests=yes");
-    this.setState({
-      currentUser: currentUser.user
-    });
-  };
-
   render() {
-    const { currentUser } = this.state;
+    const { currentUser } = this.props;
     return (
       <>
-        <Body />
         {currentUser && (
           <div>
-            <Nav currentUser={currentUser} activePage="requestsPage" />
             <FriendsWrapper>
               <Aside className="left-aside">
                 <CatImg src={requestsCat} />
@@ -49,11 +39,11 @@ class FriendRequests extends AbstractPage {
                       <li>{friend.name} </li>
                       <FriendshipButton
                         user={friend}
-                        refreshUser={this.refreshUser}
+                        refreshUser={this.props.refreshUser}
                       />
                       <FriendshipButton
                         user={friend}
-                        refreshUser={this.refreshUser}
+                        refreshUser={this.props.refreshUser}
                         deleteFriendRequest
                       />
                     </div>

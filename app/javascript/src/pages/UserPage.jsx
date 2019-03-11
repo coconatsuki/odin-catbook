@@ -7,7 +7,7 @@ import PostForm from "../components/PostForm";
 import AboutMe from "../components/AboutMe";
 import Nav from "../components/Nav";
 import { getUserById, getCurrentUser } from "../API/users";
-import { Body, Wrapper } from "../styles/global";
+import { Wrapper } from "../styles/global";
 import {
   UserPageWrapper,
   FriendsWrapper,
@@ -48,8 +48,9 @@ class UserPage extends AbstractPage {
   };
 
   getUserIdFromHtml = () => {
-    const div = document.getElementById("user-container");
-    return parseInt(div.dataset.id);
+    const id = this.props.match.params.id;
+    console.log("ID", id);
+    return parseInt(id);
   };
 
   canSeeProfile = () => {
@@ -75,8 +76,6 @@ class UserPage extends AbstractPage {
       user &&
       currentUser && (
         <>
-          <Body />
-          <Nav currentUser={currentUser} activePage="userPage" />
           <UserPageWrapper>
             <Aside style={{ marginTop: "2%" }}>
               <CatImg src={profileCat} style={{ width: "150px" }} />

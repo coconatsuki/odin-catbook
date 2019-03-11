@@ -7,6 +7,7 @@ import { omnes } from "../design/fonts";
 export const Body = createGlobalStyle`
   body {
     background-color: ${colors.lightRed};
+    overflow: scroll;
   }
 `;
 

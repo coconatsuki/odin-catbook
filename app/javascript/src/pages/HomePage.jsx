@@ -7,7 +7,6 @@ import Posts from "../components/Posts";
 import PostForm from "../components/PostForm";
 import Stats from "../components/Stats";
 import Nav from "../components/Nav";
-import { Body } from "../styles/global";
 import { HomeWrapper, Main, FormWrapper } from "../styles/home";
 import { Aside, CatImg } from "../styles/global";
 import postsCat from "../images/posts-cat.png";
@@ -54,8 +53,6 @@ class HomePage extends AbstractPage {
     return (
       currentUser && (
         <>
-          <Body />
-          <Nav currentUser={currentUser} activePage="homePage" />
           <HomeWrapper>
             <Aside className="left-aside">
               <CatImg src={postsCat} />

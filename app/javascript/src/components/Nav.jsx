@@ -1,17 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 import { currentUserType } from "../API/users";
 import { Navigation, List, ListElement, Logo, Highlight } from "../styles/nav";
 
 class Nav extends React.Component {
   static propTypes = {
     currentUser: currentUserType,
-    activePage: PropTypes.string.isRequired
+    history: PropTypes.any.isRequired
   };
 
   state = {
     listCoordinates: { width: 0, height: 0, left: 0, top: 0 },
-    displayHighlight: false
+    displayHighlight: false,
+    activePage: null
   };
 
   constructor(props) {
@@ -27,12 +29,35 @@ class Nav extends React.Component {
   };
 
   highlightActiveList = () => {
-    const activeList = this[`${this.props.activePage}Div`];
-    if (!activeList) return;
-    this.highlightList(activeList.current);
+    const activeDiv = this.findDivName();
+    console.log("DIV", activeDiv);
+    this.highlightList(activeDiv.current);
+  };
+
+  findDivName = () => {
+    const pathname = this.props.history.location.pathname;
+    console.log("PATHNAME", pathname);
+    switch (pathname) {
+      case "/":
+        return this.homePageDiv;
+        break;
+
+      case "/users":
+        return this.usersPageDiv;
+        break;
+
+      case "/received_requests":
+        return this.requestsPageDiv;
+        break;
+    }
+    console.log("DO I come here ?");
+    if (pathname.match(/\/users\/\d*/)[0] === pathname) {
+      return this.userPageDiv;
+    }
   };
 
   highlightList = listToHighlight => {
+    console.log("LIST", listToHighlight);
     const linkCoords = listToHighlight.getBoundingClientRect();
     const listCoordinates = {
       width: linkCoords.width,
@@ -40,9 +65,11 @@ class Nav extends React.Component {
       top: linkCoords.top + window.scrollY,
       left: linkCoords.left + window.scrollX
     };
+    console.log("TITLE", listToHighlight.title);
     this.setState({
       listCoordinates,
-      displayHighlight: true
+      displayHighlight: true,
+      activePage: listToHighlight.title
     });
   };
 
@@ -51,7 +78,9 @@ class Nav extends React.Component {
   };
 
   render() {
-    const { currentUser, activePage } = this.props;
+    const { currentUser } = this.props;
+    const { activePage } = this.state;
+    console.log("activePAge", activePage);
     return currentUser ? (
       <Navigation>
         <Logo href="#">
@@ -59,42 +88,48 @@ class Nav extends React.Component {
         </Logo>
         <List>
           <ListElement
+            title="userPage"
             key="current-user-page"
             active={activePage === "userPage"}
             onMouseEnter={this.followDiv}
             onMouseLeave={this.highlightActiveList}
             ref={this.userPageDiv}
           >
-            <a href={`/users/${currentUser.id}`}>{currentUser.name}</a>
+            <NavLink to={`/users/${currentUser.id}`}>
+              {currentUser.name}
+            </NavLink>
           </ListElement>
           <ListElement
+            title="homePage"
             key="home-page"
             active={activePage === "homePage"}
             onMouseEnter={this.followDiv}
             onMouseLeave={this.highlightActiveList}
             ref={this.homePageDiv}
           >
-            <a href="/posts">Posts</a>
+            <NavLink to="/">Posts</NavLink>
           </ListElement>
           <ListElement
+            title="usersPage"
             key="users-page"
             active={activePage === "usersPage"}
             onMouseEnter={this.followDiv}
             onMouseLeave={this.highlightActiveList}
             ref={this.usersPageDiv}
           >
-            <a href="/users">Find cat-friends</a>
+            <NavLink to="/users">Find cat-friends</NavLink>
           </ListElement>
           <ListElement
+            title="requestsPage"
             key="friend-requests-page"
             active={activePage === "requestsPage"}
             onMouseEnter={this.followDiv}
             onMouseLeave={this.highlightActiveList}
             ref={this.requestsPageDiv}
           >
-            <a href={`/users/${currentUser.id}/received_requests`}>
+            <NavLink to={`/received_requests`}>
               <strong>{currentUser.requests_count}</strong> friend requests
-            </a>
+            </NavLink>
           </ListElement>
           <ListElement
             key="log-in-and-out"
@@ -116,30 +151,3 @@ class Nav extends React.Component {
 }
 
 export default Nav;
-
-{
-  /* <header class="navbar">
-  <div class="container">
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-          <li><%= link_to current_user.name, current_user %></li>
-          <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Find cat-friends", users_path %></li>
-          <li>
-            <%= link_to received_requests_user_path(current_user) do %>
-              <strong id="receivedrequests">
-                <%= current_user.received_pending_friends.count %>
-              </strong> friend requests
-            <% end %>
-          </li>
-          <li><%= link_to "Log out", destroy_user_session_path, method: :delete %><li>
-        <% else %>
-          <li><%= link_to "Log in", new_user_session_path %></li>
-          <li><%= link_to "Sign up", new_user_registration_path %></li>
-        <% end %>
-      </ul>
-    </nav>
-  </div>
-</header> */
-}

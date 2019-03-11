@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { basicUserType } from "../API/users";
 import defaultCat from "../images/default-cat.png";
 import { UsersWrapper, UsersList, UserItem } from "../styles/usersPage";
@@ -15,7 +16,7 @@ class Users extends React.Component {
         <UsersList className="usersList">
           {this.props.users.map(user => (
             <UserItem key={user.id}>
-              <a href={`/users/${user.id}`}>
+              <Link to={`/users/${user.id}`}>
                 <img src={user.cropped_profile_pic || defaultCat} />
                 <span className="name">{user.name}</span>
                 {user.sent_friend_request && (
@@ -28,7 +29,7 @@ class Users extends React.Component {
                     <em>Friend request sent</em>
                   </span>
                 )}
-              </a>
+              </Link>
             </UserItem>
           ))}
         </UsersList>

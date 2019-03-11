@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import HomePage from "../src/pages/HomePage";
+import App from "../src/App";
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(<HomePage />, document.getElementById("homepage-container"));
+  ReactDOM.render(<App />, document.getElementById("homepage-container"));
 });

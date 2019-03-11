@@ -4,7 +4,6 @@ import Nav from "../components/Nav";
 import PropTypes from "prop-types";
 import { getCurrentUser, getUsers } from "../API/users";
 import { UsersPageWrapper, UsersBlock } from "../styles/usersPage";
-import { Body } from "../styles/global";
 import { Aside, CatImg } from "../styles/global";
 import friendsCat from "../images/friends-cat.png";
 
@@ -31,11 +30,8 @@ class UsersPage extends React.Component {
     const { users, currentUser } = this.state;
     return (
       <>
-        <Body />
-
         {users && currentUser && (
           <div>
-            <Nav currentUser={this.state.currentUser} activePage="usersPage" />
             <UsersPageWrapper>
               <Aside className="left-aside">
                 <CatImg src={friendsCat} />
