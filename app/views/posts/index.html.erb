@@ -1,7 +1,6 @@
 <% if !user_signed_in? %>
   <%= render 'login' %>
 <% else %>
-  <div id="app-container"></div>
-  <%# <%= render @posts %>
-  <%= javascript_pack_tag 'application' %>
+  <div id="homepage-container"></div>
+  <%= javascript_pack_tag 'homepage-rendering' %>
 <% end %>

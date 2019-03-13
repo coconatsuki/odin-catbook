@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -14,8 +16,6 @@ gem 'faker'
 gem 'pg'
 # Flexible authentication solution for Rails with Warden
 gem 'devise'
-# omniauth facebook
-gem 'omniauth-facebook'
 # Simple, Heroku-friendly Rails app configuration using ENV and a single YAML file
 gem 'figaro'
 # User MiniMagick
@@ -33,6 +33,8 @@ gem 'sidekiq'
 # for timeout (puma)
 gem "rack-timeout"
 gem 'webpacker', '>= 4.0.x'
+# For writing json easily
+gem 'active_model_serializers', '~> 0.10.0'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
@@ -60,7 +62,14 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
+  gem 'rubocop'
   gem 'selenium-webdriver'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem "nyan-cat-formatter"
+  gem 'shoulda-matchers', '~> 3.0'
+  gem 'simplecov', require: false
 end
 
 group :development do
@@ -72,6 +81,7 @@ group :development do
   gem 'pry-rails'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "annotate", require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

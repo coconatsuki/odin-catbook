@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemovePolymorphicColumns < ActiveRecord::Migration[5.1]
   def change
     remove_column :likes, :likable_id

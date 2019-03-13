@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
   <head>
+  <meta charset="utf-8">
     <title>OdinCatbook</title>
     <%= csrf_meta_tags %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.typekit.net/sib4dzv.css">
   </head>
 
   <body>
-    <%= render 'layouts/nav' %>
-    <div id="flash"><%= render 'layouts/flash' %></div>
-    <%= yield %>
+  <%= yield %>
   </body>
 </html>

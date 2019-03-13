@@ -1,23 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PostForm from "./PostForm";
+import Like from "./Like";
+import CommentsBlock from "./CommentsBlock";
+import ErrorsBlock from "./ErrorsBlock";
+import { addLike, destroyLike } from "../API/likes";
+import { postType } from "../API/posts";
+import { getComments } from "../API/comments";
+import { currentUserType } from "../API/users";
+import {
+  PostArticle,
+  Controls,
+  PostWrapper,
+  PostHeader,
+  PostContent
+} from "../styles/post";
+import { Border } from "../styles/global";
 import * as moment from "moment";
 
 class Post extends React.Component {
   static propTypes = {
-    post: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      body: PropTypes.string.isRequired,
-      created_at: PropTypes.string.isRequired,
-      author: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired
-      })
-    }).isRequired,
-    currentUser: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
-    }),
+    post: postType.isRequired,
+    currentUser: currentUserType,
     refreshPosts: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
     errorMessages: PropTypes.array.isRequired
@@ -27,7 +31,7 @@ class Post extends React.Component {
     edit: false
   };
 
-  canEdit = () => {
+  currentUserIsAuthor = () => {
     const { currentUser, post } = this.props;
     return currentUser && post.author.id === currentUser.id;
   };
@@ -38,10 +42,17 @@ class Post extends React.Component {
     });
   };
 
+  setErrorMessages = messagesArray => {
+    this.setState({
+      errorMessages: messagesArray
+    });
+  };
+
   render() {
     const { post, currentUser, deletePost, refreshPosts } = this.props;
+    const { likedByCurrentUser, likesCount, commentsCount } = this.state;
     return (
-      <>
+      <PostWrapper>
         {this.state.edit ? (
           <PostForm
             refreshPosts={refreshPosts}
@@ -49,65 +60,46 @@ class Post extends React.Component {
             toggleEdit={this.toggleEdit}
           />
         ) : (
-          <article>
-            {this.canEdit && (
-              <div className="controls">
-                <ul>
-                  {this.props.errorMessages.map((msg, index) => (
-                    <li key={`error${index}`} style={{ color: "red" }}>
-                      {msg}
-                    </li>
-                  ))}
-                </ul>
+          <PostArticle>
+            {this.currentUserIsAuthor() && (
+              <Controls>
+                <ErrorsBlock errorMessages={this.props.errorMessages} />
                 <button onClick={this.toggleEdit}>Edit Post</button>
                 <button onClick={() => deletePost(post.id)}>Delete Post</button>
-              </div>
+              </Controls>
             )}
-            <p>
-              <strong>Written by => {post.author.name}</strong>
-            </p>
-            <p>
-              CURRENT USER =>
-              {currentUser ? currentUser.name : ""}
-            </p>
-            <p>POST BODY =></p>
-            <p>{post.body}</p>
-            <p>MOMENT =></p>
-            <p>Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}</p>
-          </article>
+            <PostHeader>
+              <h3>{post.author.name}</h3>
+              <span>
+                Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}
+              </span>
+            </PostHeader>
+            <Border />
+            <PostContent>{post.body}</PostContent>
+            {post.smallImageUrl && (
+              <img width="200" src={post.smallImageUrl} alt="post image" />
+            )}
+            <Like
+              postId={post.id}
+              likesCount={post.likes_count}
+              dislikesCount={post.dislikes_count}
+              evaluatedByCurrentUser={post.evaluated_by_currentUser}
+              likedByCurrentUser={post.liked_by_currentUser}
+              dislikedByCurrentUser={post.disliked_by_currentUser}
+              setErrorMessages={this.setErrorMessages}
+              currentUserIsAuthor={this.currentUserIsAuthor}
+              refreshPosts={this.props.refreshPosts}
+            />
+            <CommentsBlock
+              currentUser={currentUser}
+              commentsCount={post.comments_count}
+              postId={post.id}
+            />
+          </PostArticle>
         )}
-        <p>--------------------------------------</p>
-      </>
+      </PostWrapper>
     );
   }
 }
 
 export default Post;
-
-// <%= link_to "Edit post", edit_post_path(post) if post.author == current_user %>
-// <p><strong><%= post.author.name %></strong> wrote
-// <%= time_ago_in_words(post.created_at) %> ago:</p>
-
-// <p><%= post.body %></p>
-
-// <%= image_tag post.picture.url if post.picture? %>
-
-// <%= link_to post_likes_path(post) do %>
-//   <strong id="likes-count-<%= post.id %>"><%= post.likes.size %> people like this.</strong>
-// <% end %>
-
-// <% if like = post.already_like(current_user) %>
-//   <div id="likes-<%= post.id %>"><%= render partial: 'likes/unlike_form', :locals => {:post => post, like: like  } %></div>
-// <% else %>
-//   <div id="likes-<%= post.id %>"><%= render partial: 'likes/likes_form', :locals => {:post => post } %></div>
-// <% end %>
-
-// <strong>Comments:</strong>
-// <div id="comments"><%= render partial: 'comments/index', :locals => {:post => post } %></div>
-
-// <strong>Write a new comment :</strong>
-// <%= render partial: 'comments/form', :locals => {:post => post } %>
-
-// <p>
-//   --------------------------------------
-// </p>

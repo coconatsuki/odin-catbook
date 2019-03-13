@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -10,14 +12,21 @@ cat_names = []
 50.times { |_n| cat_names << Faker::Cat.name }
 CAT_NAMES = cat_names.uniq
 
-CAT_NAMES.size.times do |n|
-  name = CAT_NAMES[n]
+User.destroy_all
+
+CAT_NAMES.each do |name|
   email = "#{name}@catmail.com"
   password = "password"
   User.create!(name: name,
                email: email,
                password: password,
-               password_confirmation: password)
+               password_confirmation: password,
+               breed: Faker::Cat.breed,
+               birthday: Faker::Time.between(20.years.ago, 1.month.ago, :day),
+               country: Faker::LordOfTheRings.location,
+               city: Faker::HarryPotter.location,
+               things_i_like: Faker::Hipster.words(Random.rand(1..5)),
+               things_i_hate: Faker::Hipster.words(Random.rand(1..5)))
 end
 
 # Posts

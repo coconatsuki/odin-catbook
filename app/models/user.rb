@@ -1,16 +1,49 @@
+# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :bigint(8)        not null, primary key
+#  birthday               :date
+#  breed                  :string
+#  city                   :string
+#  country                :string
+#  cropped_cover_pic      :string
+#  cropped_profile_pic    :string
+#  current_sign_in_at     :datetime
+#  current_sign_in_ip     :inet
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  last_sign_in_at        :datetime
+#  last_sign_in_ip        :inet
+#  name                   :string
+#  provider               :string
+#  remember_created_at    :datetime
+#  reset_password_sent_at :datetime
+#  reset_password_token   :string
+#  sign_in_count          :integer          default(0), not null
+#  small_cover_pic        :string
+#  small_profile_pic      :string
+#  things_i_hate          :string           is an Array
+#  things_i_like          :string           is an Array
+#  uid                    :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_name                  (name) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  devise :omniauthable, omniauth_providers: [:facebook]
-
-  mount_uploader :avatar, AvatarUploader
-
   after_create :send_welcome_email
 
   validates :name, presence: true
-
-  validate  :picture_size
 
   #------------------- BASIC ASSOCIATIONS -----------------------------------
 
@@ -49,15 +82,25 @@ class User < ApplicationRecord
     sent_active_friends | received_active_friends
   end
 
-  def pending_friends
-    received_pending_friends | sent_pending_friends
+  def friend(current_user)
+    Friendship.find_active_friendship(current_user, self)
   end
 
-  def all_friends
-    friends | received_pending_friends | sent_pending_friends
+  def sent_friend_request(current_user)
+    # requesting_user_id = sent_pending_friends.find_by(id: current_user.id)
+    Friendship.find_by(requested_id: current_user.id, requesting_id: id)
   end
 
-  # Give back the posts of all the user friends, and his own.
+  def received_friend_request(current_user)
+    # requested_user_id = received_pending_friends.find_by(id: current_user.id)
+    Friendship.find_by(requesting_id: current_user.id, requested_id: id)
+  end
+
+  def evaluated_by
+    likes.find_by(author_id: user.id)
+  end
+
+  # Give back the posts of all the user's friends, and his own.
   def feed
     users = friends << self
     @posts = Post.where(author: users).order(created_at: :desc).includes(:likes, :author, :comments)
@@ -66,26 +109,4 @@ class User < ApplicationRecord
   def send_welcome_email
     UserMailer.welcome_mail(self).deliver_later
   end
-
-  #------------------------------OmniAuth-----------------------------------
-
-  def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.name = auth.info.name # assuming the user model has a name
-      user.image = auth.info.image # assuming the user model has an image
-      # If you are using confirmable and the provider(s) you use validate emails,
-      # uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
-    end
-  end
-
-#--------------------------------- Validates the size of an uploaded picture.
-  def picture_size
-    if avatar.size > 5.megabytes
-      errors.add(:avatar, "should be less than 5MB")
-    end
-  end
-
 end

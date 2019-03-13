@@ -1,5 +1,2 @@
-<ul>
-  <% @cats.each do |cat| %>
-    <li><%= link_to cat.name, cat %></li>
-  <% end %>
-</ul>
+  <div id="users-container"></div>
+  <%= javascript_pack_tag 'users-rendering' %>

@@ -1,18 +1,75 @@
 import React from "react";
-// import PropTypes from "prop-types";
-import Posts from "./components/Posts";
+import { Router, Route, Link } from "react-router-dom";
+import createBrowserHistory from "history/createBrowserHistory";
+
+import HomePage from "./pages/HomePage";
+import UsersPage from "./pages/UsersPage";
+import UserPage from "./pages/UserPage";
+import FriendRequests from "./pages/FriendRequests";
+import Nav from "./components/Nav";
+import { getCurrentUser } from "./API/users";
+import { Body } from "./styles/global";
 
 class App extends React.Component {
-  // static propTypes = {
-  //   key: PropTypes.string.isRequired,
-  //   key: PropTypes.string
-  // }
+  state = {
+    history: createBrowserHistory(),
+    currentUser: null
+  };
+
+  componentDidMount = async () => {
+    this.refreshUser();
+  };
+
+  refreshUser = async () => {
+    const currentUser = await getCurrentUser("?withFriendRequests=yes");
+    this.setState({
+      currentUser: currentUser.user
+    });
+  };
 
   render() {
+    const { currentUser, history } = this.state;
     return (
-      <div>
-        <Posts />
-      </div>
+      <Router history={history}>
+        <>
+          <Body />
+          {currentUser && (
+            <>
+              <Nav currentUser={currentUser} history={history} />
+              <Route
+                path="/"
+                exact
+                render={routeProps => (
+                  <HomePage {...routeProps} currentUser={currentUser} />
+                )}
+              />
+              <Route
+                path="/users/"
+                exact
+                render={routeProps => (
+                  <UsersPage {...routeProps} currentUser={currentUser} />
+                )}
+              />
+              <Route
+                path="/users/:id"
+                render={routeProps => (
+                  <UserPage {...routeProps} currentUser={currentUser} />
+                )}
+              />
+              <Route
+                path="/received_requests"
+                render={routeProps => (
+                  <FriendRequests
+                    {...routeProps}
+                    currentUser={currentUser}
+                    refreshUser={this.refreshUser}
+                  />
+                )}
+              />
+            </>
+          )}
+        </>
+      </Router>
     );
   }
 }

@@ -10,7 +10,7 @@
   <strong id="likes-count-<%= post.id %>"><%= post.likes.size %> people like this.</strong>
 <% end %>
 
-<% if like = post.already_like(current_user) %>
+<% if like = post.already_liked(current_user) %>
   <div id="likes-<%= post.id %>"><%= render partial: 'likes/unlike_form', :locals => {:post => post, like: like  } %></div>
 <% else %>
   <div id="likes-<%= post.id %>"><%= render partial: 'likes/likes_form', :locals => {:post => post } %></div>

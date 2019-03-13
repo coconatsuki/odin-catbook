@@ -1,26 +1,36 @@
+# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: posts
+#
+#  id            :bigint(8)        not null, primary key
+#  body          :string
+#  smallImageUrl :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  author_id     :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (author_id => users.id)
+#
+
 class Post < ApplicationRecord
   validates :body, presence: true, length: { minimum: 5 }
 
-  mount_uploader :picture, PictureUploader
-
-  validate  :picture_size
-
   belongs_to :author, class_name: 'User'
-  has_many :comments
-  has_many :likes
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
-  def already_like(user)
-    likes.find { |like| like.author_id == user.id }
+  def liked_by(user)
+    likes.positive.find_by(author_id: user.id)
   end
 
-  private
+  def disliked_by(user)
+    likes.negative.find_by(author_id: user.id)
+  end
 
-
-  #--------------------------------- Validates the size of an uploaded picture.
-    def picture_size
-      if picture.size > 5.megabytes
-        errors.add(:picture, "should be less than 5MB")
-      end
-    end
-
+  def evaluated_by(user)
+    likes.find_by(author_id: user.id)
+  end
 end

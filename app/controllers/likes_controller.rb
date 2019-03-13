@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikesController < ApplicationController
   def index
     @post = Post.find(params[:post_id])
@@ -6,34 +8,35 @@ class LikesController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    if @post.already_like(current_user)
-      flash.now[:warning] = "You already liked this post noob."
-      render json: { error: "You already liked this post noob." }
-      return
-    end
-    @like = Like.new
-    @like.post = @post
-    @like.author = current_user
-    if @like.save
-      # flash.now[:notice] = "Post liked !"
-      respond_to do |format|
-        format.js
-      end
-    else
-      flash.now[:warning] = "There was an error while liking a post."
-    end
+
+    return no_duplication if @post.evaluated_by(current_user)
+    return not_permited if @post.author_id == current_user.id
+
+    @like = Like.create!(like_params.merge(author_id: current_user.id).merge(post_id: @post.id))
+    render json: @like, include: 'post,post.author'
   end
 
   def destroy
     @like = Like.find(params[:id])
-    @post = Post.find(params[:post_id])
+
     if @like.destroy
-      # flash.now[:notice] = "Post unliked !"
-      respond_to do |format|
-        format.js
-      end
+      render json: @like, include: 'post,post.author'
     else
-      flash.now[:warning] = "There was an error while unliking."
+      render json: { errors: @like.errors.full_messages }
     end
+  end
+
+  private
+
+  def like_params
+    params.require(:like).permit(:positive)
+  end
+
+  def no_duplication
+    render json: { errors: ["Sorry, you can't evaluate a post twice."] }
+  end
+
+  def not_permited
+    render json: { errors: ["Sorry, you can't evaluate your own posts."] }
   end
 end
