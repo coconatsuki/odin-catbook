@@ -1,34 +1,57 @@
-<h2>Sign up</h2>
+<div class="login-page">
+  <div class="fake-nav"></div>
+  <div class="main">
+    <div class=" aside left-aside">
+      <%= image_tag("left-login-cat.png", :class => "left-login-cat") %>
+    </div>
+    <div class="header">
+      <div class="page-title">
+        <%= image_tag("login-logo.png", :class => "login-logo") %>
+        <p class="explanation">Like Facebook... but for cats!</p>
+      </div>
+      <div class="login-form">
+        <%= form_for(resource, as: resource_name, url:
+        registration_path(resource_name)) do |f| %>
+        <p class="form-toggle">Not a member yet? Please sign up:</p>
+        <%= devise_error_messages! %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+        <div class="field textzone email-field">
+          <%= f.label :name %> <%= f.text_field :name, autofocus: true %>
+        </div>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+        <div class="field textzone email-field">
+          <%= f.label :email %> <%= f.email_field :email %>
+        </div>
+
+        <div class="password-input-wrapper">
+          <div class="field textzone email-field password-field">
+            <%= f.label :password %> <%= f.password_field :password, autocomplete: "off" %>
+          </div>
+          <% if @minimum_password_length %>
+          <span class="characters-limitation"
+            ><em>(<%= @minimum_password_length %> characters minimum)</em></span
+          >
+          <% end %>
+        </div>
+
+        <div class="field textzone email-field">
+          <%= f.label :password_confirmation %> <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div>
+
+        <div class="actions submit-button-wrapper sign-in-up-button">
+          <%= f.submit "SIGN UP" %>
+        </div>
+
+        <p class="form-title">Already a member? You should sign in:</p>
+        <%- if controller_name != 'sessions' %>
+        <div class="sign-in-up-button sign-link">
+          <%= link_to "LOG IN", new_session_path(resource_name) %>
+        </div>
+        <% end -%> <% end %>
+      </div>
+    </div>
+    <div class="aside right-aside">
+      <%= image_tag("right-login-cat.png", :class => "right-login-cat") %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

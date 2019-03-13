@@ -10,10 +10,13 @@ import {
   TextareaField,
   PicturePreview,
   ShareButton,
-  Controls
+  Controls,
+  CatFileUpload
 } from "../styles/postForm";
 import { FileUploadWrapper } from "../styles/fileUpload";
 import { Border } from "../styles/global";
+import postCat from "../images/post-cat.png";
+import postCatReversed from "../images/post-cat-reversed.png";
 
 class PostForm extends React.Component {
   static propTypes = {
@@ -137,21 +140,21 @@ class PostForm extends React.Component {
             />
             <Border />
           </label>
-          <FileUploadWrapper>
-            {this.state.smallImage ? "Delete this image" : "Upload an Image"}
-            <FileUpload
-              toggleFileLoading={this.toggleFileLoading}
-              smallImage={this.state.smallImage}
-              updateImages={this.updateImages}
-            />
-          </FileUploadWrapper>
+          <CatFileUpload>
+            <img src={postCatReversed} alt="small cat image" />
+            <FileUploadWrapper>
+              {this.state.smallImage ? "Delete this image" : "Upload an Image"}
+              <FileUpload
+                toggleFileLoading={this.toggleFileLoading}
+                smallImage={this.state.smallImage}
+                updateImages={this.updateImages}
+              />
+            </FileUploadWrapper>
+            <img src={postCat} alt="small cat image" />
+          </CatFileUpload>
           {this.state.smallImage && (
             <PicturePreview>
-              <img
-                width="200"
-                src={this.state.smallImage}
-                alt="uploaded Preview"
-              />
+              <img src={this.state.smallImage} alt="uploaded Preview" />
             </PicturePreview>
           )}
         </TextareaField>

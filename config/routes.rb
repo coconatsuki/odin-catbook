@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout' },
-                     controllers: { omniauth_callbacks: "auth/omniauth_callbacks" }, path: 'auth'
+  devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout' }, path: 'auth'
 
   resources :users, only: %i[show index edit update] do
     collection do
@@ -20,6 +19,7 @@ Rails.application.routes.draw do
   end
 
   resources :friendships, only: %i[create destroy update]
+  get :received_requests, to: 'posts#index'
 
   root 'posts#index'
 end

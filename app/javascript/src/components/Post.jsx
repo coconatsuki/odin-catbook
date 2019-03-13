@@ -90,7 +90,6 @@ class Post extends React.Component {
               currentUserIsAuthor={this.currentUserIsAuthor}
               refreshPosts={this.props.refreshPosts}
             />
-            <Border />
             <CommentsBlock
               currentUser={currentUser}
               commentsCount={post.comments_count}

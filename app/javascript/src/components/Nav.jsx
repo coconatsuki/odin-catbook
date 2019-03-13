@@ -30,13 +30,11 @@ class Nav extends React.Component {
 
   highlightActiveList = () => {
     const activeDiv = this.findDivName();
-    console.log("DIV", activeDiv);
     this.highlightList(activeDiv.current);
   };
 
   findDivName = () => {
     const pathname = this.props.history.location.pathname;
-    console.log("PATHNAME", pathname);
     switch (pathname) {
       case "/":
         return this.homePageDiv;
@@ -80,7 +78,6 @@ class Nav extends React.Component {
   render() {
     const { currentUser } = this.props;
     const { activePage } = this.state;
-    console.log("activePAge", activePage);
     return currentUser ? (
       <Navigation>
         <Logo href="#">

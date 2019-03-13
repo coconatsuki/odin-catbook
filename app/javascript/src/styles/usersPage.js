@@ -41,7 +41,7 @@ export const UserItem = styled.li`
   border: 1px solid ${colors.pink};
   border-radius: 30px;
   background-color: white;
-  box-shadow: 0px 10px 9px -4px rgba(140, 47, 57, 0.71);
+  box-shadow: 0px 8px 5px -7px rgba(140, 47, 57, 0.71);
   -webkit-transition: all 0.1s ease-in;
   -moz-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;

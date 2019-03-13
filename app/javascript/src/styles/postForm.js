@@ -29,9 +29,9 @@ export const TextareaField = styled(Field)`
     outline: none;
     opacity: 1;
     border: 1px solid ${colors.deepRed};
-    -webkit-box-shadow: 0px 5px 5px 0px rgba(178, 58, 72, 0.5);
-    -moz-box-shadow: 0px 5px 5px 0px rgba(178, 58, 72, 0.5);
-    box-shadow: 0px 5px 5px 0px rgba(178, 58, 72, 0.5);
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(178, 58, 72, 0.5);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(178, 58, 72, 0.5);
+    box-shadow: 0px 2px 5px 0px rgba(178, 58, 72, 0.5);
   }
 
   label {
@@ -89,11 +89,30 @@ export const FileUploadButton = styled.div`
 
 export const PicturePreview = styled.div`
   align-self: center;
-  max-height: 200px;
   margin: 0 15px 15px 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  img {
+    max-width: 400px;
+    max-height: 200px;
+  }
+`;
+
+export const CatFileUpload = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 15px;
+
+  img {
+  }
+
+  button {
+    margin: 0 8px;
+  }
 `;
 
 export const Controls = styled.div`

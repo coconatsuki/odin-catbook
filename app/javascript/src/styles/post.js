@@ -12,6 +12,7 @@ export const Controls = styled.div`
   display: flex;
   position: absolute;
   right: 15px;
+  z-index: 2;
 
   button {
     padding-top: 0;
@@ -69,3 +70,9 @@ export const PostContent = styled.p`
   font-size: 1.6rem;
   margin: 15px 0;
 `;
+
+// img {
+//   position: absolute;
+//   bottom: 0;
+//   opacity: 0.6;
+// }

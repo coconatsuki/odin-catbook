@@ -13,5 +13,292 @@
  *= require_tree .
  *= require_self
  */
- @import "bootstrap-sprockets";
- @import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+//  --------------------------- LOGIN PAGE STYLING
+
+$darkRed: hsl(354, 50%, 37%);
+$deepRed: hsl(353, 51%, 46%);
+$middleRed: hsl(353, 51%, 46%);
+$pink: hsl(6, 93%, 84%);
+$lightRed: hsl(17, 37%, 96%);
+$lightGrey: hsl(24, 2%, 94%);
+$editBlue: hsl(210, 71%, 48%);
+
+.login-page {
+  display: flex;
+  flex-direction: column;
+  background-color: $lightRed;
+  height: 100%;
+  min-height: 100%;
+}
+
+.login-page .fake-nav {
+  background-color: $darkRed;
+  height: 30px;
+}
+
+.main {
+  display: flex;
+}
+
+.header {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.page-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  background-color: white;
+  border-radius: 30px;
+  padding: 10px 0;
+  border: 1px solid $pink;
+  // min-height: 240px;
+
+  p {
+    text-align: center;
+    font-family: omnes;
+    font-weight: 600;
+    font-size: 2.8rem;
+    color: $deepRed;
+    margin: 0;
+  }
+}
+
+img.login-logo {
+  // width: 90%;
+  max-height: 150px;
+  margin-bottom: 4px;
+}
+
+.aside {
+  width: 20%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  img {
+    width: 100%;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 30px;
+  border: 1px solid $pink;
+  margin-top: 10px;
+  padding: 2% 3%;
+
+  form {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .textzone {
+    position: relative;
+    border: 1px solid $pink;
+    border-radius: 30px;
+    padding: 5px 10px;
+    width: 100%;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(178, 58, 72, 0.5);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(178, 58, 72, 0.5);
+    box-shadow: 0px 2px 5px 0px rgba(178, 58, 72, 0.5);
+  }
+
+  .email-field {
+    margin-bottom: 20px;
+  }
+
+  .textzone label {
+    font-size: 1.5rem;
+    font-family: omnes;
+    font-weight: 400;
+    color: darkgray;
+    top: -11px;
+    left: 25px;
+    z-index: 5;
+    padding: 0 5px;
+    background-color: white;
+    position: absolute;
+  }
+
+  input {
+    border: none;
+    width: inherit;
+    height: inherit;
+    padding: 5px 7px;
+    font-family: omnes;
+    font-size: 1.6rem;
+  }
+}
+
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 35px;
+
+  .field {
+    margin: 0;
+  }
+}
+
+.characters-limitation {
+  opacity: 0.8;
+  position: absolute;
+  bottom: -22px;
+  margin-left: 20px;
+  font-family: omnes;
+}
+
+.remember-me {
+  align-self: flex-start;
+  font-family: omnes;
+
+  label {
+    font-weight: 400;
+  }
+
+  input:last-child {
+    margin-right: 5px;
+  }
+}
+
+.form-title,
+.form-toggle {
+  font-family: omnes;
+  font-size: 2rem;
+  color: $darkRed;
+  margin-bottom: 10px;
+}
+
+.sign-in-up-button {
+  -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  border-radius: 30px;
+  font-weight: bold;
+  width: 30%;
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+
+  input,
+  a {
+    font-size: 1.6rem;
+    font-family: omnes;
+    font-weight: 600;
+    width: 100%;
+  }
+}
+
+.submit-button-wrapper {
+  margin-bottom: 30px;
+  border: 1px solid #3f497d;
+
+  input {
+    border-radius: 30px;
+    background: linear-gradient(#b2d3f7, #237ad1);
+    color: white;
+    text-shadow: 0px 1px 0px #000;
+
+    &:hover {
+      background: linear-gradient(to bottom, #237ad1 5%, #b2d3f7 100%);
+    }
+  }
+}
+
+.sign-link {
+  background: linear-gradient(#f9f9f9, #a7ccf3);
+  text-shadow: 0px 1px 0px #ffffff;
+  border: 1px solid #b5b9d0;
+
+  a {
+    padding: 5px 7px;
+    text-align: center;
+    color: #3f497d;
+    display: inline-block;
+  }
+
+  a:hover,
+  a:focus,
+  a:active {
+    text-decoration: none;
+  }
+
+  &:hover {
+    background: linear-gradient(#a7ccf3, #f9f9f9);
+  }
+}
+
+.signin-options {
+  display: flex;
+  width: 100%;
+  min-height: 25px;
+  justify-content: space-between;
+  padding: 5px 20px;
+
+  .forgot-password a {
+    font-family: omnes;
+    font-size: 1.4rem;
+  }
+}
+
+// --------------------------- CSS GLOBAL RESET
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input,
+textarea,
+button {
+  &:focus {
+    outline: none;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}

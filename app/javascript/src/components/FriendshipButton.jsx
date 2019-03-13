@@ -93,21 +93,21 @@ class FriendshipButton extends React.Component {
   friendRequestButtonText = () => {
     const { user, deleteFriendRequest } = this.props;
     if (deleteFriendRequest) {
-      return `Refuse ${user.name} friend request`;
+      return `Refuse friend request`;
     }
     if (user.sent_friend_request) {
-      return `Accept ${user.name} friend request`;
+      return `Accept friend request`;
     }
     if (user.sent_friend_request) {
-      return `Accept ${user.name} friend request`;
+      return `Accept friend request`;
     }
     if (user.received_friend_request) {
       return "Friend request sent";
     }
     if (user.is_friend) {
-      return `Unfriend ${user.name}`;
+      return `Unfriend`;
     }
-    return `Send friend request to ${user.name}`;
+    return `Send friend request`;
   };
 
   render() {

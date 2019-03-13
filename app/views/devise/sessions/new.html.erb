@@ -1,26 +1,53 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="login-page">
+  <div class="fake-nav"></div>
+  <div class="main">
+    <div class=" aside left-aside">
+      <%= image_tag("left-login-cat.png", :class => "left-login-cat") %>
     </div>
-  <% end -%>
+    <div class="header">
+      <div class="page-title">
+        <%= image_tag("login-logo.png", :class => "login-logo") %>
+        <p class="explanation">Like Facebook... but for cats!</p>
+      </div>
+      <div class="login-form">
+        <%= form_for(resource, as: resource_name, url:
+        session_path(resource_name)) do |f| %>
+        <p class="form-title">Already a member? Please sign in:</p>
+        <div class="field textzone email-field">
+          <%= f.label :email %> <%= f.email_field :email, autofocus: true %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+        <div class="field textzone">
+          <%= f.label :password %> <%= f.password_field :password, autocomplete:
+          "off" %>
+        </div>
+
+        <div class="signin-options">
+          <% if devise_mapping.rememberable? -%>
+          <span class="field remember-me">
+            <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+          </span>
+          <% end -%>
+          <span class="field forgot-password">
+            <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %> <%= link_to "Forgot your password?", new_password_path(resource_name) %> <% end -%>
+          </span>
+        </div>
+
+        <div class="actions submit-button-wrapper sign-in-up-button">
+          <%= f.submit "SIGN IN" %>
+        </div>
+
+        <p class="form-toggle">Not a member yet? You should sign up:</p>
+
+        <%- if devise_mapping.registerable? && controller_name !='registrations' %>
+        <div class="sign-in-up-button sign-link">
+          <%= link_to "SIGN UP", new_registration_path(resource_name) %>
+        </div>
+        <% end -%> <% end %>
+      </div>
+    </div>
+    <div class="aside right-aside">
+      <%= image_tag("right-login-cat.png", :class => "right-login-cat") %>
+    </div>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

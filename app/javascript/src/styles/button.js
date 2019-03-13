@@ -14,8 +14,6 @@ const Button = styled.button`
   &:focus {
     outline: none;
   }
-  &:hover {
-  }
   &:active {
     position: relative;
     top: 1px;

@@ -16,8 +16,6 @@ gem 'faker'
 gem 'pg'
 # Flexible authentication solution for Rails with Warden
 gem 'devise'
-# omniauth facebook
-gem 'omniauth-facebook'
 # Simple, Heroku-friendly Rails app configuration using ENV and a single YAML file
 gem 'figaro'
 # User MiniMagick
