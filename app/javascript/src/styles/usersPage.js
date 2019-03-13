@@ -1,7 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { colors, shadows } from "../design/colors";
-import { Wrapper } from "./global";
+import { Wrapper, Aside } from "./global";
+
+export const UsersPageAside = styled(Aside)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    padding-top: ${props => props.right && "25%"};
+    width: ${props => props.right && "175px"};
+  }
+`;
 
 export const UsersPageWrapper = styled(Wrapper)`
   margin: 2% 1%;
@@ -37,21 +48,20 @@ export const UserItem = styled.li`
   align-items: center;
   width: 45%;
   margin: 2%;
-  padding: 2px 25px;
   border: 1px solid ${colors.pink};
   border-radius: 30px;
   background-color: white;
   box-shadow: 0px 8px 5px -7px rgba(140, 47, 57, 0.71);
-  -webkit-transition: all 0.1s ease-in;
-  -moz-transition: all 0.1s ease-in;
-  transition: all 0.1s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
 
   &:hover {
-    background-color: ${colors.lightGrey};
+    background: ${shadows.lightReversedGradient};
   }
 
   a {
-    padding: 10px;
+    padding: 10px 25px;
     text-decoration: none;
     width: 100%;
   }

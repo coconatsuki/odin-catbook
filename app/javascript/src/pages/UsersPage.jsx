@@ -3,9 +3,14 @@ import Users from "../components/Users";
 import Nav from "../components/Nav";
 import PropTypes from "prop-types";
 import { getCurrentUser, getUsers } from "../API/users";
-import { UsersPageWrapper, UsersBlock } from "../styles/usersPage";
-import { Aside, CatImg } from "../styles/global";
-import friendsCat from "../images/friends-cat.png";
+import {
+  UsersPageWrapper,
+  UsersBlock,
+  UsersPageAside
+} from "../styles/usersPage";
+import { CatImg } from "../styles/global";
+import friendsCatLeft from "../images/friends-cat-left.png";
+import friendsCatRight from "../images/friends-cat-right.png";
 
 class UsersPage extends React.Component {
   state = {
@@ -33,14 +38,16 @@ class UsersPage extends React.Component {
         {users && currentUser && (
           <div>
             <UsersPageWrapper>
-              <Aside className="left-aside">
-                <CatImg src={friendsCat} />
-              </Aside>
+              <UsersPageAside className="left-aside">
+                <CatImg src={friendsCatLeft} />
+              </UsersPageAside>
               <UsersBlock>
                 <h1>Find new cat-friends</h1>
                 <Users users={this.state.users} />
               </UsersBlock>
-              <Aside className="right-aside" />
+              <UsersPageAside className="right-aside" right>
+                <CatImg src={friendsCatRight} />
+              </UsersPageAside>
             </UsersPageWrapper>
           </div>
         )}
