@@ -30,7 +30,6 @@ class FriendshipButton extends React.Component {
 
   sendFriendRequest = async () => {
     const { user, refreshUser } = this.props;
-    console.log("sending friend request !");
     const response = await createFriendRequest(this.props.user);
     if (response.errors) return this.setErrorMessages(response.errors);
     this.setState({
@@ -42,7 +41,6 @@ class FriendshipButton extends React.Component {
 
   acceptFriendRequest = async () => {
     const { user, refreshUser } = this.props;
-    console.log("accepting friend request !", user.sent_friend_request);
     const response = await updateFriendRequest(user.sent_friend_request);
     if (response.errors) return this.setErrorMessages(response.errors);
     this.setState({
@@ -53,7 +51,6 @@ class FriendshipButton extends React.Component {
 
   destroyFriendRequest = async () => {
     const { user, refreshUser } = this.props;
-    console.log("destroying friend request !", user.sent_friend_request);
     const response = await destroyFriendship(user.sent_friend_request);
     if (response.errors) return this.setErrorMessages(response.errors);
     this.setState({
@@ -64,7 +61,6 @@ class FriendshipButton extends React.Component {
 
   unFriend = async () => {
     const { user, refreshUser } = this.props;
-    console.log("unfriending !", user.is_friend);
     const response = await destroyFriendship(user.is_friend);
     if (response.errors) return this.setErrorMessages(response.errors);
     this.setState({

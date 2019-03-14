@@ -25,7 +25,6 @@ export async function createFriendRequest(user) {
 }
 
 export async function updateFriendRequest(friendshipId) {
-  console.log("FROM API", friendshipId);
   const friendship = await fetch(`/friendships/${friendshipId}`, {
     method: "PATCH",
     headers: {

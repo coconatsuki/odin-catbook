@@ -30,7 +30,6 @@ class Stats extends React.Component {
 
   fetchStats = async () => {
     const fetchedStats = await getStats();
-    console.log(fetchedStats);
     this.setState({
       maxPosts: fetchedStats.max_posts.user_id
         ? fetchedStats.max_posts

@@ -48,14 +48,12 @@ class Nav extends React.Component {
         return this.requestsPageDiv;
         break;
     }
-    console.log("DO I come here ?");
     if (pathname.match(/\/users\/\d*/)[0] === pathname) {
       return this.userPageDiv;
     }
   };
 
   highlightList = listToHighlight => {
-    console.log("LIST", listToHighlight);
     const linkCoords = listToHighlight.getBoundingClientRect();
     const listCoordinates = {
       width: linkCoords.width,
@@ -63,7 +61,6 @@ class Nav extends React.Component {
       top: linkCoords.top + window.scrollY,
       left: linkCoords.left + window.scrollX
     };
-    console.log("TITLE", listToHighlight.title);
     this.setState({
       listCoordinates,
       displayHighlight: true,

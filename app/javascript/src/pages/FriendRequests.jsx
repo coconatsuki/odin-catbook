@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import AbstractPage from "./AbstractPage";
 import FriendshipButton from "../components/FriendshipButton";
-import { currentUserWithFriendsType } from "../API/users";
+import { currentUserWithRequestsType } from "../API/users";
 import {
   FriendsWrapper,
   Main,
@@ -17,8 +17,8 @@ import defaultCat from "../images/default-cat.png";
 
 class FriendRequests extends AbstractPage {
   static propTypes = {
-    refreshUser: currentUserWithFriendsType.isRequired,
-    currentUser: PropTypes.func.isRequired
+    refreshUser: PropTypes.func.isRequired,
+    currentUser: currentUserWithRequestsType.isRequired
   };
 
   state = {

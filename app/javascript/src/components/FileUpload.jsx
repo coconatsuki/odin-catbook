@@ -32,7 +32,6 @@ class FileUpload extends React.Component {
       this.setErrorMessages([fetchedFile.error.message]);
     } else {
       this.props.updateImages(fetchedFile.secure_url);
-      console.log("file uploaded !");
     }
     this.props.toggleFileLoading();
     if (this.props.toggleFileCropping) this.props.toggleFileCropping();

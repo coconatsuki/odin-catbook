@@ -25,7 +25,6 @@ class HomePage extends AbstractPage {
 
   fetchPosts = async () => {
     const fetchedPosts = await getPosts();
-    console.log("FETCHED POSTS", fetchedPosts);
     this.setState({
       posts: fetchedPosts.posts
     });

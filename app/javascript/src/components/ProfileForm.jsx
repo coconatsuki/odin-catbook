@@ -67,13 +67,6 @@ class ProfileForm extends React.Component {
       const elementName = e.target.name;
       const value = e.target.value;
       if (value === "") return;
-      console.log(
-        "TEST, key, arrayName, elementName,value",
-        e.key,
-        arrayName,
-        elementName,
-        value
-      );
       this.setState({
         [arrayName]: [...this.state[arrayName], value],
         [elementName]: ""

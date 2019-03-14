@@ -27,7 +27,6 @@ export async function getUsers() {
 }
 
 export async function updateUser(userId, userData) {
-  console.log("USER Id and DATA", userId, userData);
   const user = await fetch(`/users/${userId}`, {
     method: "PATCH",
     headers: {
@@ -113,5 +112,12 @@ export const currentUserWithFriendsType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   received_friend_requests: PropTypes.array.isRequired,
   sent_friend_requests: PropTypes.array.isRequired,
+  requests_count: PropTypes.number.isRequired
+});
+
+export const currentUserWithRequestsType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  received_pending_friends: PropTypes.array.isRequired,
   requests_count: PropTypes.number.isRequired
 });

@@ -32,7 +32,6 @@ class Like extends React.Component {
     const fetchedLike = await addLike(postId, key);
     if (fetchedLike.errors) return setErrorMessages(fetchedLike.errors);
 
-    console.log("SUCCESS add", fetchedLike.like);
     this.props.refreshPosts(fetchedLike.like.post, "update");
     setErrorMessages([]);
   };
@@ -44,13 +43,11 @@ class Like extends React.Component {
     const fetchedLike = await destroyLike(postId, likeId);
     if (fetchedLike.errors) return setErrorMessages(fetchedLike.errors);
 
-    console.log("SUCCESS remove", fetchedLike.like);
     this.props.refreshPosts(fetchedLike.like.post, "update");
     setErrorMessages([]);
   };
 
   toggleEvaluation = key => {
-    console.log("Evaluated ? + key", this.props.evaluatedByCurrentUser, key);
     if (this.props.evaluatedByCurrentUser) {
       this.removeEvaluation();
     } else {

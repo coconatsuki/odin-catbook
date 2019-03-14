@@ -49,7 +49,6 @@ class UserPage extends AbstractPage {
 
   getUserIdFromHtml = () => {
     const id = this.props.match.params.id;
-    console.log("ID", id);
     return parseInt(id);
   };
 
