@@ -35,6 +35,9 @@ class UserPage extends AbstractPage {
     const userId = this.props.userId;
     await this.fetchUserAndPosts(userId);
     await this.fetchCurrentUser("?withFriends=yes");
+    this.setState({
+      display: "posts"
+    });
   };
 
   componentDidMount = async () => {

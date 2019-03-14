@@ -157,7 +157,7 @@ export const CoverPicWrapper = styled.div`
   height: 260px;
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: flex-start;
 `;
 
 export const CoverPic = styled.div`
@@ -242,12 +242,13 @@ export const CoverFooter = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 75%;
-  margin: 10px 15px;
+  margin: 10px;
   z-index: 2;
   color: white;
 
   p {
-    font-size: 2em;
+    font-size: 4em;
+    text-shadow: 0px 1px 0px #000;
   }
 
   button {
