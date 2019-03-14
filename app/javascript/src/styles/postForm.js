@@ -107,9 +107,6 @@ export const CatFileUpload = styled.div`
   position: relative;
   margin-bottom: 15px;
 
-  img {
-  }
-
   button {
     margin: 0 8px;
   }

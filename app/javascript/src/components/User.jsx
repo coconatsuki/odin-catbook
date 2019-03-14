@@ -173,7 +173,7 @@ class User extends React.Component {
                 <FriendshipButton user={user} refreshUser={refreshUser} />
               )}
               {isCurrentUser() && !this.croppingImage() && (
-                <FileUploadWrapper style={{ width: "100%" }}>
+                <FileUploadWrapper style={{ width: "100%" }} tag="button">
                   Edit Cover Picture
                   <FileUpload
                     toggleFileLoading={this.toggleFileLoading}

@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { colors, shadows } from "../design/colors";
 import { omnes } from "../design/fonts";
 
-const Button = styled.button`
+const e = React.createElement;
+
+const Button = styled(({ tag, children, ...props }) => e(tag, props, children))`
   height: 35px !important;
   -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
   -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
@@ -19,6 +21,10 @@ const Button = styled.button`
     top: 1px;
   }
 `;
+
+Button.defaultProps = {
+  tag: "button"
+};
 
 export const LightGreyButton = styled(Button)`
   background: ${shadows.lightGradient}
@@ -39,8 +45,6 @@ export const LightRedButton = styled(Button)`
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='hsl(354, 50%, 37%)', endColorstr='hsl(353, 51%, 46%)',GradientType=0);
   background-color: ${colors.middleRed};
   color: white;
-  /* box-shadow: inset 0px 1px 0px 0px #000;
-  border: 1px solid black; */
 
   &:hover {
     background: ${shadows.darkRedReversedGradient}
