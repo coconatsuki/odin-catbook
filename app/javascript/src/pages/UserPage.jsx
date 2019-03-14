@@ -72,7 +72,7 @@ class UserPage extends AbstractPage {
 
   canSeeProfile = () => {
     const { user, currentUser } = this.state;
-    return currentUser.friends.includes(friend => friend.id === user.id);
+    return currentUser.friends.some(friend => friend.id === user.id);
   };
 
   isCurrentUser = () => {

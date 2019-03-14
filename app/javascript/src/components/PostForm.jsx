@@ -94,7 +94,7 @@ class PostForm extends React.Component {
       this.setErrorMessages(fetchedPost.errors);
     } else {
       this.props.refreshPosts(fetchedPost.post, method);
-      this.props.fetchStats();
+      if (this.props.fetchStats) this.props.fetchStats();
       this.clearState();
     }
   };
