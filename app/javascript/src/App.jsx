@@ -53,7 +53,11 @@ class App extends React.Component {
               <Route
                 path="/users/:id"
                 render={routeProps => (
-                  <UserPage {...routeProps} currentUser={currentUser} />
+                  <UserPage
+                    {...routeProps}
+                    currentUser={currentUser}
+                    userId={Number(routeProps.match.params.id)}
+                  />
                 )}
               />
               <Route

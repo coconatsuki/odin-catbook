@@ -243,6 +243,8 @@ export const CoverFooter = styled.div`
   align-items: center;
   width: 75%;
   margin: 10px 15px;
+  z-index: 2;
+  color: white;
 
   p {
     font-size: 2em;

@@ -1,5 +1,6 @@
 import React from "react";
 import AbstractPage from "./AbstractPage";
+import PropTypes from "prop-types";
 import User from "../components/User";
 import Users from "../components/Users";
 import Posts from "../components/Posts";
@@ -18,6 +19,10 @@ import { Aside, CatImg } from "../styles/global";
 import profileCat from "../images/profile-cat.png";
 
 class UserPage extends AbstractPage {
+  static propTypes = {
+    userId: PropTypes.number.isRequired
+  };
+
   state = {
     user: null,
     currentUser: null,
@@ -26,11 +31,21 @@ class UserPage extends AbstractPage {
     display: "posts"
   };
 
-  componentDidMount = async () => {
-    const userId = this.getUserIdFromHtml();
+  reloadUser = async () => {
+    const userId = this.props.userId;
     await this.fetchUserAndPosts(userId);
     await this.fetchCurrentUser("?withFriends=yes");
   };
+
+  componentDidMount = async () => {
+    this.reloadUser();
+  };
+
+  componentDidUpdate() {
+    if (this.state.user.id !== this.props.userId) {
+      this.reloadUser();
+    }
+  }
 
   fetchUserAndPosts = async userId => {
     const fetchedUser = await getUserById(userId);
