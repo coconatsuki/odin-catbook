@@ -75,7 +75,7 @@ export const ShareButton = styled(LightRedButton)`
 export const FileUploadButton = styled.div`
   opacity: 0;
   width: 100%;
-  height: ${props => (props.profile ? "100%" : "33px")};
+  height: ${props => (props.profile === "true" ? "100%" : "33px")};
   position: absolute;
   top: 0;
   left: 0;

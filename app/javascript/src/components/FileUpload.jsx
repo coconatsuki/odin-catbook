@@ -40,7 +40,7 @@ class FileUpload extends React.Component {
   render() {
     const { likedByCurrentUser, likesCount } = this.state;
     return (
-      <FileUploadButton profile={this.props.profile}>
+      <FileUploadButton profile={this.props.profile ? "true" : "false"}>
         {this.state.errorMessages.length > 0 && (
           <ErrorsBlock errorMessages={this.state.errorMessages} />
         )}
