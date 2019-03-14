@@ -21,6 +21,8 @@ import postCatReversed from "../images/post-cat-reversed.png";
 class PostForm extends React.Component {
   static propTypes = {
     refreshPosts: PropTypes.func.isRequired,
+    fetchStats: PropTypes.func,
+    toggleLoadingStats: PropTypes.func,
     toggleEdit: PropTypes.func,
     postToEdit: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -92,6 +94,7 @@ class PostForm extends React.Component {
       this.setErrorMessages(fetchedPost.errors);
     } else {
       this.props.refreshPosts(fetchedPost.post, method);
+      this.props.fetchStats();
       this.clearState();
     }
   };

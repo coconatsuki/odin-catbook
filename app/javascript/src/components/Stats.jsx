@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { currentUserType } from "../API/users";
-import { getStats } from "../API/users";
+import { currentUserWithRequestsType } from "../API/users";
 import poo from "../images/poo.png";
 import smallHeart from "../images/small-heart.png";
 import { Border } from "../styles/global";
@@ -9,48 +8,16 @@ import { StatsWrapper, Stat, Icons } from "../styles/home";
 
 class Stats extends React.Component {
   static propTypes = {
-    currentUser: currentUserType.isRequired,
-    currentUserPosts: PropTypes.array.isRequired
+    currentUser: currentUserWithRequestsType.isRequired,
+    maxPosts: PropTypes.object.isRequired,
+    maxComments: PropTypes.object.isRequired,
+    maxLikes: PropTypes.object.isRequired,
+    maxPoo: PropTypes.object.isRequired
   };
-
-  state = {
-    maxPosts: { user_id: null, user_name: "No winner yet", number_of_posts: 0 },
-    maxComments: {
-      user_id: null,
-      user_name: "No winner yet",
-      number_of_comments: 0
-    },
-    maxLikes: { user_id: null, user_name: "No winner yet", likes_received: 0 },
-    maxPoo: { user_id: null, user_name: "No winner yet", poo_received: 0 }
-  };
-
-  componentDidMount = () => {
-    this.fetchStats();
-  };
-
-  fetchStats = async () => {
-    const fetchedStats = await getStats();
-    this.setState({
-      maxPosts: fetchedStats.max_posts.user_id
-        ? fetchedStats.max_posts
-        : this.state.maxPosts,
-      maxComments: fetchedStats.max_comments.user_id
-        ? fetchedStats.max_comments
-        : this.state.maxComments,
-      maxLikes: fetchedStats.max_likes.user_id
-        ? fetchedStats.max_likes
-        : this.state.maxLikes,
-      maxPoo: fetchedStats.max_poo.user_id
-        ? fetchedStats.max_poo
-        : this.state.maxPoo
-    });
-  };
-
-  winnerIsCurrentUser = id => id === this.props.currentUser.id;
 
   winnerName = stat => {
     const { currentUser } = this.props;
-    const { user_id, user_name } = this.state[stat];
+    const { user_id, user_name } = this.props[stat];
     if (user_id === currentUser.id) {
       return "You";
     }
@@ -58,7 +25,7 @@ class Stats extends React.Component {
   };
 
   render() {
-    const { maxPosts, maxComments, maxLikes, maxPoo } = this.state;
+    const { maxPosts, maxComments, maxLikes, maxPoo } = this.props;
     return (
       <StatsWrapper>
         <h3>Winners</h3>

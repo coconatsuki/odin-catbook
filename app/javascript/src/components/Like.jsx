@@ -23,7 +23,8 @@ class Like extends React.Component {
     dislikedByCurrentUser: PropTypes.number,
     setErrorMessages: PropTypes.func.isRequired,
     currentUserIsAuthor: PropTypes.func.isRequired,
-    refreshPosts: PropTypes.func.isRequired
+    refreshPosts: PropTypes.func.isRequired,
+    fetchStats: PropTypes.func
   };
 
   addEvaluation = async key => {
@@ -53,6 +54,7 @@ class Like extends React.Component {
     } else {
       this.addEvaluation(key);
     }
+    this.props.fetchStats();
   };
 
   render() {

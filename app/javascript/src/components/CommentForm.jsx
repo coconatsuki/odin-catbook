@@ -17,7 +17,8 @@ class CommentForm extends React.Component {
       body: PropTypes.string.isRequired
     }),
     errorMessages: PropTypes.array.isRequired,
-    setCommentErrorMessages: PropTypes.func.isRequired
+    setCommentErrorMessages: PropTypes.func.isRequired,
+    fetchStats: PropTypes.func
   };
 
   state = {
@@ -61,6 +62,7 @@ class CommentForm extends React.Component {
       return setCommentErrorMessages(fetchedComment.errors);
     }
     this.props.displayNewComment(fetchedComment.comment);
+    this.props.fetchStats();
   };
 
   editComment = async (body, commentToEditId) => {

@@ -14,7 +14,8 @@ class CommentsBlock extends React.Component {
   static propTypes = {
     currentUser: currentUserType,
     commentsCount: PropTypes.number.isRequired,
-    postId: PropTypes.number.isRequired
+    postId: PropTypes.number.isRequired,
+    fetchStats: PropTypes.func
   };
 
   state = {
@@ -106,6 +107,7 @@ class CommentsBlock extends React.Component {
             updateAllComments={this.updateAllComments}
             errorMessages={errorMessages}
             setCommentErrorMessages={this.setCommentErrorMessages}
+            fetchStats={this.props.fetchStats}
           />
           <div className="comments">
             <Counter disabled={commentsCount === 0}>

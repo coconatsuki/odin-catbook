@@ -11,6 +11,7 @@ class Posts extends React.Component {
     posts: PropTypes.arrayOf(postType).isRequired,
     currentUser: currentUserType,
     refreshPosts: PropTypes.func.isRequired,
+    fetchStats: PropTypes.func,
     deletePost: PropTypes.func.isRequired,
     errorMessages: PropTypes.array.isRequired
   };
@@ -28,6 +29,7 @@ class Posts extends React.Component {
               refreshPosts={this.props.refreshPosts}
               deletePost={this.props.deletePost}
               errorMessages={this.props.errorMessages}
+              fetchStats={this.props.fetchStats}
             />
           ))}
         </FlipMove>

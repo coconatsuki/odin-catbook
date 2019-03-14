@@ -23,6 +23,7 @@ class Post extends React.Component {
     post: postType.isRequired,
     currentUser: currentUserType,
     refreshPosts: PropTypes.func.isRequired,
+    fetchStats: PropTypes.func,
     deletePost: PropTypes.func.isRequired,
     errorMessages: PropTypes.array.isRequired
   };
@@ -89,11 +90,13 @@ class Post extends React.Component {
               setErrorMessages={this.setErrorMessages}
               currentUserIsAuthor={this.currentUserIsAuthor}
               refreshPosts={this.props.refreshPosts}
+              fetchStats={this.props.fetchStats}
             />
             <CommentsBlock
               currentUser={currentUser}
               commentsCount={post.comments_count}
               postId={post.id}
+              fetchStats={this.props.fetchStats}
             />
           </PostArticle>
         )}
