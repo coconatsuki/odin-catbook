@@ -13,7 +13,8 @@ import {
   UserPageWrapper,
   FriendsWrapper,
   Main,
-  FormWrapper
+  FormWrapper,
+  NoContentMessage
 } from "../styles/userPage";
 import { Aside, CatImg } from "../styles/global";
 import profileCat from "../images/profile-cat.png";
@@ -112,9 +113,9 @@ class UserPage extends AbstractPage {
                   <PostForm refreshPosts={this.refreshPosts} />
                 </FormWrapper>
               )}
-
               {(this.isCurrentUser() || this.canSeeProfile()) &&
-                display === "posts" && (
+                display === "posts" &&
+                (this.state.posts.length > 0 ? (
                   <Posts
                     posts={this.state.posts}
                     currentUser={this.state.currentUser}
@@ -122,19 +123,40 @@ class UserPage extends AbstractPage {
                     deletePost={this.deletePost}
                     errorMessages={this.state.errorMessages}
                   />
+                ) : (
+                  <NoContentMessage>
+                    <h2>This cat-user has no post to show.</h2>
+                  </NoContentMessage>
+                ))}
+              {!this.isCurrentUser() &&
+                !this.canSeeProfile() &&
+                display === "posts" && (
+                  <NoContentMessage>
+                    <h2>
+                      You have to be friend with {user.name} to see this page.
+                    </h2>
+                  </NoContentMessage>
                 )}
-              {this.canSeeProfile && display === "friends" && (
-                <FriendsWrapper>
-                  <Users users={user.friends} />
-                </FriendsWrapper>
-              )}
-              {this.canSeeProfile && display === "about" && (
-                <AboutMe
-                  user={user}
-                  isCurrentUser={this.isCurrentUser}
-                  refreshProfile={this.refreshUser}
-                />
-              )}
+              {(this.isCurrentUser() || this.canSeeProfile()) &&
+                display === "friends" &&
+                (user.friends.length > 0 ? (
+                  <FriendsWrapper>
+                    <Users users={user.friends} />
+                  </FriendsWrapper>
+                ) : (
+                  <NoContentMessage>
+                    <h2>This poor cat-user has no friends yet.</h2>
+                  </NoContentMessage>
+                ))}
+
+              {(this.isCurrentUser() || this.canSeeProfile()) &&
+                display === "about" && (
+                  <AboutMe
+                    user={user}
+                    isCurrentUser={this.isCurrentUser}
+                    refreshProfile={this.refreshUser}
+                  />
+                )}
             </Main>
             <Aside />
           </UserPageWrapper>

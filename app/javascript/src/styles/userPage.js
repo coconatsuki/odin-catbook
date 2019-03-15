@@ -47,3 +47,12 @@ export const CatImg = styled.img`
   margin-top: 20px;
   padding-right: 29px;
 `;
+
+export const NoContentMessage = styled.div`
+  display: flex;
+  margin-top: 3%;
+
+  h2 {
+    color: ${colors.darkRed};
+  }
+`;
