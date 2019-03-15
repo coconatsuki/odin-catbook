@@ -85,6 +85,8 @@ export const NavElements = styled.div`
   transition: all 0.3s ease;
   transition-property: transform, font-size;
   z-index: 2;
+  pointer-events: ${props => props.disabled && "none"};
+  opacity: ${props => props.disabled && props.active && "0.8"};
 
   a {
     font-size: 1.7rem;
@@ -95,7 +97,7 @@ export const NavElements = styled.div`
   }
 
   .paw {
-    display: ${props => props.active && "none"};
+    display: ${props => (props.active || props.disabled) && "none"};
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;

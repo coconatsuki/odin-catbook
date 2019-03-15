@@ -191,7 +191,11 @@ class User extends React.Component {
         {!this.state.smallCoverImage && (
           <ProfileNav>
             <ElementWrapper>
-              <NavElements active={display === "posts"} ref={this.postsDiv}>
+              <NavElements
+                active={display === "posts"}
+                ref={this.postsDiv}
+                disabled={this.state.fileCropping || this.state.fileLoading}
+              >
                 <NavCat1 src={divCat} active={display === "posts"} />
                 <CatPaw
                   src={catPaw}
@@ -204,7 +208,11 @@ class User extends React.Component {
               </NavElements>
             </ElementWrapper>
             <ElementWrapper>
-              <NavElements active={display === "friends"} ref={this.friendsDiv}>
+              <NavElements
+                active={display === "friends"}
+                ref={this.friendsDiv}
+                disabled={this.state.fileCropping || this.state.fileLoading}
+              >
                 <NavCat2 src={divCat2} active={display === "friends"} />
                 <CatPaw
                   src={catPaw}
@@ -221,7 +229,11 @@ class User extends React.Component {
               </NavElements>
             </ElementWrapper>
             <ElementWrapper>
-              <NavElements active={display === "about"} ref={this.aboutPageDiv}>
+              <NavElements
+                active={display === "about"}
+                ref={this.aboutPageDiv}
+                disabled={this.state.fileCropping || this.state.fileLoading}
+              >
                 <NavCat3 src={divCat3} active={display === "about"} />
                 <CatPaw
                   src={catPaw}
