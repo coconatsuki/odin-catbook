@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { css } from "@emotion/core";
 import { colors, shadows } from "../design/colors";
 import { Wrapper } from "./global";
 import { Img } from "../styles/like";
@@ -22,6 +23,8 @@ export const HomeWrapper = styled(Wrapper)`
   }
   .right-aside {
     width: 25%;
+    position: sticky;
+    top: 5%;
   }
 `;
 
@@ -42,6 +45,7 @@ export const StatsWrapper = styled.div`
   border-radius: 30px;
   padding: 15px;
   width: 100%;
+  height: 453px;
 
   h3 {
     color: ${colors.darkRed};
@@ -107,4 +111,16 @@ export const PostsWrapper = styled.div`
   flex-direction: column;
   margin-top: 20px;
   width: 90%;
+`;
+
+export const spinner = css`
+  border: 4px solid;
+`;
+
+export const SpinnerWrapper = styled.div`
+  display: flex;
+  height: inherit;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;

@@ -64,10 +64,6 @@ export const SpinnerWrapper = styled.div`
   margin-left: 20px;
   margin-bottom: 20px;
   z-index: 4000;
-
-  /* div {
-    border: 4px solid;
-  } */
 `;
 
 export const spinner = css`

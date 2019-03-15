@@ -118,6 +118,7 @@ class HomePage extends AbstractPage {
                 maxComments={maxComments}
                 maxLikes={maxLikes}
                 maxPoo={maxPoo}
+                loadingStats={this.state.loadingStats}
               />
             </Aside>
           </HomeWrapper>
