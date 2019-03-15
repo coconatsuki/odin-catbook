@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  def index
-    @post = Post.find(params[:post_id])
-    @likes = @post.likes
-  end
-
   def create
     @post = Post.find(params[:post_id])
 

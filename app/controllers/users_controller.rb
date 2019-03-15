@@ -14,37 +14,20 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:posts, posts: %i[author comments likes]).order('posts.created_at desc').find(params[:id])
-
     respond_to do |format|
       format.html {}
       format.json do
+        @user = User.includes(:posts, posts: %i[author comments likes]).order('posts.created_at desc').find(params[:id])
         render json: @user, include: 'posts,posts.author,posts.likes'
       end
     end
   end
-
-  # def edit
-  #   @user = User.find(params[:id])
-  # end
 
   def update
     @user = User.find(params[:id])
 
     @user.update!(user_params)
     render json: @user
-  end
-
-  def received_requests
-    @requests = Friendship.find_all_requests(current_user)
-
-    respond_to do |format|
-      format.html {}
-    end
-  end
-
-  def sent_requests
-    @requests = current_user.sent_pending_friends
   end
 
   def current

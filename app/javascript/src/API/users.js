@@ -43,17 +43,6 @@ export async function updateUser(userId, userData) {
   return response;
 }
 
-export async function getReceivedRequests(userId) {
-  const receivedRequests = await fetch(`/users/${userId}/received_requests`, {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    }
-  });
-  const response = await receivedRequests.json();
-  return response;
-}
-
 export async function getUserById(id) {
   const user = await fetch(`/users/${id}`, {
     headers: {

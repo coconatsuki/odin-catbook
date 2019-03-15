@@ -24,9 +24,6 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    # @current_user = current_user
-    # @user = User.find(params[:deleting])
-    # @friendship = Friendship.find_relation(@current_user, @user)
     @friendship = Friendship.find(params[:id])
 
     if @friendship.destroy
