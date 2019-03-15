@@ -71,8 +71,8 @@ export const PostContent = styled.p`
   margin: 15px 0;
 `;
 
-// img {
-//   position: absolute;
-//   bottom: 0;
-//   opacity: 0.6;
-// }
+export const ImgWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

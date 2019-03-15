@@ -23,7 +23,7 @@ export async function addPost(postData) {
       addCsrf({
         post: {
           body: postData.body,
-          smallImageUrl: postData.image
+          smallImageUrl: postData.smallImage
         }
       })
     )

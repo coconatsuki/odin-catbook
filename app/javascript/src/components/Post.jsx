@@ -13,7 +13,8 @@ import {
   Controls,
   PostWrapper,
   PostHeader,
-  PostContent
+  PostContent,
+  ImgWrapper
 } from "../styles/post";
 import { Border } from "../styles/global";
 import * as moment from "moment";
@@ -78,7 +79,9 @@ class Post extends React.Component {
             <Border />
             <PostContent>{post.body}</PostContent>
             {post.smallImageUrl && (
-              <img width="200" src={post.smallImageUrl} alt="post image" />
+              <ImgWrapper>
+                <img width="200" src={post.smallImageUrl} alt="post image" />
+              </ImgWrapper>
             )}
             <Like
               postId={post.id}

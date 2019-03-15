@@ -105,6 +105,7 @@ class PostForm extends React.Component {
     const method = this.isEditing() ? "update" : "create";
     const { body, smallImage, fileLoading } = this.state;
     const postData = { body, smallImage };
+    console.log("postData", postData);
 
     if (this.validBody(body) && !fileLoading) {
       const fetchedPost = await this.savePost(postData, postToEdit, method);
@@ -162,7 +163,11 @@ class PostForm extends React.Component {
           )}
         </TextareaField>
         <Controls edit={this.isEditing()}>
-          <ShareButton type="submit" disabled={this.state.fileLoading}>
+          <ShareButton
+            type="submit"
+            disabled={this.state.fileLoading}
+            onClick={this.handleSave}
+          >
             {this.submitButtonValue()}
           </ShareButton>
           {this.isEditing() && (

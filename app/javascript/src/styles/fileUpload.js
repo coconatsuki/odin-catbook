@@ -10,7 +10,6 @@ export const FileUploadWrapper = styled(LightGreyButton)`
   width: 30%;
   align-self: center;
   font-size: 1.6rem;
-  width: 25%;
   margin: 0 10px;
 `;
 

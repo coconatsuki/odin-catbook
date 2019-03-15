@@ -48,23 +48,16 @@ export const TextareaField = styled(Field)`
 `;
 
 export const Textarea = styled.textarea`
-  height: 50px;
-  resize: initial;
-  overflow: auto;
+  min-height: 50px;
   border: none;
-  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
   font-weight: 400;
   color: black;
-  font-size: 1.3rem;
-  letter-spacing: 0.04rem;
-  line-height: 1.5;
-  -webkit-transition: height 0.2s ease-in;
-  -moz-transition: height 0.2s ease-in;
-  transition: height 0.2s ease-in;
-
-  &:focus {
-    height: 150px;
-  }
+  font-family: omnes;
+  font-size: 1.5rem;
+  letter-spacing: 0.03rem;
+  line-height: 1.4;
 `;
 
 export const ShareButton = styled(LightRedButton)`
