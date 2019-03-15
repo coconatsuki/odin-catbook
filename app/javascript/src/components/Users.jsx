@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { basicUserType } from "../API/users";
-import defaultCat from "../images/default-cat.png";
+import defaultCat from "../images/default-cat-small.png";
 import { UsersWrapper, UsersList, UserItem } from "../styles/usersPage";
 
 class Users extends React.Component {

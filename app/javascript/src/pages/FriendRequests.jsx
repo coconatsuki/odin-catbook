@@ -15,7 +15,7 @@ import {
 import { CatImg } from "../styles/global";
 import requestsCatLeft from "../images/requests-cat-left.png";
 import requestsCatRight from "../images/requests-cat-right.png";
-import defaultCat from "../images/default-cat.png";
+import defaultCat from "../images/default-cat-small.png";
 
 class FriendRequests extends AbstractPage {
   static propTypes = {

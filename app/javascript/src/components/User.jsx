@@ -37,7 +37,7 @@ import divCat from "../images/div-cat.png";
 import divCat2 from "../images/div-cat2.png";
 import divCat3 from "../images/div-cat3.png";
 import catPaw from "../images/pawprintwhite.png";
-import defaultCat from "../images/default-cat.png";
+import defaultCat from "../images/default-cat-big.png";
 
 class User extends React.Component {
   static propTypes = {
