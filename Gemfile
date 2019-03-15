@@ -8,7 +8,7 @@ git_source(:github) do |repo_name|
 end
 ruby '2.4.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.2'
 # Use postgrl as the database for Active Record
 gem "better_errors"
 gem "binding_of_caller"
