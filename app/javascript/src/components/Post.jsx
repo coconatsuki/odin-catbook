@@ -14,9 +14,11 @@ import {
   PostWrapper,
   PostHeader,
   PostContent,
-  ImgWrapper
+  ImgWrapper,
+  PostInfo
 } from "../styles/post";
 import { Border } from "../styles/global";
+import defaultCat from "../images/default-cat.png";
 import * as moment from "moment";
 
 class Post extends React.Component {
@@ -71,10 +73,15 @@ class Post extends React.Component {
               </Controls>
             )}
             <PostHeader>
-              <h3>{post.author.name}</h3>
-              <span>
-                Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}
-              </span>
+              <PostInfo>
+                <img src={post.author.cropped_profile_pic || defaultCat} />
+                <div>
+                  <h3>{post.author.name}</h3>
+                  <span>
+                    Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}
+                  </span>
+                </div>
+              </PostInfo>
             </PostHeader>
             <Border />
             <PostContent>{post.body}</PostContent>

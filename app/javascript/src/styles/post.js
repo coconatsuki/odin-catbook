@@ -76,3 +76,18 @@ export const ImgWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+export const PostInfo = styled.div`
+  display: flex;
+
+  img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+
+  div {
+    padding-top: 4px;
+  }
+`;
