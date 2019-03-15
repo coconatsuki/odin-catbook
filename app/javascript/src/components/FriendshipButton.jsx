@@ -17,23 +17,15 @@ class FriendshipButton extends React.Component {
   };
 
   state = {
-    errorMessages: [],
     buttonText: null,
     buttonDisabled: false
-  };
-
-  setErrorMessages = messagesArray => {
-    this.setState({
-      errorMessages: messagesArray
-    });
   };
 
   sendFriendRequest = async () => {
     const { user, refreshUser } = this.props;
     const response = await createFriendRequest(this.props.user);
-    if (response.errors) return this.setErrorMessages(response.errors);
+    if (response.errors) return;
     this.setState({
-      errorMessages: [],
       buttonDisabled: true
     });
     refreshUser(user.id);
@@ -42,17 +34,14 @@ class FriendshipButton extends React.Component {
   acceptFriendRequest = async () => {
     const { user, refreshUser } = this.props;
     const response = await updateFriendRequest(user.sent_friend_request);
-    if (response.errors) return this.setErrorMessages(response.errors);
-    this.setState({
-      errorMessages: []
-    });
+
     refreshUser(user.id);
   };
 
   destroyFriendRequest = async () => {
     const { user, refreshUser } = this.props;
     const response = await destroyFriendship(user.sent_friend_request);
-    if (response.errors) return this.setErrorMessages(response.errors);
+    if (response.errors) return;
     this.setState({
       errorMessages: []
     });
@@ -62,7 +51,7 @@ class FriendshipButton extends React.Component {
   unFriend = async () => {
     const { user, refreshUser } = this.props;
     const response = await destroyFriendship(user.is_friend);
-    if (response.errors) return this.setErrorMessages(response.errors);
+    if (response.errors) return;
     this.setState({
       errorMessages: []
     });
@@ -74,20 +63,23 @@ class FriendshipButton extends React.Component {
     if (user.received_friend_request) {
       return;
     }
+    if (user.is_friend) {
+      return this.unFriend();
+    }
     if (deleteFriendRequest) {
       return this.destroyFriendRequest();
     }
     if (user.sent_friend_request) {
       return this.acceptFriendRequest();
     }
-    if (user.is_friend) {
-      return this.unFriend();
-    }
     return this.sendFriendRequest();
   };
 
   friendRequestButtonText = () => {
     const { user, deleteFriendRequest } = this.props;
+    if (user.is_friend) {
+      return `Unfriend`;
+    }
     if (deleteFriendRequest) {
       return `Refuse friend request`;
     }
@@ -100,9 +92,6 @@ class FriendshipButton extends React.Component {
     if (user.received_friend_request) {
       return "Friend request sent";
     }
-    if (user.is_friend) {
-      return `Unfriend`;
-    }
     return `Send friend request`;
   };
 
@@ -110,7 +99,6 @@ class FriendshipButton extends React.Component {
     const { user } = this.props;
     return (
       <>
-        <ErrorsBlock errorMessages={this.state.errorMessages} />
         <LightGreyButton
           disabled={user.received_friend_request || this.state.buttonDisabled}
           onClick={this.toggleFriendship}

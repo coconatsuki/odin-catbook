@@ -73,4 +73,8 @@ export const FriendId = styled.div`
 export const Controls = styled.div`
   display: flex;
   align-items: center;
+
+  button:first-child {
+    margin-right: 20px;
+  }
 `;

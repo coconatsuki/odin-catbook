@@ -30,6 +30,7 @@ class Friendship < ApplicationRecord
   validates :requesting_id, presence: true
 
   scope :accepted, -> { where(accepted: true) }
+  scope :pending, -> { where(accepted: false) }
 
   def self.find_relation(user, target)
     if relation = where("requesting_id= ? AND requested_id= ? AND accepted= ?", user.id, target.id, true).first ||

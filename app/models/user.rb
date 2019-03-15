@@ -87,13 +87,12 @@ class User < ApplicationRecord
   end
 
   def sent_friend_request(current_user)
-    # requesting_user_id = sent_pending_friends.find_by(id: current_user.id)
-    Friendship.find_by(requested_id: current_user.id, requesting_id: id)
+    Friendship.pending.find_by(requested_id: current_user.id, requesting_id: id)
   end
 
   def received_friend_request(current_user)
     # requested_user_id = received_pending_friends.find_by(id: current_user.id)
-    Friendship.find_by(requesting_id: current_user.id, requested_id: id)
+    Friendship.pending.find_by(requesting_id: current_user.id, requested_id: id)
   end
 
   def evaluated_by
