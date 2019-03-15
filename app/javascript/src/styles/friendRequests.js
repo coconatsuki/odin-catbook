@@ -1,7 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { colors, shadows } from "../design/colors";
-import { Wrapper } from "./global";
+import { Wrapper, Aside } from "./global";
+
+export const RequestsPageAside = styled(Aside)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    padding-top: ${props => props.right && "25%"};
+    width: ${props => props.right && "175px"};
+  }
+`;
 
 export const FriendsWrapper = styled(Wrapper)`
   display: flex;

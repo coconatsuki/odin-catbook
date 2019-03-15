@@ -9,10 +9,12 @@ import {
   RequestsList,
   RequestItem,
   FriendId,
-  Controls
+  Controls,
+  RequestsPageAside
 } from "../styles/friendRequests";
-import { Aside, CatImg } from "../styles/global";
-import requestsCat from "../images/requests-cat.png";
+import { CatImg } from "../styles/global";
+import requestsCatLeft from "../images/requests-cat-left.png";
+import requestsCatRight from "../images/requests-cat-right.png";
 import defaultCat from "../images/default-cat.png";
 
 class FriendRequests extends AbstractPage {
@@ -32,9 +34,9 @@ class FriendRequests extends AbstractPage {
         {currentUser && (
           <div>
             <FriendsWrapper>
-              <Aside className="left-aside">
-                <CatImg src={requestsCat} />
-              </Aside>
+              <RequestsPageAside className="left-aside">
+                <CatImg src={requestsCatLeft} />
+              </RequestsPageAside>
               <Main>
                 {currentUser.received_pending_friends.length > 0 ? (
                   <h1>You received some friend requests:</h1>
@@ -63,7 +65,9 @@ class FriendRequests extends AbstractPage {
                   ))}
                 </RequestsList>
               </Main>
-              <Aside className="left-aside" />
+              <RequestsPageAside className="right-aside" right>
+                <CatImg src={requestsCatRight} />
+              </RequestsPageAside>
             </FriendsWrapper>
           </div>
         )}
