@@ -16,6 +16,13 @@ export const HomeWrapper = styled(Wrapper)`
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
+
+  .left-aside {
+    width: 15%;
+  }
+  .right-aside {
+    width: 25%;
+  }
 `;
 
 export const FormWrapper = styled.div`

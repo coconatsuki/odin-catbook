@@ -111,7 +111,7 @@ class HomePage extends AbstractPage {
                 fetchStats={this.fetchStats}
               />
             </Main>
-            <Aside>
+            <Aside className="right-aside">
               <Stats
                 currentUser={currentUser}
                 maxPosts={maxPosts}
