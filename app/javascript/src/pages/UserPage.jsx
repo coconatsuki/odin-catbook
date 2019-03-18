@@ -66,11 +66,6 @@ class UserPage extends AbstractPage {
     });
   };
 
-  getUserIdFromHtml = () => {
-    const id = this.props.match.params.id;
-    return parseInt(id);
-  };
-
   canSeeProfile = () => {
     const { user, currentUser } = this.state;
     return currentUser.friends.some(friend => friend.id === user.id);
@@ -81,7 +76,7 @@ class UserPage extends AbstractPage {
     return currentUser.id === user.id;
   };
 
-  toggleDisplay = (sectionName, e) => {
+  toggleSectionDisplay = (sectionName, e) => {
     e.preventDefault();
     this.setState({
       display: sectionName
@@ -104,7 +99,7 @@ class UserPage extends AbstractPage {
                 currentUser={this.state.currentUser}
                 canSeeProfile={this.canSeeProfile}
                 isCurrentUser={this.isCurrentUser}
-                toggleDisplay={this.toggleDisplay}
+                toggleDisplay={this.toggleSectionDisplay}
                 display={display}
                 refreshUser={this.refreshUser}
               />

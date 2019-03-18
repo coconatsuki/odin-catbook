@@ -79,11 +79,6 @@ class HomePage extends AbstractPage {
     });
   };
 
-  friendsPosts = () =>
-    this.state.posts.filter(
-      post => post.author.id !== this.props.currentUser.id
-    );
-
   render() {
     const { currentUser } = this.props;
     const { maxPosts, maxComments, maxLikes, maxPoo } = this.state;
