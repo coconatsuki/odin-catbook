@@ -1,8 +1,0 @@
-<p>
-  Author: <%= comment.author.name %>
-  Comment: <%= comment.body %>
-  <% if comment.author == current_user %>
-    <%= render partial: "comments/edit_button", :locals => {post: post, comment: comment } %>
-    <%= render partial: "comments/destroy_button", :locals => {post: post, comment: comment } %>
-  <% end %>
- </p>

@@ -1,3 +1,0 @@
-$("#request_form").html("<%= escape_javascript(render('users/pending_request')) %>");
-$("#receivedrequests").html('<%= current_user.received_pending_friends.count %>');
-$("#sentrequests").html('<%= current_user.sent_pending_friends.count %>');

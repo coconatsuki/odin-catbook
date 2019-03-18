@@ -1,7 +1,0 @@
-<% post.comments.each do |c| %>
-
-<div id="comment-<%= c.id %>" >
-  <%= render partial: 'comments/comment', locals: {post: post, comment: c} %>
-</div>
-
-<% end %>

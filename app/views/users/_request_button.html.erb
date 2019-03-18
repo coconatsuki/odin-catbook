@@ -1,9 +1,0 @@
-<div id="request_form">
-  <% if @pending_friends.include?(@user) %>
-    <%= render 'pending_request' %>
-  <% elsif @current_user_friends.include?(@user) %>
-    <%= render 'unfriend' %>
-  <% else %>
-    <%= render 'befriend' %>
-  <% end %>
-</div>

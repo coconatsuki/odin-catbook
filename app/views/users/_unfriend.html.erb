@@ -1,6 +1,0 @@
-<%= form_for(:friendship, url: friendship_path, method: :delete,
-             remote: true) do |f| %>
-  <div><%= hidden_field_tag :deleter, current_user.id %></div>
-  <div><%= hidden_field_tag :deleting, @user.id %></div>
-  <%= f.submit "Unfriend", class: "btn" %>
-<% end %>
