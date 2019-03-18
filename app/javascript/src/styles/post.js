@@ -76,6 +76,11 @@ export const ImgWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  img {
+    max-width: 400px;
+    max-height: 300px;
+  }
 `;
 
 export const PostInfo = styled.div`

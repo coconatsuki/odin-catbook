@@ -62,7 +62,7 @@ class CommentForm extends React.Component {
       return setCommentErrorMessages(fetchedComment.errors);
     }
     this.props.displayNewComment(fetchedComment.comment);
-    this.props.fetchStats();
+    if (this.props.fetchStats) this.props.fetchStats();
   };
 
   editComment = async (body, commentToEditId) => {

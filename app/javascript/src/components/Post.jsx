@@ -88,7 +88,7 @@ class Post extends React.Component {
             <PostContent>{post.body}</PostContent>
             {post.smallImageUrl && (
               <ImgWrapper>
-                <img width="200" src={post.smallImageUrl} alt="post image" />
+                <img src={post.smallImageUrl} alt="post image" />
               </ImgWrapper>
             )}
             <Like
