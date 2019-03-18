@@ -83,6 +83,20 @@ class UserPage extends AbstractPage {
     });
   };
 
+  noFriendMessage = () => {
+    if (isCurrentUser()) {
+      return "Maaww, you've no friends yet.";
+    }
+    return "This poor cat has no friend yet. Become the first one?";
+  };
+
+  noPostMessage = () => {
+    if (isCurrentUser()) {
+      return "You've no post to show yet.";
+    }
+    return "This cat has no post to show.";
+  };
+
   render() {
     const { user, currentUser, display } = this.state;
     return (
@@ -120,7 +134,7 @@ class UserPage extends AbstractPage {
                   />
                 ) : (
                   <NoContentMessage>
-                    <h2>This cat-user has no post to show.</h2>
+                    <h2>{this.noPostMessage()}</h2>
                   </NoContentMessage>
                 ))}
               {!this.isCurrentUser() &&
@@ -140,7 +154,7 @@ class UserPage extends AbstractPage {
                   </FriendsWrapper>
                 ) : (
                   <NoContentMessage>
-                    <h2>This poor cat-user has no friends yet.</h2>
+                    <h2>{this.noFriendMessage()}</h2>
                   </NoContentMessage>
                 ))}
 
