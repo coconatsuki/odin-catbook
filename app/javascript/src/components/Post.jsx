@@ -77,9 +77,7 @@ class Post extends React.Component {
                 <img src={post.author.cropped_profile_pic || defaultCat} />
                 <div>
                   <h3>{post.author.name}</h3>
-                  <span>
-                    Posted {moment(post.created_at, "YYYY-MM-DD").fromNow()}
-                  </span>
+                  <span>Posted {moment.utc(post.created_at).fromNow()}</span>
                 </div>
               </PostInfo>
             </PostHeader>

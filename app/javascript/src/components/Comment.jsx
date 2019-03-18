@@ -83,9 +83,7 @@ class Comment extends React.Component {
             )}
             <CommentHeader>
               <h4>{comment.author.name}</h4>
-              <span>
-                Posted {moment(comment.created_at, "YYYY-MM-DD").fromNow()}
-              </span>
+              <span>Posted {moment.utc(comment.created_at).fromNow()}</span>
             </CommentHeader>
 
             <CommentBody>{comment.body}</CommentBody>
