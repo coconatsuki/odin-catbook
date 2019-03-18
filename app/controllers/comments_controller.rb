@@ -23,6 +23,7 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     @post = @comment.post
+    render json: {errors: "Can't edit an other user's comment"} unless @comment.author == current_user
 
     if @comment.update(comment_params)
       render json: @comment
@@ -34,6 +35,8 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @post = @comment.post
+    render json: {errors: "Can't destroy an other user's comment"} unless @comment.author == current_user
+
     if @comment.destroy
       render json: { post: { id: @comment.id } }
     else

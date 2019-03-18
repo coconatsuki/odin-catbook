@@ -21,6 +21,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    render json: {errors: "Can't edit an other user's post"} unless @post.author == current_user
 
     @post.update!(post_params)
     render json: @post
@@ -28,6 +29,8 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
+    render json: {errors: "Can't destroy other user's post."} unless @post.author == current_user
+
     @post.destroy!
     render json: { post: { id: @post.id } }
   end

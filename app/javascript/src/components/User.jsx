@@ -151,15 +151,17 @@ class User extends React.Component {
                   </SpinnerWrapper>
                 ) : (
                   <ProfilePicWrapper>
-                    <ProfilePicUploadWrapper>
-                      <p>EDIT</p>
-                      <FileUpload
-                        toggleFileLoading={this.toggleFileLoading}
-                        toggleFileCropping={this.toggleFileCropping}
-                        updateImages={this.updateProfileImages}
-                        profile
-                      />
-                    </ProfilePicUploadWrapper>
+                    {isCurrentUser() && (
+                      <ProfilePicUploadWrapper>
+                        <p>EDIT</p>
+                        <FileUpload
+                          toggleFileLoading={this.toggleFileLoading}
+                          toggleFileCropping={this.toggleFileCropping}
+                          updateImages={this.updateProfileImages}
+                          profile
+                        />
+                      </ProfilePicUploadWrapper>
+                    )}
                     <ProfilePic
                       imageUrl={user.cropped_profile_pic || defaultCat}
                       default={!user.cropped_profile_pic}

@@ -25,6 +25,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    render json: {errors: "Can't edit an other user's profile."} unless @user == current_user
 
     @user.update!(user_params)
     render json: @user
