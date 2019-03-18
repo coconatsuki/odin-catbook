@@ -64,4 +64,6 @@ export const CommentHeader = styled.div`
 
 export const CommentBody = styled.p`
   margin-top: 10px;
+  word-wrap: break-word;
+  padding-right: 10px;
 `;

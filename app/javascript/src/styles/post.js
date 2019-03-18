@@ -67,6 +67,7 @@ export const PostHeader = styled.div`
 `;
 
 export const PostContent = styled.p`
+  word-wrap: break-word;
   font-size: 1.6rem;
   margin: 15px 0;
 `;
