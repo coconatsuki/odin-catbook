@@ -84,14 +84,14 @@ class UserPage extends AbstractPage {
   };
 
   noFriendMessage = () => {
-    if (isCurrentUser()) {
-      return "Maaww, you've no friends yet.";
+    if (this.isCurrentUser()) {
+      return "You've no friends yet.";
     }
     return "This poor cat has no friend yet. Become the first one?";
   };
 
   noPostMessage = () => {
-    if (isCurrentUser()) {
+    if (this.isCurrentUser()) {
       return "You've no post to show yet.";
     }
     return "This cat has no post to show.";
