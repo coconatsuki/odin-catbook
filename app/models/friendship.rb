@@ -32,28 +32,21 @@ class Friendship < ApplicationRecord
   scope :accepted, -> { where(accepted: true) }
   scope :pending, -> { where(accepted: false) }
 
-  def self.find_relation(user, target)
-    if relation = where("requesting_id= ? AND requested_id= ? AND accepted= ?", user.id, target.id, true).first ||
-                  relation = where("requesting_id= ? AND requested_id= ? AND accepted= ?", target.id, user.id, true).first
-    end
-    relation
-  end
-
-  def self.find_request(user, target)
-    where("requesting_id= ? AND requested_id= ? AND accepted= ?", user.id, target.id, false).first
-  end
-
-  def self.find_all_requests(user)
-    where("requested_id= ? AND accepted= ?", user.id, false)
-  end
-
-  def friend_name
-    User.find_by(id: requesting_id).name
-  end
-
   def self.find_active_friendship(user1, user2)
     return unless user1 && user2
 
     accepted.find_by(requested_id: user1.id, requesting_id: user2.id) || accepted.find_by(requested_id: user2.id, requesting_id: user1.id)
+  end
+
+  def self.find_sent_friend_request(current_user, user)
+    return unless user
+
+    pending.find_by(requested_id: current_user.id, requesting_id: user.id)
+  end
+
+  def self.find_received_friend_request(current_user, user)
+    return unless user
+
+    pending.find_by(requesting_id: current_user.id, requested_id: user.id)
   end
 end
