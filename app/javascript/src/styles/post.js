@@ -91,4 +91,11 @@ export const PostInfo = styled.div`
   div {
     padding-top: 4px;
   }
+
+  a {
+    color: ${colors.darkRed};
+    &:hover {
+      color: ${colors.editBlue};
+    }
+  }
 `;

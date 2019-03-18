@@ -85,8 +85,10 @@ class Nav extends React.Component {
     const { activePage } = this.state;
     return currentUser ? (
       <Navigation>
-        <Logo href="#">
-          <i />
+        <Logo>
+          <NavLink to="/">
+            <i />
+          </NavLink>
         </Logo>
         <List>
           <ListElement

@@ -56,6 +56,13 @@ export const CommentHeader = styled.div`
     margin: 0;
   }
 
+  a {
+    color: ${colors.darkRed};
+    &:hover {
+      color: ${colors.editBlue};
+    }
+  }
+
   span {
     opacity: 0.5;
     font-size: 1.2rem;

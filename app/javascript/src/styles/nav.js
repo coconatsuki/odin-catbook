@@ -68,14 +68,20 @@ export const ListElement = styled.li`
   background: ${props => props.active && shadows.lightGradient};
 `;
 
-export const Logo = styled.a`
+export const Logo = styled.div`
   display: flex;
   height: 24px;
   width: 24px;
   margin-left: 120px;
   background-color: black;
 
-  i {
+  a {
+    display: block;
+    height: inherit;
+    width: inherit;
+  }
+
+  a i {
     display: block;
     height: inherit;
     width: inherit;

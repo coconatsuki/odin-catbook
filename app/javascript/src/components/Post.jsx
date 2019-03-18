@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import PostForm from "./PostForm";
 import Like from "./Like";
 import CommentsBlock from "./CommentsBlock";
@@ -76,7 +77,9 @@ class Post extends React.Component {
               <PostInfo>
                 <img src={post.author.cropped_profile_pic || defaultCat} />
                 <div>
-                  <h3>{post.author.name}</h3>
+                  <Link to={`/users/${post.author.id}`}>
+                    <h3>{post.author.name}</h3>
+                  </Link>
                   <span>Posted {moment.utc(post.created_at).fromNow()}</span>
                 </div>
               </PostInfo>

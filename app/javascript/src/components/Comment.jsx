@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import CommentForm from "./CommentForm";
 import { commentType } from "../API/comments";
 import { currentUserType } from "../API/users";
@@ -82,7 +83,9 @@ class Comment extends React.Component {
               </div>
             )}
             <CommentHeader>
-              <h4>{comment.author.name}</h4>
+              <Link to={`/users/${comment.author.id}`}>
+                <h4>{comment.author.name}</h4>
+              </Link>
               <span>Posted {moment.utc(comment.created_at).fromNow()}</span>
             </CommentHeader>
 
