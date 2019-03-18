@@ -104,8 +104,7 @@ class PostForm extends React.Component {
     const { postToEdit } = this.props;
     const method = this.isEditing() ? "update" : "create";
     const { body, smallImage, fileLoading } = this.state;
-    const postData = { body, smallImage };
-    console.log("postData", postData);
+    const postData = { body.trim(), smallImage };
 
     if (this.validBody(body) && !fileLoading) {
       const fetchedPost = await this.savePost(postData, postToEdit, method);

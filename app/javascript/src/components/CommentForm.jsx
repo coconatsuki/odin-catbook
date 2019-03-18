@@ -81,9 +81,9 @@ class CommentForm extends React.Component {
 
     if (this.isEditing()) {
       const { commentToEdit } = this.props;
-      this.editComment(body, commentToEdit.id);
+      this.editComment(body.trim(), commentToEdit.id);
     } else {
-      this.createComment(body);
+      this.createComment(body.trim());
     }
     this.clearState();
     this.props.setCommentErrorMessages([]);
