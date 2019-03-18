@@ -43,7 +43,7 @@ class User < ApplicationRecord
 
   after_create :send_welcome_email
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 25 }
 
   #------------------- BASIC ASSOCIATIONS -----------------------------------
 

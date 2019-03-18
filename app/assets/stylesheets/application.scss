@@ -45,6 +45,7 @@ $editBlue: hsl(210, 71%, 48%);
 
 .header {
   width: 60%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   margin-top: 10px;
@@ -255,6 +256,20 @@ img.login-logo {
   .forgot-password a {
     font-family: omnes;
     font-size: 1.4rem;
+  }
+}
+
+#error_explanation {
+  h2 {
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+    color: red;
+  }
+}
+
+.field_with_errors {
+  input {
+    width: 100%;
   }
 }
 

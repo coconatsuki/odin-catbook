@@ -72,6 +72,14 @@ class Nav extends React.Component {
     this.highlightList(e.currentTarget);
   };
 
+  displayUserName = () => {
+    const { currentUser } = this.props;
+    if (currentUser.name.length > 12) {
+      return `${currentUser.name.substring(0, 12)}...`;
+    }
+    return currentUser.name;
+  };
+
   render() {
     const { currentUser } = this.props;
     const { activePage } = this.state;
@@ -90,7 +98,7 @@ class Nav extends React.Component {
             ref={this.userPageDiv}
           >
             <NavLink to={`/users/${currentUser.id}`}>
-              {currentUser.name}
+              {this.displayUserName()}
             </NavLink>
           </ListElement>
           <ListElement

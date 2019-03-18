@@ -50,6 +50,7 @@ export const ListElement = styled.li`
   height: 100%;
   justify-content: center;
   border-radius: 3px;
+  min-width: 150px;
 
   a {
     color: ${props => (props.active ? colors.darkRed : "white")};
