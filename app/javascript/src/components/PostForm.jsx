@@ -101,7 +101,7 @@ class PostForm extends React.Component {
 
   handleSave = async e => {
     e.preventDefault();
-    this.props.setErrorMessages([]);
+    this.setErrorMessages([]);
     const { postToEdit } = this.props;
     const method = this.isEditing() ? "update" : "create";
     const { body, smallImage, fileLoading } = this.state;
