@@ -110,6 +110,8 @@ class PostForm extends React.Component {
     if (this.validBody(body) && !fileLoading) {
       const fetchedPost = await this.savePost(postData, postToEdit, method);
       this.updateState(fetchedPost, method);
+    } else {
+      return;
     }
     if (this.isEditing()) this.props.toggleEdit();
   };
