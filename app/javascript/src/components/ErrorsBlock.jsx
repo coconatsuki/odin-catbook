@@ -10,7 +10,10 @@ class ErrorsBlock extends React.Component {
     return (
       <ul>
         {this.props.errorMessages.map((msg, index) => (
-          <li key={`error${index}`} style={{ color: "red" }}>
+          <li
+            key={`error${index}`}
+            style={{ color: "red", fontSize: "1.7rem" }}
+          >
             {msg}
           </li>
         ))}
