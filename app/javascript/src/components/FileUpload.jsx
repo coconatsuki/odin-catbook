@@ -16,7 +16,6 @@ class FileUpload extends React.Component {
 
   validFile = file => {
     if (file.size > 5000000) {
-      console.log("FILE TOO BIG");
       this.props.setErrorMessages([
         "Sorry, this file is too big. Maximum size is 5 MO."
       ]);
@@ -24,7 +23,6 @@ class FileUpload extends React.Component {
     }
     const authorizedFormats = ["image/jpg", "image/jpeg", "image/png"];
     if (!authorizedFormats.includes(String(file.type))) {
-      console.log("NOT AUTHORIZED FORMAT");
       this.props.setErrorMessages([
         "Sorry, this format is not authorized. Please use a jpeg or png."
       ]);
@@ -34,12 +32,11 @@ class FileUpload extends React.Component {
   };
 
   handlePicChange = async e => {
+    this.props.setErrorMessages([]);
     const files = e.target.files;
-    console.log("FILE before upload", files[0]);
     if (!this.validFile(files[0])) return;
     this.props.toggleFileLoading();
     const fetchedFile = await uploadFile(files);
-    console.log("fetchedFile", fetchedFile);
 
     if (fetchedFile.error) {
       this.props.setErrorMessages([fetchedFile.error.message]);

@@ -14,7 +14,8 @@ class CropCoverPicture extends AbstractCropping {
     toggleFileLoading: PropTypes.func.isRequired,
     clearState: PropTypes.func.isRequired,
     refreshUser: PropTypes.func.isRequired,
-    userId: PropTypes.number.isRequired
+    userId: PropTypes.number.isRequired,
+    coverPicWidth: PropTypes.number.isRequired
   };
 
   assignPictureToUser = async fileUrl => {
@@ -34,7 +35,7 @@ class CropCoverPicture extends AbstractCropping {
           <AvatarEditor
             ref={this.setEditorRef}
             image={this.props.imageUrl}
-            width={958}
+            width={this.props.coverPicWidth}
             height={260}
             border={0}
             color={[255, 255, 255, 0.6]} // RGBA

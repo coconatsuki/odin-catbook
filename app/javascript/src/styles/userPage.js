@@ -56,3 +56,14 @@ export const NoContentMessage = styled.div`
     color: ${colors.darkRed};
   }
 `;
+
+export const ErrorsBlockWrapper = styled.div`
+  h3 {
+    font-family: omnes;
+    color: red;
+    text-align: center;
+  }
+  margin: 15px 5px 0 5px;
+  display: flex;
+  flex-direction: column;
+`;

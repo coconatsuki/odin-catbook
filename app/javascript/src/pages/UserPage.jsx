@@ -9,12 +9,14 @@ import AboutMe from "../components/AboutMe";
 import Nav from "../components/Nav";
 import { getUserById, getCurrentUser } from "../API/users";
 import { Wrapper } from "../styles/global";
+import ErrorsBlock from "../components/ErrorsBlock";
 import {
   UserPageWrapper,
   FriendsWrapper,
   Main,
   FormWrapper,
-  NoContentMessage
+  NoContentMessage,
+  ErrorsBlockWrapper
 } from "../styles/userPage";
 import { Aside, CatImg } from "../styles/global";
 import profileCat from "../images/profile-cat.png";
@@ -97,6 +99,12 @@ class UserPage extends AbstractPage {
     return "This cat has no post to show.";
   };
 
+  setErrorMessages = messagesArray => {
+    this.setState({
+      errorMessages: messagesArray
+    });
+  };
+
   render() {
     const { user, currentUser, display } = this.state;
     return (
@@ -116,6 +124,7 @@ class UserPage extends AbstractPage {
                 toggleDisplay={this.toggleSectionDisplay}
                 display={display}
                 refreshUser={this.refreshUser}
+                setErrorMessages={this.setErrorMessages}
               />
               {user.id === currentUser.id && display === "posts" && (
                 <FormWrapper>
@@ -167,7 +176,14 @@ class UserPage extends AbstractPage {
                   />
                 )}
             </Main>
-            <Aside />
+            <Aside className="left-aside">
+              {this.state.errorMessages.length > 0 && (
+                <ErrorsBlockWrapper>
+                  <h3>Error while uploading a picture:</h3>
+                  <ErrorsBlock errorMessages={this.state.errorMessages} />
+                </ErrorsBlockWrapper>
+              )}
+            </Aside>
           </UserPageWrapper>
         </>
       )

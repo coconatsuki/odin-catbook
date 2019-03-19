@@ -47,7 +47,8 @@ class User extends React.Component {
     isCurrentUser: PropTypes.func.isRequired,
     toggleDisplay: PropTypes.func.isRequired,
     display: PropTypes.string.isRequired,
-    refreshUser: PropTypes.func.isRequired
+    refreshUser: PropTypes.func.isRequired,
+    setErrorMessages: PropTypes.func
   };
 
   state = {
@@ -57,7 +58,27 @@ class User extends React.Component {
     croppedProfileImage: "",
     fileCropping: false,
     fileLoading: false,
-    errorMessages: []
+    errorMessages: [],
+    coverPictureWidth: 0
+  };
+
+  constructor(props) {
+    super(props);
+    this.coverPictureDiv = React.createRef();
+  }
+
+  componentDidMount = () => {
+    this.setCoverPicWidth();
+  };
+
+  setCoverPicWidth = () => {
+    if (this.coverPictureDiv.current) {
+      const coverPictureWidth = this.coverPictureDiv.current.getBoundingClientRect()
+        .width;
+      this.setState({
+        coverPictureWidth
+      });
+    }
   };
 
   toggleFileLoading = () => {
@@ -97,18 +118,13 @@ class User extends React.Component {
   };
 
   refreshUser = async userId => {
+    this.props.setErrorMessages([]);
     this.props.refreshUser(userId);
     this.clearState();
   };
 
   croppingImage = () =>
     this.state.smallCoverImage || this.state.smallProfileImage;
-
-  setErrorMessages = messagesArray => {
-    this.setState({
-      errorMessages: messagesArray
-    });
-  };
 
   render() {
     const {
@@ -129,9 +145,10 @@ class User extends React.Component {
             clearState={this.clearState}
             refreshUser={this.refreshUser}
             userId={user.id}
+            coverPicWidth={this.state.coverPictureWidth}
           />
         ) : (
-          <CoverPicWrapper>
+          <CoverPicWrapper className="cover-pic" ref={this.coverPictureDiv}>
             <CoverPic imageUrl={user.cropped_cover_pic} />
 
             {this.state.smallProfileImage ? (
@@ -166,7 +183,7 @@ class User extends React.Component {
                           toggleFileLoading={this.toggleFileLoading}
                           toggleFileCropping={this.toggleFileCropping}
                           updateImages={this.updateProfileImages}
-                          setErrorMessages={this.setErrorMessages}
+                          setErrorMessages={this.props.setErrorMessages}
                           profile
                         />
                       </ProfilePicUploadWrapper>
@@ -190,7 +207,7 @@ class User extends React.Component {
                     toggleFileLoading={this.toggleFileLoading}
                     toggleFileCropping={this.toggleFileCropping}
                     updateImages={this.updateCoverImages}
-                    setErrorMessages={this.setErrorMessages}
+                    setErrorMessages={this.props.setErrorMessages}
                   />
                 </FileUploadWrapper>
               )}
