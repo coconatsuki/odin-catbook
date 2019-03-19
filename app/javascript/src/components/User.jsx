@@ -56,7 +56,8 @@ class User extends React.Component {
     smallProfileImage: "",
     croppedProfileImage: "",
     fileCropping: false,
-    fileLoading: false
+    fileLoading: false,
+    errorMessages: []
   };
 
   toggleFileLoading = () => {
@@ -78,7 +79,8 @@ class User extends React.Component {
       smallProfileImage: "",
       croppedProfileImage: "",
       fileCropping: false,
-      fileLoading: false
+      fileLoading: false,
+      errorMessages: []
     });
   };
 
@@ -101,6 +103,12 @@ class User extends React.Component {
 
   croppingImage = () =>
     this.state.smallCoverImage || this.state.smallProfileImage;
+
+  setErrorMessages = messagesArray => {
+    this.setState({
+      errorMessages: messagesArray
+    });
+  };
 
   render() {
     const {
@@ -158,6 +166,7 @@ class User extends React.Component {
                           toggleFileLoading={this.toggleFileLoading}
                           toggleFileCropping={this.toggleFileCropping}
                           updateImages={this.updateProfileImages}
+                          setErrorMessages={this.setErrorMessages}
                           profile
                         />
                       </ProfilePicUploadWrapper>
@@ -181,6 +190,7 @@ class User extends React.Component {
                     toggleFileLoading={this.toggleFileLoading}
                     toggleFileCropping={this.toggleFileCropping}
                     updateImages={this.updateCoverImages}
+                    setErrorMessages={this.setErrorMessages}
                   />
                 </FileUploadWrapper>
               )}

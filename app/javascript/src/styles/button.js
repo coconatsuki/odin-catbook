@@ -43,7 +43,7 @@ export const LightGreyButton = styled(Button)`
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f5eaea',GradientType=0);
     background-color: #f5eaea;
     background: ${props => props.disabled && "white"};
-    color: ${colors.darkRed};
+    color: ${props => !props.disabled && colors.darkRed};
   }
   background: ${props => props.disabled && "white"};
   color: ${props => props.disabled && "grey"};

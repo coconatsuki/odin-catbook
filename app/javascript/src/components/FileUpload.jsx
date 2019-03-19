@@ -8,29 +8,41 @@ class FileUpload extends React.Component {
   static propTypes = {
     toggleFileLoading: PropTypes.func.isRequired,
     toggleFileCropping: PropTypes.func,
+    setErrorMessages: PropTypes.func.isRequired,
     updateImages: PropTypes.func.isRequired,
     smallImage: PropTypes.string,
     profile: PropTypes.bool
   };
 
-  state = {
-    errorMessages: []
-  };
-
-  setErrorMessages = messagesArray => {
-    this.setState({
-      errorMessages: messagesArray
-    });
+  validFile = file => {
+    if (file.size > 5000000) {
+      console.log("FILE TOO BIG");
+      this.props.setErrorMessages([
+        "Sorry, this file is too big. Maximum size is 5 MO."
+      ]);
+      return false;
+    }
+    const authorizedFormats = ["image/jpg", "image/jpeg", "image/png"];
+    if (!authorizedFormats.includes(String(file.type))) {
+      console.log("NOT AUTHORIZED FORMAT");
+      this.props.setErrorMessages([
+        "Sorry, this format is not authorized. Please use a jpeg or png."
+      ]);
+      return false;
+    }
+    return true;
   };
 
   handlePicChange = async e => {
     const files = e.target.files;
+    console.log("FILE before upload", files[0]);
+    if (!this.validFile(files[0])) return;
     this.props.toggleFileLoading();
     const fetchedFile = await uploadFile(files);
     console.log("fetchedFile", fetchedFile);
 
     if (fetchedFile.error) {
-      this.setErrorMessages([fetchedFile.error.message]);
+      this.props.setErrorMessages([fetchedFile.error.message]);
     } else {
       this.props.updateImages(fetchedFile.secure_url);
     }
@@ -39,12 +51,8 @@ class FileUpload extends React.Component {
   };
 
   render() {
-    const { likedByCurrentUser, likesCount } = this.state;
     return (
       <FileUploadButton profile={this.props.profile ? "true" : "false"}>
-        {this.state.errorMessages.length > 0 && (
-          <ErrorsBlock errorMessages={this.state.errorMessages} />
-        )}
         {this.props.smallImage ? (
           <button onClick={() => this.props.updateImages(null, null)}>
             Delete this picture

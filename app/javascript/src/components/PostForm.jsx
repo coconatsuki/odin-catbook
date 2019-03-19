@@ -151,6 +151,7 @@ class PostForm extends React.Component {
                 toggleFileLoading={this.toggleFileLoading}
                 smallImage={this.state.smallImage}
                 updateImages={this.updateImages}
+                setErrorMessages={this.setErrorMessages}
               />
             </FileUploadWrapper>
             <img src={postCat} alt="small cat image" />
