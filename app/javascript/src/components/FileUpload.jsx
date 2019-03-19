@@ -27,6 +27,7 @@ class FileUpload extends React.Component {
     const files = e.target.files;
     this.props.toggleFileLoading();
     const fetchedFile = await uploadFile(files);
+    console.log("fetchedFile", fetchedFile);
 
     if (fetchedFile.error) {
       this.setErrorMessages([fetchedFile.error.message]);

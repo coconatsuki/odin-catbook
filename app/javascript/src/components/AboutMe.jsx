@@ -64,27 +64,26 @@ class AboutMe extends React.Component {
                   <span>{user.name}</span>
                 </div>
 
-                {user.breed && (
-                  <div className="section">
-                    <span className="title">I'm a </span>
-                    <span>{user.breed}</span>
-                  </div>
-                )}
-                {user.birthday && (
-                  <div className="section">
-                    <span className="title">I was born in </span>
-                    <span> {user.birthday}</span>
-                  </div>
-                )}
-                {user.city && (
-                  <div className="section">
-                    <span className="title">I live in </span>
+                <div className="section">
+                  <span className="title">I'm a </span>
+                  {user.breed && <span>{user.breed}</span>}
+                </div>
+
+                <div className="section">
+                  <span className="title">I was born in </span>
+                  {user.birthday && <span> {user.birthday}</span>}
+                </div>
+
+                <div className="section">
+                  <span className="title">I live in </span>
+                  {user.city && (
                     <span>
                       {user.city}
                       {user.country && `, ${user.country}`}
                     </span>
-                  </div>
-                )}
+                  )}
+                </div>
+
                 {!user.city && user.country && (
                   <div className="section">
                     <span className="title">I live in </span>
@@ -92,26 +91,27 @@ class AboutMe extends React.Component {
                   </div>
                 )}
 
-                {user.things_i_like.length > 0 && (
-                  <div className="section">
-                    <span className="title">I like: </span>
+                <div className="section">
+                  <span className="title">I like: </span>
+                  {user.things_i_like && user.things_i_like.length > 0 && (
                     <TastesList>
                       {user.things_i_like.map((thing, i) => (
                         <li key={i}> {thing}</li>
                       ))}
                     </TastesList>
-                  </div>
-                )}
-                {user.things_i_hate.length > 0 && (
-                  <div className="section">
-                    <span className="title">I hate: </span>
+                  )}
+                </div>
+
+                <div className="section">
+                  <span className="title">I hate: </span>
+                  {user.things_i_hate && user.things_i_hate.length > 0 && (
                     <TastesList>
                       {user.things_i_hate.map((thing, i) => (
                         <li key={i}> {thing}</li>
                       ))}
                     </TastesList>
-                  </div>
-                )}
+                  )}
+                </div>
               </ProfileCardContent>
             )}
           </ProfileCard>

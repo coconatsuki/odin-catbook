@@ -34,6 +34,7 @@ class AbstractCropping extends React.Component {
     const fileType = this.getFileType(img);
     const croppedFile = this.stringToFile(img, fileType, fileName);
     const fetchedFile = await uploadFile([croppedFile]);
+    console.log("fetchedFile", fetchedFile);
     this.assignPictureToUser(fetchedFile.secure_url);
     this.props.toggleFileLoading();
     this.props.toggleFileCropping();

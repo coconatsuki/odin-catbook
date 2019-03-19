@@ -41,6 +41,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  before_create :format_name
   after_create :send_welcome_email
 
   validates :name, presence: true, length: { maximum: 25 }
@@ -106,5 +107,9 @@ class User < ApplicationRecord
 
   def send_welcome_email
     UserMailer.welcome_mail(self).deliver_later
+  end
+
+  def format_name
+    name.capitalize!
   end
 end
